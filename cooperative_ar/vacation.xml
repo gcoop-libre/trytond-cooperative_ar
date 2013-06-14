@@ -1,0 +1,50 @@
+<tryton>
+  <data>
+    <menuitem icon="tryton-list" id="menu_cooperative_ar_vacation" name="cooperative_ar Vacation" sequence="10" />
+    <record id="vacation_view_tree" model="ir.ui.view">
+      <field name="model">cooperative.partner.vacation</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <![CDATA[
+          <tree string="Vacation">
+            <field name="start_date" />
+            <field name="end_date" />
+            <field name="days" />
+            <field name="partner" />
+          </tree>
+        ]]></field>
+    </record>
+    <record id="vacation_view_form" model="ir.ui.view">
+      <field name="model">cooperative.partner.vacation</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <![CDATA[
+          <form string="Vacation">
+            <label name="start_date" />
+            <field name="start_date" />
+            <label name="end_date" />
+            <field name="end_date" />
+            <label name="days" />
+            <field name="days" />
+            <label name="partner" />
+            <field name="partner" />
+          </form>
+        ]]></field>
+    </record>
+    <record id="act_vacation_form" model="ir.action.act_window">
+      <field name="name">Vacation</field>
+      <field name="res_model">cooperative.partner.vacation</field>
+    </record>
+    <record id="act_vacation_form_view1" model="ir.action.act_window.view">
+      <field eval="10" name="sequence" />
+      <field name="view" ref="vacation_view_tree" />
+      <field name="act_window" ref="act_vacation_form" />
+    </record>
+    <record id="act_vacation_form_view2" model="ir.action.act_window.view">
+      <field eval="20" name="sequence" />
+      <field name="view" ref="vacation_view_form" />
+      <field name="act_window" ref="act_vacation_form" />
+    </record>
+    <menuitem action="act_vacation_form" icon="tryton-list" id="menu_vacation_form" name="" parent="menu_cooperative_ar_vacation" sequence="1" />
+  </data>
+</tryton>

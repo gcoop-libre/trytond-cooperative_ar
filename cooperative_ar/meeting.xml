@@ -1,0 +1,56 @@
+<tryton>
+  <data>
+    <menuitem icon="tryton-list" id="menu_cooperative_ar_meeting" name="cooperative_ar Meeting" sequence="10" />
+    <record id="meeting_view_tree" model="ir.ui.view">
+      <field name="model">cooperative.meeting</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <![CDATA[
+          <tree string="Meeting">
+            <field name="type" />
+            <field name="status" />
+            <field name="start_date" />
+            <field name="start_time" />
+            <field name="end_time" />
+            <field name="partner" />
+          </tree>
+        ]]></field>
+    </record>
+    <record id="meeting_view_form" model="ir.ui.view">
+      <field name="model">cooperative.meeting</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <![CDATA[
+          <form string="Meeting">
+            <label name="type" />
+            <field name="type" />
+            <label name="status" />
+            <field name="status" />
+            <label name="start_date" />
+            <field name="start_date" />
+            <label name="start_time" />
+            <field name="start_time" />
+            <label name="end_time" />
+            <field name="end_time" />
+            <label name="partner" />
+            <field name="partner" />
+          </form>
+        ]]></field>
+    </record>
+    <record id="act_meeting_form" model="ir.action.act_window">
+      <field name="name">Meeting</field>
+      <field name="res_model">cooperative.meeting</field>
+    </record>
+    <record id="act_meeting_form_view1" model="ir.action.act_window.view">
+      <field eval="10" name="sequence" />
+      <field name="view" ref="meeting_view_tree" />
+      <field name="act_window" ref="act_meeting_form" />
+    </record>
+    <record id="act_meeting_form_view2" model="ir.action.act_window.view">
+      <field eval="20" name="sequence" />
+      <field name="view" ref="meeting_view_form" />
+      <field name="act_window" ref="act_meeting_form" />
+    </record>
+    <menuitem action="act_meeting_form" icon="tryton-list" id="menu_meeting_form" name="" parent="menu_cooperative_ar_meeting" sequence="1" />
+  </data>
+</tryton>

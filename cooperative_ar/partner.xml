@@ -1,0 +1,74 @@
+<tryton>
+  <data>
+    <menuitem icon="tryton-list" id="menu_cooperative_ar_partner" name="cooperative_ar Partner" sequence="10" />
+    <record id="partner_view_tree" model="ir.ui.view">
+      <field name="model">cooperative.partner</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <![CDATA[
+          <tree string="Partner">
+            <field name="file" />
+            <field name="party" />
+            <field name="company" />
+            <field name="first_name" />
+            <field name="last_name" />
+            <field name="dni" />
+            <field name="nationality" />
+            <field name="marital_status" />
+            <field name="incorporation_date" />
+            <field name="vacation_days" />
+            <field name="vacation" />
+            <field name="meeting" />
+          </tree>
+        ]]></field>
+    </record>
+    <record id="partner_view_form" model="ir.ui.view">
+      <field name="model">cooperative.partner</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <![CDATA[
+          <form string="Partner">
+            <label name="file" />
+            <field name="file" />
+            <label name="party" />
+            <field name="party" />
+            <label name="company" />
+            <field name="company" />
+            <label name="first_name" />
+            <field name="first_name" />
+            <label name="last_name" />
+            <field name="last_name" />
+            <label name="dni" />
+            <field name="dni" />
+            <label name="nationality" />
+            <field name="nationality" />
+            <label name="marital_status" />
+            <field name="marital_status" />
+            <label name="incorporation_date" />
+            <field name="incorporation_date" />
+            <label name="vacation_days" />
+            <field name="vacation_days" />
+            <label name="vacation" />
+            <field name="vacation" />
+            <label name="meeting" />
+            <field name="meeting" />
+          </form>
+        ]]></field>
+    </record>
+    <record id="act_partner_form" model="ir.action.act_window">
+      <field name="name">Partner</field>
+      <field name="res_model">cooperative.partner</field>
+    </record>
+    <record id="act_partner_form_view1" model="ir.action.act_window.view">
+      <field eval="10" name="sequence" />
+      <field name="view" ref="partner_view_tree" />
+      <field name="act_window" ref="act_partner_form" />
+    </record>
+    <record id="act_partner_form_view2" model="ir.action.act_window.view">
+      <field eval="20" name="sequence" />
+      <field name="view" ref="partner_view_form" />
+      <field name="act_window" ref="act_partner_form" />
+    </record>
+    <menuitem action="act_partner_form" icon="tryton-list" id="menu_partner_form" name="" parent="menu_cooperative_ar_partner" sequence="1" />
+  </data>
+</tryton>
