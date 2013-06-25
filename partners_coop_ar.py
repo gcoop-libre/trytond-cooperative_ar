@@ -10,14 +10,12 @@ socio.add_field(Relation('Many2One', 'Company', 'company.company'))
 socio.add_field(Field('Char', 'First Name'))
 socio.add_field(Field('Char', 'Last Name'))
 socio.add_field(Field('Char', 'DNI'))
-socio.add_field(Field('Selection', 'Nationality', options=[
-    'Argentina', 'Chile', 'Colombia'
-    ]))
+socio.add_field(Relation('Many2One', 'Nationality', 'country.country'))
 socio.add_field(Field('Selection', 'Marital Status', options=[
-    'Soltero', 'Casado', 'Viudito',
+    'Soltero/a', 'Casado/a', 'Divorciado/a', 'Viudo/a', 'Otra'
     ]))
 socio.add_field(Field('Date', 'Incorporation Date'))
-#cuotas pagadas a la cooperativa
+socio.add_field(Field('Numeric', 'Payed Quotes'))
 socio.add_field(Field('Integer', 'Vacation Days'))
 socio.add_field(Relation('One2Many', 'Vacation', 'cooperative.partner.vacation', field='partner'))
 #Relacion con vacaciones
@@ -51,10 +49,13 @@ reunion.add_field(Field('Time', 'End Time'))
 
 module = Module('cooperative_ar')
 module.add_dependence('company')
-module.add_model(socio)
+module.add_dependence('country')
+module.add_dependence('party')
 
+module.add_model(socio)
 module.add_model(reunion)
 module.add_model(vacations)
+
 module.many2many(socio, reunion)
 # Build!!
 module.build()

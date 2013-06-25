@@ -16,6 +16,7 @@
             <field name="nationality" />
             <field name="marital_status" />
             <field name="incorporation_date" />
+            <field name="payed_quotes" />
             <field name="vacation_days" />
             <field name="vacation" />
             <field name="meeting" />
@@ -46,6 +47,8 @@
             <field name="marital_status" />
             <label name="incorporation_date" />
             <field name="incorporation_date" />
+            <label name="payed_quotes" />
+            <field name="payed_quotes" />
             <label name="vacation_days" />
             <field name="vacation_days" />
             <label name="vacation" />
