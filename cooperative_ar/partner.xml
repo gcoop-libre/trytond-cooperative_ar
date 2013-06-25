@@ -15,7 +15,7 @@
             <field name="dni" />
             <field name="nationality" />
             <field name="marital_status" />
-            <field name="incorporation_date" />
+            <field name="incorporation_date"/>
             <field name="payed_quotes" />
             <field name="vacation_days" />
             <field name="vacation" />
@@ -29,32 +29,44 @@
       <field name="arch" type="xml">
         <![CDATA[
           <form string="Partner">
-            <label name="file" />
-            <field name="file" />
-            <label name="party" />
-            <field name="party" />
-            <label name="company" />
-            <field name="company" />
-            <label name="first_name" />
-            <field name="first_name" />
-            <label name="last_name" />
-            <field name="last_name" />
-            <label name="dni" />
-            <field name="dni" />
-            <label name="nationality" />
-            <field name="nationality" />
-            <label name="marital_status" />
-            <field name="marital_status" />
-            <label name="incorporation_date" />
-            <field name="incorporation_date" />
-            <label name="payed_quotes" />
-            <field name="payed_quotes" />
-            <label name="vacation_days" />
-            <field name="vacation_days" />
-            <label name="vacation" />
-            <field name="vacation" />
-            <label name="meeting" />
-            <field name="meeting" />
+            <notebook colspan="6">
+                <page string="General" id="general">
+                    <label name="file" />
+                    <field name="file" />
+                    <label name="company" />
+                    <field name="company" />
+                    <separator string="Datos Personales" colspan="4" id='datos_personales'/>
+                    <label name="party" />
+                    <field name="party" />
+                    <newline/>
+                    <label name="first_name" />
+                    <field name="first_name" />
+                    <label name="last_name" />
+                    <field name="last_name" />
+                    <label name="dni" />
+                    <field name="dni" />
+                    <label name="nationality" />
+                    <field name="nationality" />
+                    <label name="marital_status" />
+                    <field name="marital_status" />
+                    <separator string="Incorporacion" colspan="4" id='incorporacion_coop'/>
+                    <label name="incorporation_date" />
+                    <field name="incorporation_date" />
+                    <label name="payed_quotes" />
+                    <field name="payed_quotes" />
+                </page>
+                <page string="Vacations" id="vacations">
+                    <label name="vacation_days" />
+                    <field name="vacation_days" />
+                    <newline/>
+                    <label name="vacation" />
+                    <field name="vacation" />
+                </page>
+                <page string="Meetings" id= "meetings">
+                    <label name="meeting" />
+                    <field name="meeting" />
+                </page>
+            </notebook>  
           </form>
         ]]></field>
     </record>
