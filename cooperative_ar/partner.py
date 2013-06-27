@@ -6,6 +6,8 @@ __all__ = ['Partner']
 class Partner(ModelSQL, ModelView):
     "cooperative_ar"
     __name__ = "cooperative.partner"
+    _rec_name = 'party'
+
     file = fields.Integer('File')
     party = fields.Many2One('party.party', 'Party')
     company = fields.Many2One('company.company', 'Company')
