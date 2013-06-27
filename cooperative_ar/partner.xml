@@ -18,8 +18,6 @@
             <field name="incorporation_date"/>
             <field name="payed_quotes" />
             <field name="vacation_days" />
-            <field name="vacation" />
-            <field name="meeting" />
           </tree>
         ]]></field>
     </record>

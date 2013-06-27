@@ -12,7 +12,6 @@
             <field name="start_date" />
             <field name="start_time" />
             <field name="end_time" />
-            <field name="partner" />
           </tree>
         ]]></field>
     </record>
