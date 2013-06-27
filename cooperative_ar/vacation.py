@@ -9,5 +9,5 @@ class Vacation(ModelSQL, ModelView):
     start_date = fields.Date('Start Date')
     end_date = fields.Date('End Date')
     days = fields.Integer('Days')
-    partner = fields.Many2One('cooperative.partner', 'Partner')
+    partner = fields.Many2One('cooperative.partner', 'Partner', required=True)
 
