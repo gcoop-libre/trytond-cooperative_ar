@@ -22,3 +22,7 @@ class Partner(ModelSQL, ModelView):
     vacation = fields.One2Many('cooperative.partner.vacation', 'partner', 'Vacation')
     meeting = fields.Many2Many('cooperative.partner-meeting', 'partner', 'meeting', 'Meeting')
 
+    def get_rec_name(self, name):
+        """Return Record name"""
+        return "%d - %s" % (self.file, self.party.rec_name)
+
