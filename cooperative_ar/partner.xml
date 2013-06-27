@@ -1,6 +1,7 @@
 <tryton>
   <data>
-    <menuitem icon="tryton-list" id="menu_cooperative_ar_partner" name="cooperative_ar Partner" sequence="10" />
+    <menuitem icon="tryton-list" id="menu_cooperative_ar" name="Cooperatives" sequence="10" />
+    
     <record id="partner_view_tree" model="ir.ui.view">
       <field name="model">cooperative.partner</field>
       <field name="type">tree</field>
@@ -82,6 +83,6 @@
       <field name="view" ref="partner_view_form" />
       <field name="act_window" ref="act_partner_form" />
     </record>
-    <menuitem action="act_partner_form" icon="tryton-list" id="menu_partner_form" name="" parent="menu_cooperative_ar_partner" sequence="1" />
+    <menuitem action="act_partner_form" icon="tryton-list" id="menu_partner_form" name="" parent="menu_cooperative_ar" sequence="1" />
   </data>
 </tryton>
