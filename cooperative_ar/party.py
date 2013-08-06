@@ -11,6 +11,7 @@ class Party(ModelSQL, ModelView):
 
     iva_condition = fields.Selection(
             [
+                ('', ''),
                 ('responsable_inscripto', 'Responsable Inscripto'),
                 ('exento', 'Exento'),
                 ('consumidor_final', 'Consumidor Final'),
