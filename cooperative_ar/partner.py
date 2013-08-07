@@ -35,3 +35,29 @@ class Partner(ModelSQL, ModelView):
     def get_rec_name(self, name):
         """Return Record name"""
         return "%d - %s" % (self.file, self.party.rec_name)
+
+    @classmethod
+    def write(cls, partners, vals):
+        if 'file' in vals:
+            data = cls.search([('file','=', vals['file'])])
+            if data and data != partners:
+                cls.raise_user_error('unique_file')
+
+        return super(Partner, cls).write(partners, vals)
+
+    @classmethod
+    def create(cls, vlist):
+        for vals in vlist:
+            if 'file' in vals:
+                data = cls.search([('file','=', vals['file'])])
+                if data:
+                    cls.raise_user_error('unique_file')
+
+        return super(Partner, cls).create(vlist)
+
+    @classmethod
+    def __setup__(cls):
+        super(Partner, cls).__setup__()
+        cls._error_messages.update({
+            'unique_file': 'The file must be unique.',
+            })
