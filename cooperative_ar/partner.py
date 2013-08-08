@@ -1,6 +1,6 @@
 #! -*- coding: utf8 -*-
 from trytond.model import ModelView, ModelSQL, fields
-from trytond.pyson import Eval, Equal
+from trytond.pyson import Equal, Eval, Id
 
 __all__ = ['Partner']
 
@@ -8,15 +8,22 @@ class Partner(ModelSQL, ModelView):
     "cooperative_ar"
     __name__ = "cooperative.partner"
     _rec_name = 'party'
-    status = fields.Selection([('',''), ('active', 'Active'), ('give_up', 'Give Up')], 'Status')
-    file = fields.Integer('File')
+    status = fields.Selection([('active', 'Active'),
+                               ('give_up', 'Give Up'),
+                               ],'Status', required=True)
+    file = fields.Integer('File', required=True)
     party = fields.Many2One('party.party', 'Party', required=True)
-    company = fields.Many2One('company.company', 'Company')
-    first_name = fields.Char('First Name')
-    last_name = fields.Char('Last Name')
-    dni = fields.Char('DNI')
-    nationality = fields.Many2One('country.country', 'Nationality')
-    marital_status = fields.Selection([('',''), ('soltero/a', 'Soltero/a'), ('casado/a', 'Casado/a'), ('divorciado/a', 'Divorciado/a'), ('viudo/a', 'Viudo/a'), ('otra', 'Otra'), ], 'Marital Status')
+    company = fields.Many2One('company.company', 'Company', required=True)
+    first_name = fields.Char('First Name', required=True)
+    last_name = fields.Char('Last Name', required=True)
+    dni = fields.Char('DNI', required=True)
+    nationality = fields.Many2One('country.country', 'Nationality', required=True)
+    marital_status = fields.Selection([('soltero/a', 'Soltero/a'),
+                                       ('casado/a', 'Casado/a'),
+                                       ('divorciado/a', 'Divorciado/a'),
+                                       ('viudo/a', 'Viudo/a'),
+                                       ('otra', 'Otra'),
+                                       ], 'Marital Status', required=True)
     incorporation_date = fields.Date('Incorporation Date', required=True)
     leaving_date = fields.Date('Leaving Date',
             states={
@@ -35,6 +42,14 @@ class Partner(ModelSQL, ModelView):
     def get_rec_name(self, name):
         """Return Record name"""
         return "%d - %s" % (self.file, self.party.rec_name)
+
+    @staticmethod
+    def default_status():
+        return 'active'
+
+    @staticmethod
+    def default_nationality():
+        return Id('country', 'ar').pyson()
 
     @classmethod
     def write(cls, partners, vals):
