@@ -16,7 +16,7 @@ this repository contains the full copyright notices and license terms. -->
         <label name="end_time" />
         <field name="end_time" />
 
-        <field name="partners" colspan="6"/>
+        <field name="partners" colspan="6" view_ids="cooperative_ar.meeting_partners_view_tree"/>
     </page>
     <page string="Record" id="record">
         <field name="record" />
