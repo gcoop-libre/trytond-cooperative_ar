@@ -8,10 +8,11 @@ this repository contains the full copyright notices and license terms. -->
         <field name="file" />
         <label name="company" />
         <field name="company" />
+        <newline />
         <label name="status" />
         <field name="status" />
 
-        <separator string="Datos Personales" colspan="4" id='datos_personales'/>
+        <separator string="Datos Personales" colspan="6" id='datos_personales'/>
         <label name="party" />
         <field name="party" />
         <newline/>
@@ -19,29 +20,36 @@ this repository contains the full copyright notices and license terms. -->
         <field name="first_name" />
         <label name="last_name" />
         <field name="last_name" />
+        <label name="gender" />
+        <field name="gender" />
         <label name="dni" />
         <field name="dni" />
         <label name="nationality" />
         <field name="nationality" widget="selection"/>
         <label name="marital_status" />
         <field name="marital_status" />
-        <separator string="Incorporacion" colspan="4" id='incorporacion_coop'/>
+        <separator string="Incorporacion" colspan="6" id='incorporacion_coop'/>
         <label name="incorporation_date" />
         <field name="incorporation_date" />
         <label name="leaving_date" />
         <field name="leaving_date" />
         <label name="payed_quotes" />
         <field name="payed_quotes" />
+        <separator string="Legal Documents" colspan="6" id="legal_documents"/>
+        <label name="proposal_letter" />
+        <field name="proposal_letter" />
+        <label name="proof_tax" />
+        <field name="proof_tax" />
+        <label name="meeting_date_of_incoroporation" />
+        <field name="meeting_date_of_incoroporation" />
     </page>
     <page string="Vacations" id="vacations">
         <label name="vacation_days" />
         <field name="vacation_days" />
         <newline/>
-        <label name="vacation" />
-        <field name="vacation" />
+        <field name="vacation" colspan="2"/>
     </page>
     <page string="Meetings" id= "meetings">
-        <label name="meeting" />
         <field name="meeting" />
     </page>
 </notebook>

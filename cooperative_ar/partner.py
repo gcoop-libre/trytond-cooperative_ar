@@ -16,6 +16,10 @@ class Partner(ModelSQL, ModelView):
     company = fields.Many2One('company.company', 'Company', required=True)
     first_name = fields.Char('First Name', required=True)
     last_name = fields.Char('Last Name', required=True)
+    gender = fields.Selection([('male', 'Male'),
+                               ('female', 'Female'),
+                               ('other', 'other'),
+                               ], 'Gender', required=True)
     dni = fields.Char('DNI', required=True)
     nationality = fields.Many2One('country.country', 'Nationality', required=True)
     marital_status = fields.Selection([('soltero/a', 'Soltero/a'),
@@ -38,6 +42,11 @@ class Partner(ModelSQL, ModelView):
     meeting = fields.Many2Many('cooperative.partner-meeting', 'partner', 'meeting', 'Meeting')
 
     marital_status = fields.Selection([('',''), ('soltero/a', 'Soltero/a'), ('casado/a', 'Casado/a'), ('divorciado/a', 'Divorciado/a'), ('viudo/a', 'Viudo/a'), ('otra', 'Otra'), ], 'Marital Status')
+
+    proposal_letter = fields.Binary('Proposal Letter')
+    proof_tax = fields.Binary('Proof of tax registation')
+
+    meeting_date_of_incoroporation = fields.Date('Meeting date of incorporation', required=True)
 
     def get_rec_name(self, name):
         """Return Record name"""
