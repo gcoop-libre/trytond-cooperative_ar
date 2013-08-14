@@ -23,3 +23,38 @@ class Party(ModelSQL, ModelView):
                 },
 
             )
+
+    @staticmethod
+    def default_vat_country():
+        return 'AR'
+
+    @classmethod
+    def __setup__(cls):
+        super(Party, cls).__setup__()
+        cls._error_messages.update({
+            'unique_vat_number': 'The VAT number must be unique in each country.',
+            })
+
+    @classmethod
+    def create(cls, vlist):
+        for vals in vlist:
+            if 'vat_number' in vals and 'vat_country' in vals:
+                data = cls.search([('vat_number','=', vals['vat_number']),
+                                   ('vat_country','=', vals['vat_country']),
+                                  ])
+                if data:
+                    cls.raise_user_error('unique_vat_number')
+
+        return super(Party, cls).create(vlist)
+
+    @classmethod
+    def write(cls, parties, vals):
+        if 'vat_number' in vals and 'vat_country' in vals:
+            data = cls.search([('vat_number','=', vals['vat_number']),
+                               ('vat_country','=', vals['vat_country']),
+                              ])
+            if data and data != parties:
+                cls.raise_user_error('unique_vat_number')
+
+        return super(Party, cls).write(parties, vals)
+        pass
