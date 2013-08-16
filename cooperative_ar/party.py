@@ -1,6 +1,8 @@
 #! -*- coding: utf8 -*-
 from trytond.model import ModelView, ModelSQL, fields
-from trytond.pyson import Eval, Equal
+from trytond.pyson import Bool, Eval, Equal
+
+from afip_codigo_actividad import CODES
 
 __all__ = ['Party']
 
@@ -15,13 +17,76 @@ class Party(ModelSQL, ModelView):
                 ('responsable_inscripto', 'Responsable Inscripto'),
                 ('exento', 'Exento'),
                 ('consumidor_final', 'Consumidor Final'),
+                ('monotributo', 'Monotributo'),
+                ('no_alcanzado', 'No alcanzado'),
             ],
             'Condicion ante el IVA',
             states={
                 'readonly': ~Eval('active', True),
                 'required': Equal(Eval('vat_country'), 'AR'),
                 },
-
+            depends=['active'],
+            )
+    company_name = fields.Char('Company Name',
+            states={
+                'readonly': ~Eval('active', True),
+                },
+            depends=['active'],
+            )
+    company_type = fields.Selection(
+            [
+                ('', ''),
+                ('cooperativa', 'Cooperativa'),
+                ('srl', 'SRL'),
+                ('sa', 'SA'),
+                ('s_de_h', 'S de H'),
+                ('estado', 'Estado'),
+                ('exterior', 'Exterior'),
+            ],
+            'Company Type',
+            states={
+                'readonly': ~Eval('active', True),
+                },
+            depends=['active'],
+            )
+    iibb_type = fields.Selection(
+            [
+                ('', ''),
+                ('convenio_multilateral', 'Convenio Multilateral'),
+                ('regimen_simplificado', 'Regimen Simplificado'),
+            ],
+            'Tipo de Inscripcion de II BB',
+            states={
+                'readonly': ~Eval('active', True),
+                },
+            depends=['active'],
+            )
+    iibb_number = fields.Char('II BB',
+            states={
+                'readonly': ~Eval('active', True),
+                'required': Bool(Eval('iibb_type')),
+                },
+            depends=['active'],
+            )
+    primary_activity_code = fields.Selection(CODES,
+            'Primary Activity Code',
+            states={
+                'readonly': ~Eval('active', True),
+                },
+            depends=['active'],
+            )
+    secondary_activity_code = fields.Selection(CODES,
+            'Secondary Activity Code',
+            states={
+                'readonly': ~Eval('active', True),
+                },
+            depends=['active'],
+            )
+    start_activity_date = fields.Date('Start activity date',
+            states={
+                'readonly': ~Eval('active', True),
+                },
+            depends=['active'],
             )
 
     @staticmethod
