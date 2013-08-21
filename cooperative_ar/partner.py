@@ -1,6 +1,7 @@
 #! -*- coding: utf8 -*-
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.pyson import Equal, Eval, Id
+from trytond.transaction import Transaction
 
 __all__ = ['Partner']
 
@@ -59,6 +60,10 @@ class Partner(ModelSQL, ModelView):
     @staticmethod
     def default_nationality():
         return Id('country', 'ar').pyson()
+
+    @staticmethod
+    def default_company():
+        return Transaction().context.get('company')
 
     @classmethod
     def write(cls, partners, vals):
