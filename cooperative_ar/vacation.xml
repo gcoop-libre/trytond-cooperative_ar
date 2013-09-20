@@ -3,35 +3,15 @@
     <record id="vacation_view_tree" model="ir.ui.view">
       <field name="model">cooperative.partner.vacation</field>
       <field name="type">tree</field>
-      <field name="arch" type="xml">
-        <![CDATA[
-          <tree string="Vacation">
-            <field name="start_date" />
-            <field name="end_date" />
-            <field name="days" />
-            <field name="partner" />
-          </tree>
-        ]]></field>
+      <field name="name">vacation_tree</field>
     </record>
     <record id="vacation_view_form" model="ir.ui.view">
       <field name="model">cooperative.partner.vacation</field>
       <field name="type">form</field>
-      <field name="arch" type="xml">
-        <![CDATA[
-          <form string="Vacation">
-            <label name="start_date" />
-            <field name="start_date" />
-            <label name="end_date" />
-            <field name="end_date" />
-            <label name="days" />
-            <field name="days" />
-            <label name="partner" />
-            <field name="partner" />
-          </form>
-        ]]></field>
+      <field name="name">vacation_form</field>
     </record>
     <record id="act_vacation_form" model="ir.action.act_window">
-      <field name="name">Vacation</field>
+      <field name="name">Permit and Vacation</field>
       <field name="res_model">cooperative.partner.vacation</field>
     </record>
     <record id="act_vacation_form_view1" model="ir.action.act_window.view">

@@ -43,7 +43,7 @@ this repository contains the full copyright notices and license terms. -->
         <label name="meeting_date_of_incoroporation" />
         <field name="meeting_date_of_incoroporation" />
     </page>
-    <page string="Vacations" id="vacations">
+    <page string="Permit and Vacation" id="vacations">
         <label name="vacation_days" />
         <field name="vacation_days" />
         <newline/>

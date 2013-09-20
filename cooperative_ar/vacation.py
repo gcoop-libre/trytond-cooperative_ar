@@ -10,4 +10,11 @@ class Vacation(ModelSQL, ModelView):
     end_date = fields.Date('End Date')
     days = fields.Integer('Days')
     partner = fields.Many2One('cooperative.partner', 'Partner', required=True)
+    type = fields.Selection([('licencia_examen', u'Licencia Examen'),
+                             ('licencia_medica', u'Licencia Médica'),
+                             ('licencia_paternidad', u'Licencia Paternidad / Maternidad'),
+                             ('otras', u'Otras Licencias'),
+                             ('vacaciones', u'Vacaciones'),
+                            ], u'Tipo',
+                             required=True)
 
