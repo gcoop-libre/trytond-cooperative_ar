@@ -41,6 +41,7 @@ class Partner(ModelSQL, ModelView):
     vacation_days = fields.Integer('Vacation Days')
     vacation = fields.One2Many('cooperative.partner.vacation', 'partner', 'Vacation')
     meeting = fields.Many2Many('cooperative.partner-meeting', 'partner', 'meeting', 'Meeting')
+    sanction = fields.One2Many('cooperative.partner.sanction', 'partner', 'Sanction')
 
     marital_status = fields.Selection([('',''), ('soltero/a', 'Soltero/a'), ('casado/a', 'Casado/a'), ('divorciado/a', 'Divorciado/a'), ('viudo/a', 'Viudo/a'), ('otra', 'Otra'), ], 'Marital Status')
 

@@ -49,6 +49,9 @@ this repository contains the full copyright notices and license terms. -->
         <newline/>
         <field name="vacation" colspan="2"/>
     </page>
+    <page string="Sanction" id="sanction">
+        <field name="sanction" />
+    </page>
     <page string="Meetings" id= "meetings">
         <field name="meeting" />
     </page>
