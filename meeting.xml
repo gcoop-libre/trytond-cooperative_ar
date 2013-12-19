@@ -1,0 +1,34 @@
+<tryton>
+  <data>
+    <record id="meeting_view_tree" model="ir.ui.view">
+      <field name="model">cooperative.meeting</field>
+      <field name="type">tree</field>
+      <field name="name">meeting_tree</field>
+    </record>
+    <record id="meeting_view_form" model="ir.ui.view">
+      <field name="model">cooperative.meeting</field>
+      <field name="type">form</field>
+      <field name="name">meeting_form</field>
+    </record>
+    <record id="meeting_partners_view_tree" model="ir.ui.view">
+      <field name="model">cooperative.partner</field>
+      <field name="type">tree</field>
+      <field name="name">meeting_partners_tree</field>
+    </record>
+    <record id="act_meeting_form" model="ir.action.act_window">
+      <field name="name">Meeting</field>
+      <field name="res_model">cooperative.meeting</field>
+    </record>
+    <record id="act_meeting_form_view1" model="ir.action.act_window.view">
+      <field eval="10" name="sequence" />
+      <field name="view" ref="meeting_view_tree" />
+      <field name="act_window" ref="act_meeting_form" />
+    </record>
+    <record id="act_meeting_form_view2" model="ir.action.act_window.view">
+      <field eval="20" name="sequence" />
+      <field name="view" ref="meeting_view_form" />
+      <field name="act_window" ref="act_meeting_form" />
+    </record>
+    <menuitem action="act_meeting_form" icon="tryton-list" id="menu_meeting_form" name="" parent="menu_cooperative_ar" sequence="1" />
+  </data>
+</tryton>

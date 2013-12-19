@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<form string="Meeting">
+<notebook>
+    <page string="General" id="general" col="6">
+        <label name="type" />
+        <field name="type" colspan="2"/>
+        <label name="status" />
+        <field name="status" colspan="2"/>
+
+        <label name="start_date" />
+        <field name="start_date" />
+        <label name="start_time" />
+        <field name="start_time" />
+        <label name="end_time" />
+        <field name="end_time" />
+
+        <field name="partners" colspan="6" view_ids="cooperative_ar.meeting_partners_view_tree"/>
+    </page>
+    <page string="Record" id="record">
+        <field name="record" />
+    </page>
+</notebook>
+</form>

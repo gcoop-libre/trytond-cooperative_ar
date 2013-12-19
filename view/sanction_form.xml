@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<form string="Sanction" col="4">
+    <label name="type" />
+    <field name="type" />
+    <label name="date" />
+    <field name="date" />
+    <label name="partner" />
+    <field name="partner" />
+
+    <newline />
+    <separator string="Record" colspan="4" id='record'/>
+    <field name="record" colspan="4"/>
+
+    <separator string="Response" colspan="4" id='response'/>
+    <field name="response" colspan="4"/>
+</form>

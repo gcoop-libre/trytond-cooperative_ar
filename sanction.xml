@@ -1,0 +1,29 @@
+<tryton>
+  <data>
+    <record id="sanction_view_tree" model="ir.ui.view">
+      <field name="model">cooperative.partner.sanction</field>
+      <field name="type">tree</field>
+      <field name="name">sanction_tree</field>
+    </record>
+    <record id="sanction_view_form" model="ir.ui.view">
+      <field name="model">cooperative.partner.sanction</field>
+      <field name="type">form</field>
+      <field name="name">sanction_form</field>
+    </record>
+    <record id="act_sanction_form" model="ir.action.act_window">
+      <field name="name">Sanction</field>
+      <field name="res_model">cooperative.partner.sanction</field>
+    </record>
+    <record id="act_sanction_form_view1" model="ir.action.act_window.view">
+      <field eval="10" name="sequence" />
+      <field name="view" ref="sanction_view_tree" />
+      <field name="act_window" ref="act_sanction_form" />
+    </record>
+    <record id="act_sanction_form_view2" model="ir.action.act_window.view">
+      <field eval="20" name="sequence" />
+      <field name="view" ref="sanction_view_form" />
+      <field name="act_window" ref="act_sanction_form" />
+    </record>
+    <menuitem action="act_sanction_form" icon="tryton-list" id="menu_sanction_form" name="" parent="menu_cooperative_ar" sequence="1" />
+  </data>
+</tryton>
