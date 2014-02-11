@@ -10,11 +10,11 @@ class Recibo(Workflow, ModelSQL, ModelView):
     date = fields.Date('Date',
             states={
                 'readonly': (Eval('state') != 'draft')
-            })
+            }, required=True)
     monto = fields.Numeric('Amount',digits=(16,2),
             states={
                 'readonly': (Eval('state') != 'draft')
-            })
+            }, required=True)
     partner = fields.Many2One('cooperative.partner', 'Partner', required=True,
             states={
                 'readonly': (Eval('state') != 'draft')
@@ -40,16 +40,16 @@ class Recibo(Workflow, ModelSQL, ModelView):
 
         cls._buttons.update({
                 'cancel': {
-                    'invisible': ~Eval('state').in_(['draft', 'confirmed']),
+                    'invisible': ~Eval('state').in_(['draft']),
                     },
                 'draft': {
-                    'invisible': ~Eval('state').in_(['cancel','confirmed']),
+                    'invisible': ~Eval('state').in_(['cancel']),
                     },
                 'paid': {
                     'invisible': ~Eval('state').in_(['confirmed']),
                     },
                 'confirmed': {
-                    'invisible': Eval('state').in_(['cancel', 'paid']),
+                    'invisible': ~Eval('state').in_(['draft']),
                     },
                 })
 
@@ -70,14 +70,18 @@ class Recibo(Workflow, ModelSQL, ModelView):
     @classmethod
     @ModelView.button
     @Workflow.transition('confirmed')
-    def confirm(cls, recibos):
-        pass
+    def confirmed(cls, recibos):
+        cls.write(recibos, {
+                'state': 'confirmed',
+                })
 
     @classmethod
     @ModelView.button
     @Workflow.transition('paid')
     def paid(cls, recibos):
-        pass
+        cls.write(recibos, {
+                'state': 'paid',
+                })
 
     @staticmethod
     def default_state():
