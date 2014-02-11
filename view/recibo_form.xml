@@ -9,4 +9,17 @@ this repository contains the full copyright notices and license terms. -->
     <field name="date" />
     <label name="monto" />
     <field name="monto" />
+    <group col="6" colspan="4" id="buttons">
+        <label name="state"/>
+        <field name="state"/>
+        <button name="cancel" string="_Cancel"
+            icon="tryton-cancel"
+            confirm="Are you sure to cancel the invoice?"/>
+        <button name="draft" string="_Draft"
+            icon="tryton-go-previous"/>
+        <button name="confirmed" string="_Confirm"
+            icon="tryton-go-next"/>
+        <button name="paid" string="_Paid"
+            icon="tryton-ok"/>
+    </group>
 </form>
