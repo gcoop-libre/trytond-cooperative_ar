@@ -7,11 +7,11 @@ __all__ = ['Recibo']
 class Recibo(Workflow, ModelSQL, ModelView):
     "cooperative_ar"
     __name__ = "cooperative.partner.recibo"
-    date = fields.Date('Fecha',
+    date = fields.Date('Date',
             states={
                 'readonly': (Eval('state') != 'draft')
             })
-    monto = fields.Numeric('Monto',digits=(16,2),
+    monto = fields.Numeric('Amount',digits=(16,2),
             states={
                 'readonly': (Eval('state') != 'draft')
             })
