@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
 this repository contains the full copyright notices and license terms. -->
-<tree string="Recibo">
+<tree string="Recibos de Socio">
     <field name="partner" />
     <field name="date" />
-    <field name="monto" />
+    <field name="amount" />
     <field name="state" />
 </tree>

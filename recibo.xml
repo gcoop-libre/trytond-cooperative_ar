@@ -11,7 +11,7 @@
       <field name="name">recibo_form</field>
     </record>
     <record id="act_recibo_form" model="ir.action.act_window">
-      <field name="name">Recibos</field>
+      <field name="name">Recibos de Socio</field>
       <field name="res_model">cooperative.partner.recibo</field>
     </record>
     <record id="act_recibo_form_view1" model="ir.action.act_window.view">
