@@ -5,6 +5,7 @@ from .vacation import *
 from .partnermeeting import *
 from .sanction import *
 from .recibo import *
+from .account import *
 
 
 def register():
@@ -14,5 +15,6 @@ def register():
                   PartnerMeeting,
                   Sanction,
                   Recibo,
+                  FiscalYear,
                   module='cooperative_ar', type_='model'
                   )

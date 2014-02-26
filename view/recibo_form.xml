@@ -6,6 +6,8 @@ this repository contains the full copyright notices and license terms. -->
     <field name="partner" />
     <label name="party" />
     <field name="party" />
+    <label name="number" />
+    <field name="number" />
     <newline />
     <label name="date" />
     <field name="date" />
@@ -37,14 +39,12 @@ this repository contains the full copyright notices and license terms. -->
         <label name="company"/>
         <field name="company"/>
         <newline/>
-        <label name="account"/>
-        <field name="account"/>
+        <label name="confirmed_move"/>
+        <field name="confirmed_move"/>
+        <label name="paid_move"/>
+        <field name="paid_move"/>
         <label name="accounting_date"/>
         <field name="accounting_date"/>
-        <label name="move"/>
-        <field name="move"/>
-        <label name="cancel_move"/>
-        <field name="cancel_move"/>
       </page>
     </notebook>
 </form>
