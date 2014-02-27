@@ -55,6 +55,12 @@ class Partner(ModelSQL, ModelView):
         """Return Record name"""
         return "%d - %s" % (self.file, self.party.rec_name)
 
+    @classmethod
+    def search_rec_name(cls, name, clause):
+        if cls.search([('dni',) + tuple(clause[1:])], limit=1):
+            return [('dni',) + tuple(clause[1:])]
+        return [(cls._rec_name,) + tuple(clause[1:])]
+
     @staticmethod
     def default_status():
         return 'active'
