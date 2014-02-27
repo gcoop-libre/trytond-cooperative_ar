@@ -18,3 +18,6 @@ def register():
                   FiscalYear,
                   module='cooperative_ar', type_='model'
                   )
+    Pool.register(
+        ReciboReport,
+        module='cooperative_ar', type_='report')

@@ -4,8 +4,9 @@ from trytond.model import ModelView, Workflow, ModelSQL, fields
 from trytond.pyson import Eval, If
 from trytond.transaction import Transaction
 from trytond.pool import Pool
+from trytond.report import Report
 
-__all__ = ['Recibo']
+__all__ = ['Recibo', 'ReciboReport']
 
 _DEPENDS = ['state']
 
@@ -14,8 +15,8 @@ _STATES = {
 }
 
 class Recibo(Workflow, ModelSQL, ModelView):
-    "cooperative_ar"
-    __name__ = "cooperative.recibo"
+    "cooperative.partner.recibo"
+    __name__ = "cooperative.partner.recibo"
     date = fields.Date('Date',
             states={
                 'readonly': (Eval('state') != 'draft')
@@ -273,3 +274,39 @@ class Recibo(Workflow, ModelSQL, ModelView):
         self.write([self], {
                 'paid_move': move.id,
                 })
+
+
+class ReciboReport(Report):
+    __name__ = 'cooperative.partner.recibo'
+
+    @classmethod
+    def parse(cls, report, records, data, localcontext):
+        pool = Pool()
+        User = pool.get('res.user')
+
+        recibo = records[0]
+
+        user = User(Transaction().user)
+        localcontext['company'] = user.company
+        localcontext['sing_number'] = cls._get_sing_number(recibo)
+        localcontext['vat_number'] = cls._get_vat_number(user.company)
+        localcontext['partner_vat_number'] = cls._get_vat_number(recibo)
+        return super(ReciboReport, cls).parse(report, records, data,
+                localcontext=localcontext)
+
+    @classmethod
+    def _get_sing_number(cls, recibo):
+        "Convert numbers in its equivalent string text representation in spanish"
+        from singing_girl import Singer
+        singer = Singer()
+        return singer.sing(recibo.amount)
+
+    @classmethod
+    def _get_vat_number(cls, company):
+        value = company.party.vat_number
+        return '%s-%s-%s' % (value[:2], value[2:-1], value[-1])
+
+    @classmethod
+    def _get_partner_vat_number(cls, recibo):
+        value = recibo.party.vat_number
+        return '%s-%s-%s' % (value[:2], value[2:-1], value[-1])
