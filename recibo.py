@@ -100,8 +100,8 @@ class Recibo(Workflow, ModelSQL, ModelView):
 
         moves = []
         for recibo in recibos:
-            if recibo.move:
-                moves.append(recibo.move)
+            if recibo.confirmed_move:
+                moves.append(recibo.confirmed_move)
         if moves:
             with Transaction().set_user(0, set_context=True):
                 Move.delete(moves)
@@ -110,24 +110,32 @@ class Recibo(Workflow, ModelSQL, ModelView):
     @ModelView.button
     @Workflow.transition('confirmed')
     def confirmed(cls, recibos):
+        Move = Pool().get('account.move')
+
+        moves = []
         for recibo in recibos:
             recibo.set_number()
-            recibo.create_confirmed_move()
+            moves.append(recibo.create_confirmed_move())
 
         cls.write(recibos, {
                 'state': 'confirmed',
                 })
+        Move.post(moves)
 
     @classmethod
     @ModelView.button
     @Workflow.transition('paid')
     def paid(cls, recibos):
+        Move = Pool().get('account.move')
+
+        moves = []
         for recibo in recibos:
-            recibo.create_paid_move()
+            moves.append(recibo.create_paid_move())
 
         cls.write(recibos, {
                 'state': 'paid',
                 })
+        Move.post(moves)
 
     @classmethod
     @ModelView.button
@@ -254,6 +262,7 @@ class Recibo(Workflow, ModelSQL, ModelView):
         self.write([self], {
                 'confirmed_move': move.id,
                 })
+        return move
 
     def create_paid_move(self):
         '''
@@ -274,6 +283,7 @@ class Recibo(Workflow, ModelSQL, ModelView):
         self.write([self], {
                 'paid_move': move.id,
                 })
+        return move
 
 
 class ReciboReport(Report):
