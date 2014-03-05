@@ -55,5 +55,8 @@ this repository contains the full copyright notices and license terms. -->
     <page string="Meetings" id= "meetings">
         <field name="meeting" />
     </page>
+    <page string="Recibos de Socio" id= "recibos">
+        <field name="recibo" />
+    </page>
 </notebook>
 </form>

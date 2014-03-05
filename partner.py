@@ -42,6 +42,7 @@ class Partner(ModelSQL, ModelView):
     vacation = fields.One2Many('cooperative.partner.vacation', 'partner', 'Vacation')
     meeting = fields.Many2Many('cooperative.partner-meeting', 'partner', 'meeting', 'Meeting')
     sanction = fields.One2Many('cooperative.partner.sanction', 'partner', 'Sanction')
+    recibo = fields.One2Many('cooperative.partner.recibo', 'partner', 'Recibo')
 
     marital_status = fields.Selection([('',''), ('soltero/a', 'Soltero/a'), ('casado/a', 'Casado/a'), ('divorciado/a', 'Divorciado/a'), ('viudo/a', 'Viudo/a'), ('otra', 'Otra'), ], 'Marital Status')
 
@@ -53,6 +54,12 @@ class Partner(ModelSQL, ModelView):
     def get_rec_name(self, name):
         """Return Record name"""
         return "%d - %s" % (self.file, self.party.rec_name)
+
+    @classmethod
+    def search_rec_name(cls, name, clause):
+        if cls.search([('dni',) + tuple(clause[1:])], limit=1):
+            return [('dni',) + tuple(clause[1:])]
+        return [(cls._rec_name,) + tuple(clause[1:])]
 
     @staticmethod
     def default_status():
