@@ -28,6 +28,8 @@ this repository contains the full copyright notices and license terms. -->
         <field name="nationality" widget="selection"/>
         <label name="marital_status" />
         <field name="marital_status" />
+        <label name="birthdate" />
+        <field name="birthdate" />
         <separator string="Incorporacion" colspan="6" id='incorporacion_coop'/>
         <label name="incorporation_date" />
         <field name="incorporation_date" />

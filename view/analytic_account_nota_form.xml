@@ -7,8 +7,8 @@ this repository contains the full copyright notices and license terms. -->
     <label name="date" />
     <field name="date" />
     <newline />
-    <group col="4" colspan="4" name="analytic_accounts">
-        <field name="analytic_accounts"/>
+    <group col="4" colspan="4" name="account">
+        <field name="account"/>
     </group>
     <notebook colspan="6">
         <page string="Nota" id="Nota">

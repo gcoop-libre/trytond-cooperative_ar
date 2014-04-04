@@ -50,6 +50,7 @@ class Partner(ModelSQL, ModelView):
     proof_tax = fields.Binary('Proof of tax registation')
 
     meeting_date_of_incoroporation = fields.Date('Meeting date of incorporation', required=True)
+    birthdate = fields.Date('Birthdate', required=True)
 
     def get_rec_name(self, name):
         """Return Record name"""

@@ -51,6 +51,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="name">Balance Social</field>
             <field name="report_name">cooperative_ar.report_balance_social</field>
             <field name="report">cooperative_ar/balance_social.odt</field>
+            <field name="style">company/header_A4.odt</field>
             <field name="template_extension">odt</field>
         </record>
 
