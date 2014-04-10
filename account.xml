@@ -14,5 +14,47 @@ this repository contains the full copyright notices and license terms. -->
             <field name="inherit" ref="account.period_view_form"/>
             <field name="name">period_form</field>
         </record>
+
+        <record model="ir.ui.view" id="analytic_account_nota_view_tree">
+            <field name="model">analytic_account.account.nota</field>
+            <field name="type">tree</field>
+            <field name="name">analytic_account_nota_tree</field>
+        </record>
+
+        <record model="ir.ui.view" id="analytic_account_nota_view_form">
+            <field name="model">analytic_account.account.nota</field>
+            <field name="type">form</field>
+            <field name="name">analytic_account_nota_form</field>
+        </record>
+
+        <record id="act_analytic_account_nota_form" model="ir.action.act_window">
+            <field name="name">Balance Social</field>
+            <field name="res_model">analytic_account.account.nota</field>
+        </record>
+
+        <record model="ir.ui.view" id="print_balance_social_start_view_form">
+            <field name="model">analytic_account.account.nota.print_balance_social.start</field>
+            <field name="type">form</field>
+            <field name="name">print_balance_social_start_form</field>
+        </record>
+
+        <record model="ir.action.wizard" id="wizard_print_balance_social">
+            <field name="name">Print Balance Social</field>
+            <field name="wiz_name">analytic_account.account.nota.print_balance_social</field>
+        </record>
+
+        <menuitem parent="account.menu_reporting" action="wizard_print_balance_social"
+            id="menu_print_balance_social" icon="tryton-print"/>
+
+        <record model="ir.action.report" id="report_balance_social">
+            <field name="active" eval="True"/>
+            <field name="name">Balance Social</field>
+            <field name="report_name">cooperative_ar.report_balance_social</field>
+            <field name="report">cooperative_ar/balance_social.odt</field>
+            <field name="style">company/header_A4.odt</field>
+            <field name="template_extension">odt</field>
+        </record>
+
+        <menuitem action="act_analytic_account_nota_form" icon="tryton-list" id="menu_analytic_account_nota" name="Balance Social" parent="menu_cooperative_ar" sequence="1" />
     </data>
 </tryton>

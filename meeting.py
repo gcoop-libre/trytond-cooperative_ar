@@ -12,7 +12,7 @@ class Meeting(ModelSQL, ModelView):
 
     type = fields.Selection([('ordinaria', 'Ordinaria'),
                              ('extraordinaria', 'Extraordinaria'),
-                             ('reunion', 'Reunion'),
+                             ('reunion', 'Reunion de Consejo'),
                             ], 'Type', required=True)
 
     status = fields.Selection([('planned', 'Planned'),
