@@ -7,7 +7,6 @@
       <field name="display_balance">credit-debit</field>
       <field name="currency">046</field>
       <field name="state">opened</field>
-      <field name="company">1</field>
     </record>
     <record id="libre_adhesion" model="analytic_account.account">
       <field name="name">Primer principio: Libre adhesión</field>
@@ -18,7 +17,6 @@
       <field name="state">opened</field>
       <field name="parent" ref="balance_social_cooperativo" />
       <field name="root" ref="balance_social_cooperativo" />
-      <field name="company">1</field>
     </record>
     <record id="control_democratico_socios" model="analytic_account.account">
       <field name="name">Segundo principio: Control democrático de los socios</field>
@@ -29,7 +27,6 @@
       <field name="state">opened</field>
       <field name="parent" ref="balance_social_cooperativo" />
       <field name="root" ref="balance_social_cooperativo" />
-      <field name="company">1</field>
     </record>
     <record id="participacion_economica_socios" model="analytic_account.account">
       <field name="name">Tercer principio: Participación económica de los socios</field>
@@ -40,7 +37,6 @@
       <field name="state">opened</field>
       <field name="parent" ref="balance_social_cooperativo" />
       <field name="root" ref="balance_social_cooperativo" />
-      <field name="company">1</field>
     </record>
     <record id="autonomia_independecia" model="analytic_account.account">
       <field name="name">Cuarto principio: Autonomía e indepencia</field>
@@ -51,7 +47,6 @@
       <field name="state">opened</field>
       <field name="parent" ref="balance_social_cooperativo" />
       <field name="root" ref="balance_social_cooperativo" />
-      <field name="company">1</field>
     </record>
     <record id="educacion_entrenamiento_info" model="analytic_account.account">
       <field name="name">Quinto principio: Educación, entrenamiento e información</field>
@@ -62,7 +57,6 @@
       <field name="state">opened</field>
       <field name="parent" ref="balance_social_cooperativo" />
       <field name="root" ref="balance_social_cooperativo" />
-      <field name="company">1</field>
     </record>
     <record id="cooperacion_cooperativas" model="analytic_account.account">
       <field name="name">Sexto principio: Cooperación entre cooperativas</field>
@@ -73,7 +67,6 @@
       <field name="state">opened</field>
       <field name="parent" ref="balance_social_cooperativo" />
       <field name="root" ref="balance_social_cooperativo" />
-      <field name="company">1</field>
     </record>
     <record id="compromiso_comunidad" model="analytic_account.account">
       <field name="name">Septimo principio: Compromiso con la comunidad</field>
@@ -84,7 +77,6 @@
       <field name="state">opened</field>
       <field name="parent" ref="balance_social_cooperativo" />
       <field name="root" ref="balance_social_cooperativo" />
-      <field name="company">1</field>
     </record>
   </data>
 </tryton>
