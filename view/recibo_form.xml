@@ -20,13 +20,13 @@ this repository contains the full copyright notices and license terms. -->
     <label name="currency" />
     <field name="currency" />
     <notebook colspan="6">
-        <page string="Invoice" id="invoice" col="6">
+        <page string="Receipt" id="receipt" col="6">
             <group col="6" colspan="4" id="buttons">
                 <label name="state"/>
                 <field name="state"/>
                 <button name="cancel" string="_Cancel"
                     icon="tryton-cancel"
-                    confirm="Are you sure to cancel the invoice?"/>
+                    confirm="Are you sure to cancel the receipt?"/>
                 <button name="draft" string="_Draft"
                     icon="tryton-go-previous"/>
                 <button name="confirmed" string="_Confirm"
