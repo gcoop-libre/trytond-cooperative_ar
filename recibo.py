@@ -42,7 +42,8 @@ class Recibo(Workflow, ModelSQL, ModelView):
 
     ## Integrando con asientos
     party = fields.Function(fields.Many2One('party.party', 'Party',
-        required=True, states=_STATES, depends=_DEPENDS),'on_change_with_party')
+        required=True, states=_STATES, depends=_DEPENDS,
+        on_change_with=['partner']),'on_change_with_party')
     company = fields.Many2One('company.company', 'Company', required=True,
         states=_STATES, select=True, domain=[
             ('id', If(Eval('context', {}).contains('company'), '=', '!='),
@@ -163,7 +164,6 @@ class Recibo(Workflow, ModelSQL, ModelView):
             company = Company(Transaction().context['company'])
             return company.currency.id
 
-    @fields.depends('partner')
     def on_change_with_party(self, name=None):
         if self.partner:
             return self.partner.party.id
