@@ -43,9 +43,6 @@ class Partner(ModelSQL, ModelView):
     meeting = fields.Many2Many('cooperative.partner-meeting', 'partner', 'meeting', 'Meeting')
     sanction = fields.One2Many('cooperative.partner.sanction', 'partner', 'Sanction')
     recibo = fields.One2Many('cooperative.partner.recibo', 'partner', 'Recibo')
-
-    marital_status = fields.Selection([('',''), ('soltero/a', 'Soltero/a'), ('casado/a', 'Casado/a'), ('divorciado/a', 'Divorciado/a'), ('viudo/a', 'Viudo/a'), ('otra', 'Otra'), ], 'Marital Status')
-
     proposal_letter = fields.Binary('Proposal Letter')
     proof_tax = fields.Binary('Proof of tax registation')
 
