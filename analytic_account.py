@@ -20,7 +20,10 @@ class AnalyticAccountNota(ModelSQL, ModelView):
     date = fields.Date('Date')
     note = fields.Text('Note')
     account = fields.Many2One('analytic_account.account', 'Account',
-            required=True, select=True, domain=[('type', '!=', 'view')])
+            required=True, select=True, domain=[
+                ('root.name', '=', 'Balance Social Cooperativo'),
+                ('type', '=', 'normal'),
+            ])
 
     type = fields.Selection([
         ('line', 'Line'),
@@ -87,8 +90,8 @@ class BalanceSocial(Report):
         AnalyticAccount = Pool().get('analytic_account.account')
 
         accounts = AnalyticAccount.search([
-                ('company', '=', data['company']),
-                ('type', '!=', 'root'),
+                ('type', '=', 'normal'),
+                ('root.name', '=', 'Balance Social Cooperativo'),
                 ])
         return accounts
 
@@ -124,8 +127,8 @@ class BalanceSocial(Report):
         AnalyticAccount = Pool().get('analytic_account.account')
 
         accounts = AnalyticAccount.search([
-                ('company', '=', company),
-                ('type', '!=', 'root'),
+                ('root.name', '=', 'Balance Social Cooperativo'),
+                ('type', '=', 'normal'),
                 ])
         return accounts
 
