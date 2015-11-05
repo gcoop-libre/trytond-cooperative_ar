@@ -107,13 +107,16 @@ class BalanceSocial(Report):
         localcontext['from_date'] = data['from_date']
         localcontext['to_date'] = data['to_date']
         localcontext['get_analytic_lines'] = cls.get_analytic_lines
+        localcontext['has_analytic_lines'] = cls.has_analytic_lines
         localcontext['get_partners'] = cls.get_partners
         localcontext['get_partners_nuevos'] = cls.get_partners_nuevos
         localcontext['get_partners_leave'] = cls.get_partners_leave
         localcontext['get_partners_gender'] = cls.get_partners_gender
         localcontext['get_meetings'] = cls.get_meetings
         localcontext['get_notas'] = cls.get_notas
+        localcontext['has_notas'] = cls.has_notas
         localcontext['get_analytic_accounts'] = cls.get_analytic_accounts
+        localcontext['get_analytic_subaccounts'] = cls.get_analytic_subaccounts
         localcontext['get_partners_birthdate'] = cls.get_partners_birthdate
         localcontext['get_birthdate'] = cls.get_birthdate
         localcontext['get_meeting_type'] = cls.get_meeting_type
@@ -128,7 +131,18 @@ class BalanceSocial(Report):
 
         accounts = AnalyticAccount.search([
                 ('root.name', '=', 'Balance Social Cooperativo'),
+                ('type', '=', 'view'),
+                ])
+        return accounts
+
+    @classmethod
+    def get_analytic_subaccounts(self, account_id):
+        AnalyticAccount = Pool().get('analytic_account.account')
+
+        accounts = AnalyticAccount.search([
+                ('root.name', '=', 'Balance Social Cooperativo'),
                 ('type', '=', 'normal'),
+                ('parent', '=', account_id),
                 ])
         return accounts
 
@@ -140,12 +154,26 @@ class BalanceSocial(Report):
             ('date', '<=', to_date),
             ('account', '=', analytic_account_id),
         ]
-
         notas = AnalyticAccountNota.search(clause,
                 order=[('date', 'ASC'),('id', 'ASC')])
 
-
         return notas
+
+    @classmethod
+    def has_notas(self, analytic_account_id, from_date, to_date):
+        AnalyticAccountNota = Pool().get('analytic_account.account.nota')
+        clause = [
+            ('date', '>=', from_date),
+            ('date', '<=', to_date),
+            ('account', '=', analytic_account_id),
+        ]
+        notas = AnalyticAccountNota.search(clause,
+                order=[('date', 'ASC'),('id', 'ASC')])
+
+        if notas == []:
+            return False
+        else:
+            return True
 
     @classmethod
     def get_summary_meeting(self, from_date, to_date, type):
@@ -278,8 +306,22 @@ class BalanceSocial(Report):
 
         lines = AnalyticAccountLine.search(clause,
                 order=[('date', 'ASC'), ('id', 'ASC')])
-        #return dict(filter(lambda l: len(l[1]) > 0,resultado.iteritems()))
-        #import ipdb; ipdb.set_trace()  # XXX BREAKPOINT
 
         return lines
 
+    @classmethod
+    def has_analytic_lines(self, analytic_account_id, from_date, to_date):
+        AnalyticAccountLine = Pool().get('analytic_account.line')
+        clause = [
+            ('date', '>=', from_date),
+            ('date', '<=', to_date),
+            ('account', '=', analytic_account_id),
+        ]
+
+        lines = AnalyticAccountLine.search(clause,
+                order=[('date', 'ASC'), ('id', 'ASC')])
+
+        if lines == []:
+            return False
+        else:
+            return True
