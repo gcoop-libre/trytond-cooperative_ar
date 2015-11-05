@@ -9,6 +9,8 @@ this repository contains the full copyright notices and license terms. -->
     <field name="start_date" />
     <label name="end_date" />
     <field name="end_date" />
+    <label name="year" />
+    <field name="year" />
     <label name="days" />
     <field name="days" />
     <label name="partner" />
