@@ -92,6 +92,13 @@ class Recibo(Workflow, ModelSQL, ModelView):
                 })
 
     @classmethod
+    def get_sing_number(self, recibo_amount):
+        "Convert numbers in its equivalent string text representation in spanish"
+        from singing_girl import Singer
+        singer = Singer()
+        return singer.sing(recibo_amount)
+
+    @classmethod
     @ModelView.button
     @Workflow.transition('draft')
     def draft(cls, recibos):
@@ -298,30 +305,13 @@ class ReciboReport(Report):
     def parse(cls, report, records, data, localcontext):
         pool = Pool()
         User = pool.get('res.user')
-
-        recibo = records[0]
-
         user = User(Transaction().user)
         localcontext['company'] = user.company
-        localcontext['sing_number'] = cls._get_sing_number(recibo)
         localcontext['vat_number'] = cls._get_vat_number(user.company)
-        localcontext['partner_vat_number'] = cls._get_vat_number(recibo)
         return super(ReciboReport, cls).parse(report, records, data,
                 localcontext=localcontext)
 
     @classmethod
-    def _get_sing_number(cls, recibo):
-        "Convert numbers in its equivalent string text representation in spanish"
-        from singing_girl import Singer
-        singer = Singer()
-        return singer.sing(recibo.amount)
-
-    @classmethod
     def _get_vat_number(cls, company):
         value = company.party.vat_number
-        return '%s-%s-%s' % (value[:2], value[2:-1], value[-1])
-
-    @classmethod
-    def _get_partner_vat_number(cls, recibo):
-        value = recibo.party.vat_number
         return '%s-%s-%s' % (value[:2], value[2:-1], value[-1])
