@@ -302,14 +302,11 @@ class ReciboReport(Report):
     __name__ = 'cooperative.partner.recibo'
 
     @classmethod
-    def parse(cls, report, records, data, localcontext):
-        pool = Pool()
-        User = pool.get('res.user')
-        user = User(Transaction().user)
-        localcontext['company'] = user.company
-        localcontext['vat_number'] = cls._get_vat_number(user.company)
-        return super(ReciboReport, cls).parse(report, records, data,
-                localcontext=localcontext)
+    def get_context(cls, records, data):
+        report_context = super(ReciboReport, cls).get_context(records, data)
+        report_context['company'] = report_context['user'].company
+        report_context['vat_number'] = cls._get_vat_number(report_context['user'].company)
+        return report_context
 
     @classmethod
     def _get_vat_number(cls, company):

@@ -19,7 +19,7 @@ this repository contains the full copyright notices and license terms. -->
         <field name="partners" colspan="6" view_ids="cooperative_ar.meeting_partners_view_tree"/>
     </page>
     <page string="Record" id="record">
-        <field name="record" />
+        <field name="record" widget="richtext"/>
     </page>
 </notebook>
 </form>
