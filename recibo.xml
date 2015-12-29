@@ -33,9 +33,6 @@
             <field name="model">cooperative.partner.recibo</field>
             <field name="report_name">cooperative.partner.recibo</field>
             <field name="report">cooperative_ar/recibo.odt</field>
-            <field name="style">cooperative_ar/header_A4.odt</field>
-            <field name="template_extension">odt</field>
-            <field name="extension">pdf</field>
         </record>
 
         <record model="ir.action.keyword" id="report_recibo_keyword">
