@@ -95,35 +95,30 @@ class BalanceSocial(Report):
                 ])
         return accounts
 
-
     @classmethod
-    def parse(cls, report, analytic_accounts, data, localcontext):
-        Company = Pool().get('company.company')
-
-        company = Company(data['company'])
-
-        localcontext['company'] = company
-        localcontext['digits'] = company.currency.digits
-        localcontext['from_date'] = data['from_date']
-        localcontext['to_date'] = data['to_date']
-        localcontext['get_analytic_lines'] = cls.get_analytic_lines
-        localcontext['has_analytic_lines'] = cls.has_analytic_lines
-        localcontext['get_partners'] = cls.get_partners
-        localcontext['get_partners_nuevos'] = cls.get_partners_nuevos
-        localcontext['get_partners_leave'] = cls.get_partners_leave
-        localcontext['get_partners_gender'] = cls.get_partners_gender
-        localcontext['get_meetings'] = cls.get_meetings
-        localcontext['get_notas'] = cls.get_notas
-        localcontext['has_notas'] = cls.has_notas
-        localcontext['get_analytic_accounts'] = cls.get_analytic_accounts
-        localcontext['get_analytic_subaccounts'] = cls.get_analytic_subaccounts
-        localcontext['get_partners_birthdate'] = cls.get_partners_birthdate
-        localcontext['get_birthdate'] = cls.get_birthdate
-        localcontext['get_meeting_type'] = cls.get_meeting_type
-        localcontext['get_summary_meeting'] = cls.get_summary_meeting
-
-        return super(BalanceSocial, cls).parse(report, analytic_accounts, data,
-            localcontext)
+    def get_context(cls, records, data):
+        report_context = super(BalanceSocial, cls).get_context(records, data)
+        company = report_context['user'].company
+        report_context['company'] = company
+        report_context['digits'] = company.currency.digits
+        report_context['from_date'] = data['from_date']
+        report_context['to_date'] = data['to_date']
+        report_context['get_analytic_lines'] = cls.get_analytic_lines
+        report_context['has_analytic_lines'] = cls.has_analytic_lines
+        report_context['get_partners'] = cls.get_partners
+        report_context['get_partners_nuevos'] = cls.get_partners_nuevos
+        report_context['get_partners_leave'] = cls.get_partners_leave
+        report_context['get_partners_gender'] = cls.get_partners_gender
+        report_context['get_meetings'] = cls.get_meetings
+        report_context['get_notas'] = cls.get_notas
+        report_context['has_notas'] = cls.has_notas
+        report_context['get_analytic_accounts'] = cls.get_analytic_accounts
+        report_context['get_analytic_subaccounts'] = cls.get_analytic_subaccounts
+        report_context['get_partners_birthdate'] = cls.get_partners_birthdate
+        report_context['get_birthdate'] = cls.get_birthdate
+        report_context['get_meeting_type'] = cls.get_meeting_type
+        report_context['get_summary_meeting'] = cls.get_summary_meeting
+        return report_context
 
     @classmethod
     def get_analytic_accounts(self, company):
@@ -209,8 +204,8 @@ class BalanceSocial(Report):
 
     @classmethod
     def get_birthdate(self, partner):
-        from dateutil.relativedelta import *
-        from datetime import *
+        from dateutil.relativedelta import relativedelta
+        from datetime import datetime
 
         today = datetime.now()
         age = relativedelta(today, partner.birthdate)  # calculate age

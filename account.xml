@@ -47,12 +47,9 @@ this repository contains the full copyright notices and license terms. -->
             id="menu_print_balance_social" icon="tryton-print"/>
 
         <record model="ir.action.report" id="report_balance_social">
-            <field name="active" eval="True"/>
             <field name="name">Balance Social</field>
             <field name="report_name">cooperative_ar.report_balance_social</field>
             <field name="report">cooperative_ar/balance_social.odt</field>
-            <field name="style">company/header_A4.odt</field>
-            <field name="template_extension">odt</field>
         </record>
 
         <menuitem action="act_analytic_account_nota_form" icon="tryton-list" id="menu_analytic_account_nota" name="Balance Social" parent="menu_cooperative_ar" sequence="1" />
