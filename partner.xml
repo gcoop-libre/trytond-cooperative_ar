@@ -1,6 +1,10 @@
 <tryton>
   <data>
-    <menuitem icon="tryton-list" id="menu_cooperative_ar" name="Cooperatives" sequence="10" />
+    <record model="ir.ui.icon" id="cooperative_icon">
+        <field name="name">tryton-cooperative</field>
+        <field name="path">icons/tryton-cooperative.svg</field>
+    </record>
+    <menuitem icon="tryton-cooperative" id="menu_cooperative_ar" name="Cooperatives" sequence="10"/>
 
     <record id="partner_view_tree" model="ir.ui.view">
       <field name="model">cooperative.partner</field>
