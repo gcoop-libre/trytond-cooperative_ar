@@ -3,6 +3,23 @@
 this repository contains the full copyright notices and license terms. -->
 <tryton>
     <data>
+        <!-- Sequences for Account Cooperative Receipt -->
+        <record id="seq_type_account_cooperative_receipt" model="ir.sequence.type">
+            <field name="name">Account Cooperative Receipt</field>
+            <field name="code">account.cooperative.receipt</field>
+        </record>
+        <record model="ir.sequence.type-res.group"
+            id="seq_type_account_cooperative_receipt_group_admin">
+            <field name="sequence_type" ref="seq_type_account_cooperative_receipt"/>
+            <field name="group" ref="res.group_admin"/>
+        </record>
+
+        <record model="ir.sequence.type-res.group"
+            id="seq_type_account_cooperative_receipt_group_account_admin">
+            <field name="sequence_type" ref="seq_type_account_cooperative_receipt"/>
+            <field name="group" ref="account.group_account_admin"/>
+        </record>
+
         <record model="ir.ui.view" id="fiscalyear_view_form">
             <field name="model">account.fiscalyear</field>
             <field name="inherit" ref="account.fiscalyear_view_form"/>
