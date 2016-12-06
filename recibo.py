@@ -192,12 +192,12 @@ class Recibo(Workflow, ModelSQL, ModelView):
             date=accounting_date)
         fiscalyear = FiscalYear(fiscalyear_id)
         sequence = fiscalyear.get_sequence('receipt')
+        if not sequence:
+            self.raise_user_error('no_cooperative_sequence', {
+                    'receipt': self.rec_name,
+                    'fiscalyear': fiscalyear.rec_name,
+                    })
 
-        #if not sequence:
-        #    self.raise_user_error('no_invoice_sequence', {
-        #            'invoice': self.rec_name,
-        #            'period': period.rec_name,
-        #            })
         with Transaction().set_context(
                 date=self.date or Date.today()):
             number = Sequence.get_id(sequence.id)
