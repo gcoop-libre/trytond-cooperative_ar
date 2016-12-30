@@ -42,16 +42,16 @@ class FiscalYear:
             year.check_cooperative_sequences()
 
     def check_cooperative_sequences(self):
-        sequence = 'cooperative_receipt_sequence'
-        fiscalyears = self.search([
-                (sequence, '=', getattr(self, 'cooperative_receipt_sequence').id),
-                ('id', '!=', self.id),
-                ])
-        if fiscalyears:
-            self.raise_user_error('different_cooperative_sequence', {
-                    'first': self.rec_name,
-                    'second': fiscalyears[0].rec_name,
-                    })
+        for sequence in ['cooperative_receipt_sequence']:
+            fiscalyears = self.search([
+                    (sequence, '=', getattr(self, sequence).id),
+                    ('id', '!=', self.id),
+                    ])
+            if fiscalyears:
+                self.raise_user_error('different_cooperative_sequence', {
+                        'first': self.rec_name,
+                        'second': fiscalyears[0].rec_name,
+                        })
 
     @classmethod
     def write(cls, *args):
