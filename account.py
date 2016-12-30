@@ -42,7 +42,7 @@ class FiscalYear:
             year.check_cooperative_sequences()
 
     def check_cooperative_sequences(self):
-        for sequence in ('cooperative_receipt_sequence'):
+        for sequence in ['cooperative_receipt_sequence']:
             fiscalyears = self.search([
                     (sequence, '=', getattr(self, sequence).id),
                     ('id', '!=', self.id),
