@@ -6,8 +6,8 @@ this repository contains the full copyright notices and license terms. -->
         expr="/form/notebook/page[@id='sequences']/field[@name='post_move_sequence']"
         position="after">
         <newline/>
-        <label name="receipt_sequence"/>
-        <field name="receipt_sequence"/>
+        <label name="cooperative_receipt_sequence"/>
+        <field name="cooperative_receipt_sequence"/>
     </xpath>
 </data>
 
