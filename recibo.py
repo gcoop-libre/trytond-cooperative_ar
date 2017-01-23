@@ -191,7 +191,7 @@ class Recibo(Workflow, ModelSQL, ModelView):
         fiscalyear_id = FiscalYear.find(self.company.id,
             date=accounting_date)
         fiscalyear = FiscalYear(fiscalyear_id)
-        sequence = fiscalyear.get_sequence('receipt')
+        sequence = fiscalyear.get_sequence('cooperative_receipt')
         if not sequence:
             self.raise_user_error('no_cooperative_sequence', {
                     'receipt': self.rec_name,
