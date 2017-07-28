@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!-- This file is part of cooperative_ar module for Tryton.
+The COPYRIGHT file at the top level of this repository contains the full 
+copyright notices and license terms. -->
+<tryton>
+    <data>
+        <record model="res.group" id="group_cooperative_ar">
+            <field name="name">Cooperatives</field>
+        </record>
+        <record model="res.group" id="group_cooperative_ar_admin">
+            <field name="name">Cooperatives Administrator</field>
+        </record>
+        <record model="res.user-res.group" id="user_admin_group_cooperative_ar">
+            <field name="user" ref="res.user_admin"/>
+            <field name="group" ref="group_cooperative_ar"/>
+        </record>
+        <record model="res.user-res.group" id="user_admin_group_cooperative_ar_admin">
+            <field name="user" ref="res.user_admin"/>
+            <field name="group" ref="group_cooperative_ar_admin"/>
+        </record>
+        <record model="ir.ui.icon" id="cooperative_icon">
+            <field name="name">tryton-cooperative</field>
+            <field name="path">icons/tryton-cooperative.svg</field>
+        </record>
+        <menuitem icon="tryton-cooperative" id="menu_cooperative_ar"
+            name="Cooperatives" sequence="5"/>
+        <record model="ir.ui.menu-res.group" id="menu_cooperative_ar_group_cooperative_ar">
+            <field name="menu" ref="menu_cooperative_ar"/>
+            <field name="group" ref="group_cooperative_ar"/>
+        </record>
+    </data>
+</tryton>

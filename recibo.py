@@ -257,16 +257,19 @@ class Recibo(Workflow, ModelSQL, ModelView):
         '''
         pool = Pool()
         Date = pool.get('ir.date')
+        Config = Pool().get('cooperative_ar.configuration')
+        config = Config(1)
+        account_receivable = config.receipt_account_receivable
+        account_payable = config.receipt_account_payable
 
         move_lines = []
 
-        val = self._get_move_line(Date.today(), self.amount, self.party.account_payable.id, party_required=True)
+        val = self._get_move_line(Date.today(), self.amount, account_payable.id, party_required=True)
         move_lines.append(val)
         # issue #4461
         # En vez de usar la cuenta "a cobrar" del party, deberia ser la
         # cuenta Retornos Asociados (5242) siempre fija, que esta seteada como
         # Expense (Gasto).
-        account_receivable = self.party.account_receivable.search([('rec_name','like', '%5242%')])[0]
         val = self._get_move_line(Date.today(), -self.amount, account_receivable.id, party_required=True)
         move_lines.append(val)
 
@@ -283,12 +286,15 @@ class Recibo(Workflow, ModelSQL, ModelView):
         '''
         pool = Pool()
         Date = pool.get('ir.date')
+        Config = Pool().get('cooperative_ar.configuration')
+        config = Config(1)
+        account_payable = config.receipt_account_payable
 
         move_lines = []
 
         val = self._get_move_line(Date.today(), self.amount, self.journal.credit_account.id, party_required=False)
         move_lines.append(val)
-        val = self._get_move_line(Date.today(), -self.amount, self.party.account_payable.id, party_required=True)
+        val = self._get_move_line(Date.today(), -self.amount, account_payable.id, party_required=True)
         move_lines.append(val)
 
         move = self.create_move(move_lines)
