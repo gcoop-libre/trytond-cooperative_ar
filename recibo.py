@@ -270,7 +270,7 @@ class Recibo(Workflow, ModelSQL, ModelView):
         # En vez de usar la cuenta "a cobrar" del party, deberia ser la
         # cuenta Retornos Asociados (5242) siempre fija, que esta seteada como
         # Expense (Gasto).
-        val = self._get_move_line(Date.today(), -self.amount, account_receivable.id, party_required=True)
+        val = self._get_move_line(Date.today(), -self.amount, account_receivable.id, party_required=False)
         move_lines.append(val)
 
         move = self.create_move(move_lines)
