@@ -67,6 +67,12 @@ class Recibo(Workflow, ModelSQL, ModelView):
     @classmethod
     def __setup__(cls):
         super(Recibo, cls).__setup__()
+        cls._error_messages.update({
+                'missing_journal_accounts': ('You must set debit/credit '
+                    'account at the journal "%(journal)s".'),
+                'missing_config_accounts': ('You must set debit/credit '
+                    'accounts at the configuration module.'),
+                })
         cls._transitions |= set((
                 ('draft', 'confirmed'),
                 ('draft', 'cancel'),
@@ -75,7 +81,6 @@ class Recibo(Workflow, ModelSQL, ModelView):
                 ('confirmed', 'cancel'),
                 ('cancel', 'draft'),
                 ))
-
         cls._buttons.update({
                 'cancel': {
                     'invisible': ~Eval('state').in_(['draft']),
@@ -259,6 +264,10 @@ class Recibo(Workflow, ModelSQL, ModelView):
         Date = pool.get('ir.date')
         Config = Pool().get('cooperative_ar.configuration')
         config = Config(1)
+        if (not config.receipt_account_receivable and not
+                config.receipt_account_payable):
+            self.raise_user_error('missing_config_accounts')
+
         account_receivable = config.receipt_account_receivable
         account_payable = config.receipt_account_payable
 
@@ -288,6 +297,11 @@ class Recibo(Workflow, ModelSQL, ModelView):
         Date = pool.get('ir.date')
         Config = Pool().get('cooperative_ar.configuration')
         config = Config(1)
+        if not self.journal.credit_account:
+            self.raise_user_error('missing_journal_accounts', {
+                    'journal': self.journal.name,
+                    })
+
         account_payable = config.receipt_account_payable
 
         move_lines = []
