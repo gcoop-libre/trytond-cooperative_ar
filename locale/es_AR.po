@@ -17,6 +17,14 @@ msgctxt "error:party.party:"
 msgid "The VAT number must be unique in each country."
 msgstr "El CUIT debe ser único en cada país"
 
+msgctxt "error:cooperative.partner.recibo:"
+msgid "You must set debit/credit account at the journal \"%(journal)s\"."
+msgstr "Debes configurar la cuenta debito/credito del diario \"%(journal)s\"."
+
+msgctxt "error:cooperative.partner.recibo:"
+msgid "You must set debit/credit accounts at the configuration module."
+msgstr "Falta setear la cuenta debito/credito en la configuración del módulo."
+
 #, fuzzy
 msgctxt "field:cooperative.meeting,create_date:"
 msgid "Create Date"
