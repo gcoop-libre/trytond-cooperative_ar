@@ -327,9 +327,20 @@ class ReciboReport(Report):
         report_context = super(ReciboReport, cls).get_context(records, data)
         report_context['company'] = report_context['user'].company
         report_context['vat_number'] = cls._get_vat_number(report_context['user'].company)
+        report_context['get_place'] = cls.get_place
         return report_context
 
     @classmethod
     def _get_vat_number(cls, company):
         value = company.party.vat_number
         return '%s-%s-%s' % (value[:2], value[2:-1], value[-1])
+
+    @classmethod
+    def get_place(cls, party):
+        place = ''
+        invoice_address = party.address_get(type='invoice')
+        if invoice_address.city:
+            place = invoice_address.city
+        elif invoice_address.subdivision:
+            place = invoice_address.subdivision.name
+        return place
