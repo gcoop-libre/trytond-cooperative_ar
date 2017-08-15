@@ -5,6 +5,7 @@ this repository contains the full copyright notices and license terms. -->
     <field name="type" />
     <field name="status" />
     <field name="start_date" />
+    <field name="record" tree_invisible="1"/>
     <!--
     <field name="start_time" />
     <field name="end_time" />
