@@ -1,23 +1,25 @@
-#This file is part of Tryton.  The COPYRIGHT file at the top level of
-#this repository contains the full copyright notices and license terms.
+# This file is part of the cooperative_ar module for Tryton.
+# The COPYRIGHT file at the top level of this repository contains
+# the full copyright notices and license terms.
 from trytond.model import fields
 from trytond.pyson import Eval
 from trytond.pool import Pool, PoolMeta
 
 __all__ = ['FiscalYear']
 
+
 class FiscalYear:
     __metaclass__ = PoolMeta
     __name__ = 'account.fiscalyear'
     cooperative_receipt_sequence = fields.Many2One('ir.sequence',
-        'Cooperative Receipt Sequence', required=True,
-        domain=[
+        'Cooperative Receipt Sequence', required=True,  domain=[
             ('code', '=', 'account.cooperative.receipt'),
-            ['OR',
+            [
+                'OR',
                 ('company', '=', Eval('company')),
                 ('company', '=', None),
-                ],
             ],
+        ],
         context={
             'code': 'account.cooperative.receipt',
             'company': Eval('company'),
@@ -29,10 +31,11 @@ class FiscalYear:
         super(FiscalYear, cls).__setup__()
         cls._error_messages.update({
                 'change_cooperative_sequence': ('You can not change '
-                    'cooperative sequence in fiscal year "%s" because there are '
-                    'already posted receipts in this fiscal year.'),
-                'different_cooperative_sequence': ('Fiscal year "%(first)s" and '
-                    '"%(second)s" have the same cooperative receipt sequence.'),
+                    'cooperative sequence in fiscal year "%s" because there '
+                    'are already posted receipts in this fiscal year.'),
+                'different_cooperative_sequence': ('Fiscal year "%(first)s" '
+                    'and "%(second)s" have the same cooperative receipt '
+                    'sequence.'),
                 })
 
     @classmethod
@@ -63,16 +66,17 @@ class FiscalYear:
                     if not values.get(sequence):
                         continue
                     for fiscalyear in fiscalyears:
-                        if (getattr(fiscalyear, sequence)
-                                and (getattr(fiscalyear, sequence).id !=
+                        if (getattr(fiscalyear, sequence) and
+                                (getattr(fiscalyear, sequence).id !=
                                     values[sequence])):
                             if Receipt.search([
                                         ('date', '>=', fiscalyear.start_date),
                                         ('date', '<=', fiscalyear.end_date),
                                         ('number', '!=', None),
                                         ]):
-                                cls.raise_user_error('change_cooperative_sequence',
-                                    (fiscalyear.rec_name,))
+                                cls.raise_user_error(
+                                    'change_cooperative_sequence',
+                                    (fiscalyear.rec_name))
         super(FiscalYear, cls).write(*args)
 
     def get_sequence(self, field_name):

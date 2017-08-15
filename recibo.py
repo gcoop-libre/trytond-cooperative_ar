@@ -1,4 +1,7 @@
 #! -*- coding: utf8 -*-
+# This file is part of the cooperative_ar module for Tryton.
+# The COPYRIGHT file at the top level of this repository contains
+# the full copyright notices and license terms.
 from decimal import Decimal
 from trytond.model import ModelView, Workflow, ModelSQL, fields
 from trytond.pyson import Eval, If
@@ -14,21 +17,19 @@ _STATES = {
     'readonly': Eval('state') != 'draft',
 }
 
+
 class Recibo(Workflow, ModelSQL, ModelView):
-    "cooperative.partner.recibo"
-    __name__ = "cooperative.partner.recibo"
-    date = fields.Date('Date',
-            states={
+    'Cooperative receipt'
+    __name__ = 'cooperative.partner.recibo'
+    date = fields.Date('Date', states={
                 'readonly': (Eval('state') != 'draft')
             }, required=True)
-    amount = fields.Numeric('Amount',digits=(16,2),
-            states={
+    amount = fields.Numeric('Amount', digits=(16, 2), states={
                 'readonly': (Eval('state') != 'draft')
             }, required=True)
-    partner = fields.Many2One('cooperative.partner', 'Partner', required=True,
-            states={
+    partner = fields.Many2One('cooperative.partner', 'Partner', states={
                 'readonly': (Eval('state') != 'draft')
-            })
+            }, required=True)
     state = fields.Selection([
         ('draft', 'Draft'),
         ('confirmed', 'Confirm'),
@@ -40,29 +41,29 @@ class Recibo(Workflow, ModelSQL, ModelView):
     description = fields.Char('Description', size=None, states=_STATES,
         depends=_DEPENDS)
 
-    ## Integrando con asientos
-    party = fields.Function(fields.Many2One('party.party', 'Party',
-        required=True, states=_STATES, depends=_DEPENDS),'on_change_with_party')
-    company = fields.Many2One('company.company', 'Company', required=True,
-        states=_STATES, select=True, domain=[
+    # Integrando con asientos
+    party = fields.Function(fields.Many2One(
+            'party.party', 'Party', required=True, states=_STATES,
+            depends=_DEPENDS), 'on_change_with_party')
+    company = fields.Many2One('company.company', 'Company', states=_STATES,
+        domain=[
             ('id', If(Eval('context', {}).contains('company'), '=', '!='),
                 Eval('context', {}).get('company', -1)),
             ],
-        depends=_DEPENDS)
+        depends=_DEPENDS, required=True, select=True)
     accounting_date = fields.Date('Accounting Date', states=_STATES,
         depends=_DEPENDS)
-    confirmed_move = fields.Many2One('account.move', 'Confirmed Move', readonly=True)
-    paid_move = fields.Many2One('account.move', 'Paid Move', readonly=True,
-        states={
+    confirmed_move = fields.Many2One('account.move', 'Confirmed Move',
+        readonly=True)
+    paid_move = fields.Many2One('account.move', 'Paid Move', states={
             'invisible': Eval('state').in_(['draft', 'confirmed']),
-            })
-    journal = fields.Many2One('account.journal', 'Journal', required=True,
-        states=_STATES, depends=_DEPENDS)
-    currency = fields.Many2One('currency.currency', 'Currency', required=True,
-        states={
-            'readonly': ((Eval('state') != 'draft')
-                | (Eval('lines') & Eval('currency'))),
-            }, depends=['state', 'lines'])
+            }, readonly=True)
+    journal = fields.Many2One('account.journal', 'Journal', states=_STATES,
+        depends=_DEPENDS, required=True)
+    currency = fields.Many2One('currency.currency', 'Currency', states={
+            'readonly': ((Eval('state') != 'draft') | (Eval('lines') &
+                    Eval('currency'))),
+            }, depends=['state', 'lines'], required=True)
 
     @classmethod
     def __setup__(cls):
@@ -98,7 +99,10 @@ class Recibo(Workflow, ModelSQL, ModelView):
 
     @classmethod
     def get_sing_number(self, recibo_amount):
-        "Convert numbers in its equivalent string text representation in spanish"
+        '''
+        Convert numbers in its equivalent string text
+        representation in spanish
+        '''
         from singing_girl import Singer
         singer = Singer()
         return singer.sing(recibo_amount)
@@ -273,13 +277,15 @@ class Recibo(Workflow, ModelSQL, ModelView):
 
         move_lines = []
 
-        val = self._get_move_line(Date.today(), self.amount, account_payable.id, party_required=True)
+        val = self._get_move_line(Date.today(), self.amount,
+            account_payable.id, party_required=True)
         move_lines.append(val)
         # issue #4461
         # En vez de usar la cuenta "a cobrar" del party, deberia ser la
         # cuenta Retornos Asociados (5242) siempre fija, que esta seteada como
         # Expense (Gasto).
-        val = self._get_move_line(Date.today(), -self.amount, account_receivable.id, party_required=False)
+        val = self._get_move_line(Date.today(), -self.amount,
+            account_receivable.id, party_required=False)
         move_lines.append(val)
 
         move = self.create_move(move_lines)
@@ -306,9 +312,11 @@ class Recibo(Workflow, ModelSQL, ModelView):
 
         move_lines = []
 
-        val = self._get_move_line(Date.today(), self.amount, self.journal.credit_account.id, party_required=False)
+        val = self._get_move_line(Date.today(), self.amount,
+            self.journal.credit_account.id, party_required=False)
         move_lines.append(val)
-        val = self._get_move_line(Date.today(), -self.amount, account_payable.id, party_required=True)
+        val = self._get_move_line(Date.today(), -self.amount,
+            account_payable.id, party_required=True)
         move_lines.append(val)
 
         move = self.create_move(move_lines)
@@ -320,13 +328,15 @@ class Recibo(Workflow, ModelSQL, ModelView):
 
 
 class ReciboReport(Report):
+    'Report Receipt'
     __name__ = 'cooperative.partner.recibo'
 
     @classmethod
     def get_context(cls, records, data):
         report_context = super(ReciboReport, cls).get_context(records, data)
         report_context['company'] = report_context['user'].company
-        report_context['vat_number'] = cls._get_vat_number(report_context['user'].company)
+        report_context['vat_number'] = \
+            cls._get_vat_number(report_context['user'].company)
         report_context['get_place'] = cls.get_place
         return report_context
 

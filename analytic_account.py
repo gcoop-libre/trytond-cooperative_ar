@@ -1,29 +1,29 @@
 #! -*- coding: utf8 -*-
-#This file is part of Tryton.  The COPYRIGHT file at the top level of
-#this repository contains the full copyright notices and license terms.
+# This file is part of the cooperative_ar module for Tryton.
+# The COPYRIGHT file at the top level of this repository contains
+# the full copyright notices and license terms.
 import datetime
 from trytond.model import ModelView, ModelSQL, fields
-#from trytond.pyson import Eval
 from trytond.transaction import Transaction
-from trytond.pool import Pool, PoolMeta
+from trytond.pool import Pool
 from trytond.wizard import Wizard, StateView, StateAction, Button
 from trytond.report import Report
 
-__all__ = ['AnalyticAccountNota', 'PrintBalanceSocialStart', 'PrintBalanceSocial', 'BalanceSocial']
-__metaclass__ = PoolMeta
+__all__ = ['AnalyticAccountNota', 'PrintBalanceSocialStart',
+    'PrintBalanceSocial', 'BalanceSocial']
+
 
 class AnalyticAccountNota(ModelSQL, ModelView):
-    "AnalyticAccountNota"
+    'Notes Analytic Account'
     __name__ = 'analytic_account.account.nota'
 
     name = fields.Char('Name')
     date = fields.Date('Date')
     note = fields.Text('Note')
-    account = fields.Many2One('analytic_account.account', 'Account',
-            required=True, select=True, domain=[
-                ('root.name', '=', 'Balance Social Cooperativo'),
-                ('type', '=', 'normal'),
-            ])
+    account = fields.Many2One('analytic_account.account', 'Account', domain=[
+            ('root.name', '=', 'Balance Social Cooperativo'),
+            ('type', '=', 'normal'),
+        ], required=True, select=True)
 
     type = fields.Selection([
         ('line', 'Line'),
@@ -149,8 +149,8 @@ class BalanceSocial(Report):
             ('date', '<=', to_date),
             ('account', '=', analytic_account_id),
         ]
-        notas = AnalyticAccountNota.search(clause,
-                order=[('date', 'ASC'),('id', 'ASC')])
+        notas = AnalyticAccountNota.search(clause, order=[
+                ('date', 'ASC'), ('id', 'ASC')])
 
         return notas
 
@@ -162,8 +162,8 @@ class BalanceSocial(Report):
             ('date', '<=', to_date),
             ('account', '=', analytic_account_id),
         ]
-        notas = AnalyticAccountNota.search(clause,
-                order=[('date', 'ASC'),('id', 'ASC')])
+        notas = AnalyticAccountNota.search(clause, order=[
+                ('date', 'ASC'), ('id', 'ASC')])
 
         if notas == []:
             return False
@@ -191,9 +191,8 @@ class BalanceSocial(Report):
             ('status', '=', 'complete'),
         ]
 
-        meetings = Meeting.search(clause,
-                order=[('start_date', 'ASC'), ('type', 'ASC'),
-                       ('id', 'ASC')])
+        meetings = Meeting.search(clause, order=[
+                ('start_date', 'ASC'), ('type', 'ASC'), ('id', 'ASC')])
 
         return meetings
 
@@ -219,8 +218,8 @@ class BalanceSocial(Report):
             ('status', '=', 'active'),
         ]
 
-        partners = CooperativePartner.search(clause,
-                order=[('last_name', 'ASC'), ('id', 'ASC')])
+        partners = CooperativePartner.search(clause, order=[
+                ('last_name', 'ASC'), ('id', 'ASC')])
 
         return partners
 
@@ -231,8 +230,8 @@ class BalanceSocial(Report):
             ('status', '=', 'active'),
         ]
 
-        partners = CooperativePartner.search(clause,
-                order=[('last_name', 'ASC'), ('id', 'ASC')])
+        partners = CooperativePartner.search(clause, order=[
+                ('last_name', 'ASC'), ('id', 'ASC')])
 
         return partners
 
@@ -245,8 +244,8 @@ class BalanceSocial(Report):
             ('status', '=', 'give_up'),
         ]
 
-        partners = CooperativePartner.search(clause,
-                order=[('last_name', 'ASC'), ('id', 'ASC')])
+        partners = CooperativePartner.search(clause, order=[
+                ('last_name', 'ASC'), ('id', 'ASC')])
 
         return partners
 
@@ -259,24 +258,8 @@ class BalanceSocial(Report):
             ('status', '=', 'active'),
         ]
 
-        partners = CooperativePartner.search(clause,
-                order=[('last_name', 'ASC'), ('id', 'ASC')])
-
-        return partners
-
-
-
-    @classmethod
-    def get_partners_nuevos(self, from_date, to_date):
-        CooperativePartner = Pool().get('cooperative.partner')
-        clause = [
-            ('incorporation_date', '>=', from_date),
-            ('incorporation_date', '<=', to_date),
-            ('status', '=', 'active'),
-        ]
-
-        partners = CooperativePartner.search(clause,
-                order=[('last_name', 'ASC'), ('id', 'ASC')])
+        partners = CooperativePartner.search(clause, order=[
+                ('last_name', 'ASC'), ('id', 'ASC')])
 
         return partners
 
@@ -299,8 +282,8 @@ class BalanceSocial(Report):
             ('account', '=', analytic_account_id),
         ]
 
-        lines = AnalyticAccountLine.search(clause,
-                order=[('date', 'ASC'), ('id', 'ASC')])
+        lines = AnalyticAccountLine.search(clause, order=[
+                ('date', 'ASC'), ('id', 'ASC')])
 
         return lines
 
@@ -313,8 +296,8 @@ class BalanceSocial(Report):
             ('account', '=', analytic_account_id),
         ]
 
-        lines = AnalyticAccountLine.search(clause,
-                order=[('date', 'ASC'), ('id', 'ASC')])
+        lines = AnalyticAccountLine.search(clause, order=[
+                ('date', 'ASC'), ('id', 'ASC')])
 
         if lines == []:
             return False
