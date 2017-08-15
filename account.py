@@ -62,21 +62,21 @@ class FiscalYear:
 
         actions = iter(args)
         for fiscalyears, values in zip(actions, actions):
-            for sequence in ('cooperative_receipt_sequence'):
-                    if not values.get(sequence):
-                        continue
-                    for fiscalyear in fiscalyears:
-                        if (getattr(fiscalyear, sequence) and
-                                (getattr(fiscalyear, sequence).id !=
-                                    values[sequence])):
-                            if Receipt.search([
-                                        ('date', '>=', fiscalyear.start_date),
-                                        ('date', '<=', fiscalyear.end_date),
-                                        ('number', '!=', None),
-                                        ]):
-                                cls.raise_user_error(
-                                    'change_cooperative_sequence',
-                                    (fiscalyear.rec_name))
+            sequence = 'cooperative_receipt_sequence'
+            if not values.get(sequence):
+                continue
+            for fiscalyear in fiscalyears:
+                if (getattr(fiscalyear, sequence) and
+                        (getattr(fiscalyear, sequence).id !=
+                            values[sequence])):
+                    if Receipt.search([
+                                ('date', '>=', fiscalyear.start_date),
+                                ('date', '<=', fiscalyear.end_date),
+                                ('number', '!=', None),
+                                ]):
+                        cls.raise_user_error(
+                            'change_cooperative_sequence',
+                            (fiscalyear.rec_name))
         super(FiscalYear, cls).write(*args)
 
     def get_sequence(self, field_name):
