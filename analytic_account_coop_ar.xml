@@ -1,82 +1,68 @@
+<?xml version="1.0"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the
+     full copyright notices and license terms. -->
 <tryton>
-  <data>
-    <record id="balance_social_cooperativo" model="analytic_account.account">
-      <field name="name">Balance Social Cooperativo</field>
-      <field name="code">1*</field>
-      <field name="type">root</field>
-      <field name="display_balance">credit-debit</field>
-      <field name="currency">046</field>
-      <field name="state">opened</field>
-    </record>
-    <record id="libre_adhesion" model="analytic_account.account">
-      <field name="name">Primer principio: Libre adhesión</field>
-      <field name="code">11</field>
-      <field name="type">view</field>
-      <field name="currency">046</field>
-      <field name="display_balance">credit-debit</field>
-      <field name="state">opened</field>
-      <field name="parent" ref="balance_social_cooperativo" />
-      <field name="root" ref="balance_social_cooperativo" />
-    </record>
-    <record id="control_democratico_socios" model="analytic_account.account">
-      <field name="name">Segundo principio: Control democrático de los socios</field>
-      <field name="code">12</field>
-      <field name="type">view</field>
-      <field name="currency">046</field>
-      <field name="display_balance">credit-debit</field>
-      <field name="state">opened</field>
-      <field name="parent" ref="balance_social_cooperativo" />
-      <field name="root" ref="balance_social_cooperativo" />
-    </record>
-    <record id="participacion_economica_socios" model="analytic_account.account">
-      <field name="name">Tercer principio: Participación económica de los socios</field>
-      <field name="code">13</field>
-      <field name="type">view</field>
-      <field name="currency">046</field>
-      <field name="display_balance">credit-debit</field>
-      <field name="state">opened</field>
-      <field name="parent" ref="balance_social_cooperativo" />
-      <field name="root" ref="balance_social_cooperativo" />
-    </record>
-    <record id="autonomia_independecia" model="analytic_account.account">
-      <field name="name">Cuarto principio: Autonomía e indepencia</field>
-      <field name="code">14</field>
-      <field name="type">view</field>
-      <field name="currency">046</field>
-      <field name="display_balance">credit-debit</field>
-      <field name="state">opened</field>
-      <field name="parent" ref="balance_social_cooperativo" />
-      <field name="root" ref="balance_social_cooperativo" />
-    </record>
-    <record id="educacion_entrenamiento_info" model="analytic_account.account">
-      <field name="name">Quinto principio: Educación, entrenamiento e información</field>
-      <field name="code">15</field>
-      <field name="type">view</field>
-      <field name="currency">046</field>
-      <field name="display_balance">credit-debit</field>
-      <field name="state">opened</field>
-      <field name="parent" ref="balance_social_cooperativo" />
-      <field name="root" ref="balance_social_cooperativo" />
-    </record>
-    <record id="cooperacion_cooperativas" model="analytic_account.account">
-      <field name="name">Sexto principio: Cooperación entre cooperativas</field>
-      <field name="code">16</field>
-      <field name="type">view</field>
-      <field name="currency">046</field>
-      <field name="display_balance">credit-debit</field>
-      <field name="state">opened</field>
-      <field name="parent" ref="balance_social_cooperativo" />
-      <field name="root" ref="balance_social_cooperativo" />
-    </record>
-    <record id="compromiso_comunidad" model="analytic_account.account">
-      <field name="name">Septimo principio: Compromiso con la comunidad</field>
-      <field name="code">17</field>
-      <field name="type">view</field>
-      <field name="currency">046</field>
-      <field name="display_balance">credit-debit</field>
-      <field name="state">opened</field>
-      <field name="parent" ref="balance_social_cooperativo" />
-      <field name="root" ref="balance_social_cooperativo" />
-    </record>
-  </data>
+    <data>
+        <record id="root" model="analytic_account.template">
+          <field name="name" lang="es">Balance Social Cooperativo</field>
+          <field name="type">root</field>
+          <field name="state">opened</field>
+        </record>
+        <record id="libre_adhesion" model="analytic_account.template">
+          <field name="name" lang="es">Primer principio: Libre adhesión</field>
+          <field name="code">1*</field>
+          <field name="type">view</field>
+          <field name="state">opened</field>
+          <field name="parent" ref="root" />
+          <field name="root" ref="root" />
+        </record>
+        <record id="control_democratico_socios" model="analytic_account.template">
+          <field name="name" lang="es">Segundo principio: Control democrático de los socios</field>
+          <field name="code">2*</field>
+          <field name="type">view</field>
+          <field name="state">opened</field>
+          <field name="parent" ref="root" />
+          <field name="root" ref="root" />
+        </record>
+        <record id="participacion_economica_socios" model="analytic_account.template">
+          <field name="name" lang="es">Tercer principio: Participación económica de los socios</field>
+          <field name="code">3*</field>
+          <field name="type">view</field>
+          <field name="state">opened</field>
+          <field name="parent" ref="root" />
+          <field name="root" ref="root" />
+        </record>
+        <record id="autonomia_independecia" model="analytic_account.template">
+          <field name="name" lang="es">Cuarto principio: Autonomía e indepencia</field>
+          <field name="code">4*</field>
+          <field name="type">view</field>
+          <field name="state">opened</field>
+          <field name="parent" ref="root" />
+          <field name="root" ref="root" />
+        </record>
+        <record id="educacion_entrenamiento_info" model="analytic_account.template">
+          <field name="name" lang="es">Quinto principio: Educación, entrenamiento e información</field>
+          <field name="code">5*</field>
+          <field name="type">view</field>
+          <field name="state">opened</field>
+          <field name="parent" ref="root" />
+          <field name="root" ref="root" />
+        </record>
+        <record id="cooperacion_cooperativas" model="analytic_account.template">
+          <field name="name" lang="es">Sexto principio: Cooperación entre cooperativas</field>
+          <field name="code">6*</field>
+          <field name="type">view</field>
+          <field name="state">opened</field>
+          <field name="parent" ref="root" />
+          <field name="root" ref="root" />
+        </record>
+        <record id="compromiso_comunidad" model="analytic_account.template">
+          <field name="name" lang="es">Septimo principio: Compromiso con la comunidad</field>
+          <field name="code">7*</field>
+          <field name="type">view</field>
+          <field name="state">opened</field>
+          <field name="parent" ref="root" />
+          <field name="root" ref="root" />
+        </record>
+    </data>
 </tryton>
