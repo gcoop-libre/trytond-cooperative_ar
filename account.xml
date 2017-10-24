@@ -69,6 +69,11 @@ this repository contains the full copyright notices and license terms. -->
             <field name="report">cooperative_ar/balance_social.odt</field>
         </record>
 
+        <record model="ir.module.config_wizard.item"
+            id="config_wizard_item_chart_analytic_account">
+            <field name="action" ref="analytic_account_chart_template.wizard_create_chart"/>
+        </record>
+
         <menuitem action="act_analytic_account_nota_form" icon="tryton-list" id="menu_analytic_account_nota" name="Balance Social" parent="menu_cooperative_ar" sequence="1" />
     </data>
 </tryton>
