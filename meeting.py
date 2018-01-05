@@ -4,8 +4,9 @@
 # the full copyright notices and license terms.
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.pyson import Eval
+from trytond.report import Report
 
-__all__ = ['Meeting']
+__all__ = ['Meeting', 'MeetingReport']
 
 STATES = {'required': Eval('status') == 'complete'}
 
@@ -29,3 +30,19 @@ class Meeting(ModelSQL, ModelView):
     partners = fields.Many2Many('cooperative.partner-meeting', 'meeting',
         'partner', 'Partner')
     record = fields.Text('Record', states=STATES)
+
+
+class MeetingReport(Report):
+    __name__ = 'cooperative.meeting'
+
+    @classmethod
+    def get_context(cls, records, data):
+        report_context = super(MeetingReport, cls).get_context(records,
+            data)
+        report_context['company'] = report_context['user'].company
+        report_context['format_vat_number'] = cls.format_vat_number
+        return report_context
+
+    @classmethod
+    def format_vat_number(cls, vat_number=''):
+        return '%s-%s-%s' % (vat_number[:2], vat_number[2:-1], vat_number[-1])
