@@ -1,4 +1,7 @@
 #! -*- coding: utf8 -*-
+# This file is part of the cooperative_ar module for Tryton.
+# The COPYRIGHT file at the top level of this repository contains
+# the full copyright notices and license terms.
 from decimal import Decimal
 from trytond.model import ModelView, Workflow, ModelSQL, fields
 from trytond.pyson import Eval, If
@@ -14,21 +17,19 @@ _STATES = {
     'readonly': Eval('state') != 'draft',
 }
 
+
 class Recibo(Workflow, ModelSQL, ModelView):
-    "cooperative.partner.recibo"
-    __name__ = "cooperative.partner.recibo"
-    date = fields.Date('Date',
-            states={
+    'Cooperative receipt'
+    __name__ = 'cooperative.partner.recibo'
+    date = fields.Date('Date', states={
                 'readonly': (Eval('state') != 'draft')
             }, required=True)
-    amount = fields.Numeric('Amount',digits=(16,2),
-            states={
+    amount = fields.Numeric('Amount', digits=(16, 2), states={
                 'readonly': (Eval('state') != 'draft')
             }, required=True)
-    partner = fields.Many2One('cooperative.partner', 'Partner', required=True,
-            states={
+    partner = fields.Many2One('cooperative.partner', 'Partner', states={
                 'readonly': (Eval('state') != 'draft')
-            })
+            }, required=True)
     state = fields.Selection([
         ('draft', 'Draft'),
         ('confirmed', 'Confirm'),
@@ -40,33 +41,39 @@ class Recibo(Workflow, ModelSQL, ModelView):
     description = fields.Char('Description', size=None, states=_STATES,
         depends=_DEPENDS)
 
-    ## Integrando con asientos
-    party = fields.Function(fields.Many2One('party.party', 'Party',
-        required=True, states=_STATES, depends=_DEPENDS),'on_change_with_party')
-    company = fields.Many2One('company.company', 'Company', required=True,
-        states=_STATES, select=True, domain=[
+    # Integrando con asientos
+    party = fields.Function(fields.Many2One(
+            'party.party', 'Party', required=True, states=_STATES,
+            depends=_DEPENDS), 'on_change_with_party')
+    company = fields.Many2One('company.company', 'Company', states=_STATES,
+        domain=[
             ('id', If(Eval('context', {}).contains('company'), '=', '!='),
                 Eval('context', {}).get('company', -1)),
             ],
-        depends=_DEPENDS)
+        depends=_DEPENDS, required=True, select=True)
     accounting_date = fields.Date('Accounting Date', states=_STATES,
         depends=_DEPENDS)
-    confirmed_move = fields.Many2One('account.move', 'Confirmed Move', readonly=True)
-    paid_move = fields.Many2One('account.move', 'Paid Move', readonly=True,
-        states={
+    confirmed_move = fields.Many2One('account.move', 'Confirmed Move',
+        readonly=True)
+    paid_move = fields.Many2One('account.move', 'Paid Move', states={
             'invisible': Eval('state').in_(['draft', 'confirmed']),
-            })
-    journal = fields.Many2One('account.journal', 'Journal', required=True,
-        states=_STATES, depends=_DEPENDS)
-    currency = fields.Many2One('currency.currency', 'Currency', required=True,
-        states={
-            'readonly': ((Eval('state') != 'draft')
-                | (Eval('lines') & Eval('currency'))),
-            }, depends=['state', 'lines'])
+            }, readonly=True)
+    journal = fields.Many2One('account.journal', 'Journal', states=_STATES,
+        depends=_DEPENDS, required=True)
+    currency = fields.Many2One('currency.currency', 'Currency', states={
+            'readonly': ((Eval('state') != 'draft') | (Eval('lines') &
+                    Eval('currency'))),
+            }, depends=['state', 'lines'], required=True)
 
     @classmethod
     def __setup__(cls):
         super(Recibo, cls).__setup__()
+        cls._error_messages.update({
+                'missing_journal_accounts': ('You must set debit/credit '
+                    'account at the journal "%(journal)s".'),
+                'missing_config_accounts': ('You must set debit/credit '
+                    'accounts at the configuration module.'),
+                })
         cls._transitions |= set((
                 ('draft', 'confirmed'),
                 ('draft', 'cancel'),
@@ -75,7 +82,6 @@ class Recibo(Workflow, ModelSQL, ModelView):
                 ('confirmed', 'cancel'),
                 ('cancel', 'draft'),
                 ))
-
         cls._buttons.update({
                 'cancel': {
                     'invisible': ~Eval('state').in_(['draft']),
@@ -107,7 +113,10 @@ class Recibo(Workflow, ModelSQL, ModelView):
 
     @classmethod
     def get_sing_number(self, recibo_amount):
-        "Convert numbers in its equivalent string text representation in spanish"
+        '''
+        Convert numbers in its equivalent string text
+        representation in spanish
+        '''
         from singing_girl import Singer
         singer = Singer()
         return singer.sing(recibo_amount)
@@ -271,17 +280,26 @@ class Recibo(Workflow, ModelSQL, ModelView):
         '''
         pool = Pool()
         Date = pool.get('ir.date')
+        Config = Pool().get('cooperative_ar.configuration')
+        config = Config(1)
+        if (not config.receipt_account_receivable and not
+                config.receipt_account_payable):
+            self.raise_user_error('missing_config_accounts')
+
+        account_receivable = config.receipt_account_receivable
+        account_payable = config.receipt_account_payable
 
         move_lines = []
 
-        val = self._get_move_line(Date.today(), self.amount, self.party.account_payable.id, party_required=True)
+        val = self._get_move_line(Date.today(), self.amount,
+            account_payable.id, party_required=True)
         move_lines.append(val)
         # issue #4461
         # En vez de usar la cuenta "a cobrar" del party, deberia ser la
         # cuenta Retornos Asociados (5242) siempre fija, que esta seteada como
         # Expense (Gasto).
-        account_receivable = self.party.account_receivable.search([('rec_name','like', '%5242%')])[0]
-        val = self._get_move_line(Date.today(), -self.amount, account_receivable.id, party_required=True)
+        val = self._get_move_line(Date.today(), -self.amount,
+            account_receivable.id, party_required=False)
         move_lines.append(val)
 
         move = self.create_move(move_lines)
@@ -297,12 +315,22 @@ class Recibo(Workflow, ModelSQL, ModelView):
         '''
         pool = Pool()
         Date = pool.get('ir.date')
+        Config = Pool().get('cooperative_ar.configuration')
+        config = Config(1)
+        if not self.journal.credit_account:
+            self.raise_user_error('missing_journal_accounts', {
+                    'journal': self.journal.name,
+                    })
+
+        account_payable = config.receipt_account_payable
 
         move_lines = []
 
-        val = self._get_move_line(Date.today(), self.amount, self.journal.credit_account.id, party_required=False)
+        val = self._get_move_line(Date.today(), self.amount,
+            self.journal.credit_account.id, party_required=False)
         move_lines.append(val)
-        val = self._get_move_line(Date.today(), -self.amount, self.party.account_payable.id, party_required=True)
+        val = self._get_move_line(Date.today(), -self.amount,
+            account_payable.id, party_required=True)
         move_lines.append(val)
 
         move = self.create_move(move_lines)
@@ -314,16 +342,29 @@ class Recibo(Workflow, ModelSQL, ModelView):
 
 
 class ReciboReport(Report):
+    'Report Receipt'
     __name__ = 'cooperative.partner.recibo'
 
     @classmethod
     def get_context(cls, records, data):
         report_context = super(ReciboReport, cls).get_context(records, data)
         report_context['company'] = report_context['user'].company
-        report_context['vat_number'] = cls._get_vat_number(report_context['user'].company)
+        report_context['vat_number'] = \
+            cls._get_vat_number(report_context['user'].company)
+        report_context['get_place'] = cls.get_place
         return report_context
 
     @classmethod
     def _get_vat_number(cls, company):
         value = company.party.vat_number
         return '%s-%s-%s' % (value[:2], value[2:-1], value[-1])
+
+    @classmethod
+    def get_place(cls, party):
+        place = ''
+        invoice_address = party.address_get(type='invoice')
+        if invoice_address.city:
+            place = invoice_address.city
+        elif invoice_address.subdivision:
+            place = invoice_address.subdivision.name
+        return place

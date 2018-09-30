@@ -7,19 +7,22 @@ from .sanction import *
 from .recibo import *
 from .account import *
 from .analytic_account import *
+from . import configuration
 
 
 def register():
-    Pool.register(Partner,
-                  Meeting,
-                  Vacation,
-                  PartnerMeeting,
-                  Sanction,
-                  Recibo,
-                  FiscalYear,
-                  AnalyticAccountNota,
-                  PrintBalanceSocialStart,
-                  module='cooperative_ar', type_='model')
+    Pool.register(
+        configuration.Configuration,
+        Partner,
+        Meeting,
+        Vacation,
+        PartnerMeeting,
+        Sanction,
+        Recibo,
+        FiscalYear,
+        AnalyticAccountNota,
+        PrintBalanceSocialStart,
+        module='cooperative_ar', type_='model')
     Pool.register(
         PrintBalanceSocial,
         module='cooperative_ar', type_='wizard')
