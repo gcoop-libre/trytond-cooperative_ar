@@ -25,7 +25,9 @@ class Meeting(ModelSQL, ModelView):
 
     partners = fields.Many2Many('cooperative.partner-meeting',
                                 'meeting', 'partner',
-                                'Partner')
+                                'Partner', domain=[
+                                ('status', '=', 'active'),
+                                ])
 
     record = fields.Text('Record',
                          states=STATES,
