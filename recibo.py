@@ -96,6 +96,20 @@ class Recibo(Workflow, ModelSQL, ModelView):
                     'invisible': ~Eval('state').in_(['draft']),
                     },
                 })
+        cls._error_messages.update({
+                'delete_numbered': ('The numbered receipt "%s" can not be '
+                    'deleted.'),
+                })
+
+    @classmethod
+    def delete(cls, receipts):
+        #cls.check_modify(invoices)
+        # Cancel before delete
+        #cls.cancel(invoices)
+        for receipt in receipts:
+            if receipt.number:
+                cls.raise_user_error('delete_numbered', (receipt.rec_name,))
+        super(Recibo, cls).delete(receipts)
 
     @classmethod
     def get_sing_number(self, recibo_amount):
