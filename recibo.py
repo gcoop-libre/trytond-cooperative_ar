@@ -102,10 +102,20 @@ class Recibo(Workflow, ModelSQL, ModelView):
                 })
 
     @classmethod
+    def copy(cls, receipts, default=None):
+        if default is None:
+            default = {}
+        default = default.copy()
+        default['number'] = None
+        default['state'] = None
+        default['accounting_date'] = None
+        default['date'] = None
+        default['confirmed_move'] = None
+        default['paid_move'] = None
+        return super(Recibo, cls).copy(receipts, default=default)
+
+    @classmethod
     def delete(cls, receipts):
-        #cls.check_modify(invoices)
-        # Cancel before delete
-        #cls.cancel(invoices)
         for receipt in receipts:
             if receipt.number:
                 cls.raise_user_error('delete_numbered', (receipt.rec_name,))
