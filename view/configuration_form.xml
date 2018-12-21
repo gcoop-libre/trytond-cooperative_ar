@@ -6,4 +6,6 @@ this repository contains the full copyright notices and license terms. -->
     <field name="receipt_account_receivable"/>
     <label name="receipt_account_payable"/>
     <field name="receipt_account_payable"/>
+    <label name="receipt_sequence"/>
+    <field name="receipt_sequence"/>
 </form>
