@@ -73,6 +73,10 @@ class Recibo(Workflow, ModelSQL, ModelView):
                     'account at the journal "%(journal)s".'),
                 'missing_config_accounts': ('You must set debit/credit '
                     'accounts at the configuration module.'),
+                'delete_numbered': ('The numbered receipt "%s" can not be '
+                    'deleted.'),
+                'no_cooperative_sequence': ('You must set a receipt sequence '
+                    'at the configuration module.'),
                 })
         cls._transitions |= set((
                 ('draft', 'confirmed'),
@@ -95,10 +99,6 @@ class Recibo(Workflow, ModelSQL, ModelView):
                 'confirmed': {
                     'invisible': ~Eval('state').in_(['draft']),
                     },
-                })
-        cls._error_messages.update({
-                'delete_numbered': ('The numbered receipt "%s" can not be '
-                    'deleted.'),
                 })
 
     @classmethod
@@ -213,23 +213,17 @@ class Recibo(Workflow, ModelSQL, ModelView):
         Set number to the receipt
         '''
         pool = Pool()
-        FiscalYear = pool.get('account.fiscalyear')
         Date = pool.get('ir.date')
         Sequence = pool.get('ir.sequence')
+        Configuration = pool.get('cooperative_ar.configuration')
 
         if self.number:
             return
 
-        accounting_date = self.accounting_date or self.date
-        fiscalyear_id = FiscalYear.find(self.company.id,
-            date=accounting_date)
-        fiscalyear = FiscalYear(fiscalyear_id)
-        sequence = fiscalyear.get_sequence('cooperative_receipt')
+        config = Configuration(1)
+        sequence = config.receipt_sequence
         if not sequence:
-            self.raise_user_error('no_cooperative_sequence', {
-                    'receipt': self.rec_name,
-                    'fiscalyear': fiscalyear.rec_name,
-                    })
+            self.raise_user_error('no_cooperative_sequence')
 
         with Transaction().set_context(
                 date=self.date or Date.today()):

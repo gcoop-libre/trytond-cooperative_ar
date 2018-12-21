@@ -27,3 +27,7 @@ class Configuration(ModelSingleton, ModelSQL, ModelView):
                 'required': Bool(Eval('context', {}).get('company')),
                 'invisible': ~Eval('context', {}).get('company'),
                 }))
+    receipt_sequence = fields.Property(fields.Many2One('ir.sequence',
+            'Receipt Sequence', domain=[
+                ('code', '=', 'account.cooperative.receipt'),
+                ]))
