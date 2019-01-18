@@ -39,7 +39,7 @@
     </record>
     <record model="ir.action.keyword" id="report_meeting_keyword">
         <field name="keyword">form_print</field>
-        <field name="model">cooperative,meeting,-1</field>
+        <field name="model">cooperative.meeting,-1</field>
         <field name="action" ref="report_meeting"/>
     </record>
     <menuitem action="act_meeting_form" icon="tryton-list" id="menu_meeting_form" name="" parent="menu_cooperative_ar" sequence="1" />

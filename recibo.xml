@@ -55,7 +55,7 @@
         </record>
         <record model="ir.sequence.type-res.group"
             id="seq_type_cooperative_receipt_group_account_admin">
-            <field name="sequence_type" ref="seq_type_account_cooperative_receipt"/>
+            <field name="sequence_type" ref="seq_type_cooperative_receipt"/>
             <field name="group" ref="group_cooperative_ar_admin"/>
         </record>
 
