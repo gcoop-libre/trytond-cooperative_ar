@@ -5,7 +5,6 @@ from .vacation import *
 from .partnermeeting import *
 from .sanction import *
 from .recibo import *
-from .account import *
 from .analytic_account import *
 from . import configuration
 
@@ -19,7 +18,6 @@ def register():
         PartnerMeeting,
         Sanction,
         Recibo,
-        FiscalYear,
         AnalyticAccountNota,
         PrintBalanceSocialStart,
         module='cooperative_ar', type_='model')

@@ -61,9 +61,8 @@ class Recibo(Workflow, ModelSQL, ModelView):
     journal = fields.Many2One('account.journal', 'Journal', states=_STATES,
         depends=_DEPENDS, required=True)
     currency = fields.Many2One('currency.currency', 'Currency', states={
-            'readonly': ((Eval('state') != 'draft') | (Eval('lines') &
-                    Eval('currency'))),
-            }, depends=['state', 'lines'], required=True)
+            'readonly': Eval('state') != 'draft',
+            }, depends=['state'], required=True)
 
     @classmethod
     def __setup__(cls):
