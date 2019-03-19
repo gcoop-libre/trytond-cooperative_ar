@@ -7,10 +7,7 @@ from setuptools import setup
 import re
 import os
 import io
-try:
-    from configparser import ConfigParser
-except ImportError:
-    from ConfigParser import ConfigParser
+from configparser import ConfigParser
 
 
 def read(fname):
@@ -38,7 +35,7 @@ major_version = int(major_version)
 minor_version = int(minor_version)
 name = 'trytonar_cooperative_ar'
 
-download_url = 'https://github.com/gcoop-libre/cooperative_ar/tree/%s.%s' % (
+download_url = 'https://github.com/gcoop-libre/trytond-cooperative_ar/tree/%s.%s' % (
     major_version, minor_version)
 
 requires = []
@@ -55,7 +52,7 @@ setup(name=name,
     description='Tryton module add functionality to Cooperative Work.',
     long_description=read('README'),
     author='tryton-ar',
-    url='https://github.com/tryton-ar/cooperative_ar',
+    url='https://github.com/gcoop-libre/trytond-cooperative_ar',
     download_url=download_url,
     package_dir={'trytond.modules.cooperative_ar': '.'},
     packages=[
@@ -64,7 +61,7 @@ setup(name=name,
         ],
     package_data={
         'trytond.modules.cooperative_ar': (info.get('xml', [])
-            + ['tryton.cfg', 'view/*.xml', 'locale/*.po', '*.odt',
+            + ['tryton.cfg', 'view/*.xml', 'locale/*.po', '*.fodt',
                 'icons/*.svg']),
         },
     classifiers=[
@@ -78,7 +75,6 @@ setup(name=name,
         'Natural Language :: English',
         'Natural Language :: Spanish',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
@@ -89,6 +85,7 @@ setup(name=name,
         'Topic :: Office/Business :: Financial :: Accounting',
         ],
     license='GPL-3',
+    python_requires='>=3.4',
     install_requires=requires,
     dependency_links=dependency_links,
     zip_safe=False,
@@ -99,5 +96,4 @@ setup(name=name,
     test_suite='tests',
     test_loader='trytond.test_loader:Loader',
     tests_require=tests_require,
-    use_2to3=True,
     )

@@ -17,9 +17,9 @@ class Vacation(ModelSQL, ModelView):
     year = fields.Char('Year')
     partner = fields.Many2One('cooperative.partner', 'Partner', required=True)
     type = fields.Selection([
-        ('licencia_examen', u'Licencia Examen'),
-        ('licencia_medica', u'Licencia Médica'),
-        ('licencia_paternidad', u'Licencia Paternidad / Maternidad'),
-        ('otras', u'Otras Licencias'),
-        ('vacaciones', u'Vacaciones'),
+        ('licencia_examen', 'Licencia Examen'),
+        ('licencia_medica', 'Licencia Médica'),
+        ('licencia_paternidad', 'Licencia Paternidad / Maternidad'),
+        ('otras', 'Otras Licencias'),
+        ('vacaciones', 'Vacaciones'),
         ], 'Tipo', required=True)

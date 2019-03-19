@@ -16,7 +16,7 @@ class Sanction(ModelSQL, ModelView):
     response = fields.Text('Response')
     partner = fields.Many2One('cooperative.partner', 'Partner', required=True)
     type = fields.Selection([
-        ('atencion', u'Llamada de Atención'),
-        ('apercibimiento', u'Apercibimiento'),
-        ('exclusion', u'Exclusión'),
+        ('atencion', 'Llamada de Atención'),
+        ('apercibimiento', 'Apercibimiento'),
+        ('exclusion', 'Exclusión'),
         ], 'Tipo', required=True)
