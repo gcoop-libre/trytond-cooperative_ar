@@ -272,7 +272,7 @@ class Recibo(Workflow, ModelSQL, ModelView):
                     'journal': self.journal.id,
                     'period': period_id,
                     'date': self.date,
-        #            'origin': str(self),
+                    # 'origin': str(self),
                     'lines': [('create', move_lines)],
                     }])
         return move

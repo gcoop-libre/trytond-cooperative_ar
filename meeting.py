@@ -29,10 +29,10 @@ class Meeting(ModelSQL, ModelView):
     end_time = fields.Time('End Time', states=STATES)
     record = fields.Text('Record', states=STATES)
     partners = fields.Many2Many('cooperative.partner-meeting',
-                                'meeting', 'partner',
-                                'Partner', domain=[
-                                ('status', '=', 'active'),
-                                ])
+        'meeting', 'partner', 'Partner',
+        domain=[
+            ('status', '=', 'active'),
+            ])
 
 
 class MeetingReport(Report):

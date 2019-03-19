@@ -20,7 +20,8 @@ class AnalyticAccountNota(ModelSQL, ModelView):
     name = fields.Char('Name')
     date = fields.Date('Date')
     note = fields.Text('Note')
-    account = fields.Many2One('analytic_account.account', 'Account', domain=[
+    account = fields.Many2One('analytic_account.account', 'Account',
+        domain=[
             ('root.name', '=', 'Balance Social Cooperativo'),
             ('type', '=', 'normal'),
         ], required=True, select=True)
@@ -39,7 +40,7 @@ class AnalyticAccountNota(ModelSQL, ModelView):
 
 class PrintBalanceSocialStart(ModelView):
     'Print Balance Social'
-    __name__ = 'analytic_account.account.nota.print_balance_social.start'
+    __name__ = 'analytic_account.print_balance_social.start'
 
     from_date = fields.Date('From Date', required=True)
     to_date = fields.Date('To Date', required=True)
@@ -63,7 +64,7 @@ class PrintBalanceSocialStart(ModelView):
 class PrintBalanceSocial(Wizard):
     'Print Balance Social'
     __name__ = 'analytic_account.account.nota.print_balance_social'
-    start = StateView('analytic_account.account.nota.print_balance_social.start',
+    start = StateView('analytic_account.print_balance_social.start',
         'cooperative_ar.print_balance_social_start_view_form', [
             Button('Cancel', 'end', 'tryton-cancel'),
             Button('Print', 'print_', 'tryton-print', default=True),
@@ -113,7 +114,8 @@ class BalanceSocial(Report):
         report_context['get_notas'] = cls.get_notas
         report_context['has_notas'] = cls.has_notas
         report_context['get_analytic_accounts'] = cls.get_analytic_accounts
-        report_context['get_analytic_subaccounts'] = cls.get_analytic_subaccounts
+        report_context['get_analytic_subaccounts'] = \
+            cls.get_analytic_subaccounts
         report_context['get_partners_birthdate'] = cls.get_partners_birthdate
         report_context['get_birthdate'] = cls.get_birthdate
         report_context['get_meeting_type'] = cls.get_meeting_type
