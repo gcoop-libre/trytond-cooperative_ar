@@ -42,6 +42,7 @@
         <field name="model">cooperative.meeting,-1</field>
         <field name="action" ref="report_meeting"/>
     </record>
-    <menuitem action="act_meeting_form" icon="tryton-list" id="menu_meeting_form" name="" parent="menu_cooperative_ar" sequence="1" />
+    <menuitem action="act_meeting_form" id="menu_meeting_form" 
+        parent="menu_cooperative_ar" sequence="1" />
   </data>
 </tryton>

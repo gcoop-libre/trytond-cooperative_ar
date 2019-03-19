@@ -41,8 +41,8 @@
             <field name="action" ref="report_recibo"/>
         </record>
 
-        <menuitem action="act_recibo_form" icon="tryton-list"
-            id="menu_recibo_form" name="Receipt" parent="menu_cooperative_ar" sequence="1" />
+        <menuitem action="act_recibo_form"
+            id="menu_recibo_form" parent="menu_cooperative_ar" sequence="1" />
 
         <record model="ir.sequence.type" id="seq_type_cooperative_receipt">
             <field name="name">Cooperative Receipt</field>

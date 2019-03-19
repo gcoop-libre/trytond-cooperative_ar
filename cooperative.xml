@@ -50,7 +50,7 @@ copyright notices and license terms. -->
             <field name="group" ref="group_cooperative_ar"/>
         </record>
         <menuitem name="Configuration" parent="menu_cooperative_ar"
-            id="menu_configuration" sequence="0" icon="tryton-preferences"/>
+            id="menu_configuration" sequence="0"/>
         <record model="ir.ui.menu-res.group"
             id="menu_configuration_group_cooperative_ar_admin">
             <field name="menu" ref="menu_configuration"/>

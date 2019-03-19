@@ -33,7 +33,7 @@ this repository contains the full copyright notices and license terms. -->
         </record>
 
         <menuitem parent="account.menu_reporting" action="wizard_print_balance_social"
-            id="menu_print_balance_social" icon="tryton-print"/>
+            id="menu_print_balance_social"/>
 
         <record model="ir.action.report" id="report_balance_social">
             <field name="name">Balance Social</field>
@@ -46,6 +46,8 @@ this repository contains the full copyright notices and license terms. -->
             <field name="action" ref="analytic_account_chart_template.wizard_create_chart"/>
         </record>
 
-        <menuitem action="act_analytic_account_nota_form" icon="tryton-list" id="menu_analytic_account_nota" name="Balance Social" parent="menu_cooperative_ar" sequence="1" />
+        <menuitem action="act_analytic_account_nota_form" 
+            id="menu_analytic_account_nota" name="Balance Social" 
+            parent="menu_cooperative_ar" sequence="1" />
     </data>
 </tryton>
