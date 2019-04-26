@@ -13,7 +13,6 @@ __all__ = ['Partner']
 class Partner(ModelSQL, ModelView):
     'Partner'
     __name__ = 'cooperative.partner'
-    _rec_name = 'party'
     status = fields.Selection([
         ('active', 'Active'),
         ('give_up', 'Give Up'),

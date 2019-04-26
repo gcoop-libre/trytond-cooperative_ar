@@ -12,6 +12,8 @@ from . import configuration
 def register():
     Pool.register(
         configuration.Configuration,
+        configuration.ConfigurationSequence,
+        configuration.ConfigurationReceiptAccount,
         Partner,
         Meeting,
         Vacation,
