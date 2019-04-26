@@ -4,6 +4,6 @@
 try:
     from trytond.modules.cooperative_ar.tests.test_cooperative_ar import suite
 except ImportError:
-    from .tests import suite
+    from .test_cooperative_ar import suite
 
 __all__ = ['suite']
