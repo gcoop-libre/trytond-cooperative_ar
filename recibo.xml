@@ -63,5 +63,26 @@
             <field name="name">Cooperative Receipt</field>
             <field name="code">account.cooperative.receipt</field>
         </record>
+
+        <record model="ir.model.button" id="recibo_draft_button">
+            <field name="name">draft</field>
+            <field name="string">Draft</field>
+            <field name="model" search="[('model', '=', 'cooperative.partner.recibo')]"/>
+        </record>
+        <record model="ir.model.button" id="recibo_confirmed_button">
+            <field name="name">confirmed</field>
+            <field name="string">Confirmed</field>
+            <field name="model" search="[('model', '=', 'cooperative.partner.recibo')]"/>
+        </record>
+        <record model="ir.model.button" id="recibo_paid_button">
+            <field name="name">paid</field>
+            <field name="string">Paid</field>
+            <field name="model" search="[('model', '=', 'cooperative.partner.recibo')]"/>
+        </record>
+        <record model="ir.model.button" id="recibo_cancel_button">
+            <field name="name">cancel</field>
+            <field name="string">Cancel</field>
+            <field name="model" search="[('model', '=', 'cooperative.partner.recibo')]"/>
+        </record>
     </data>
 </tryton>

@@ -63,7 +63,7 @@ class PrintBalanceSocialStart(ModelView):
 
 class PrintBalanceSocial(Wizard):
     'Print Balance Social'
-    __name__ = 'analytic_account.account.nota.print_balance_social'
+    __name__ = 'analytic_account.print_balance_social'
     start = StateView('analytic_account.print_balance_social.start',
         'cooperative_ar.print_balance_social_start_view_form', [
             Button('Cancel', 'end', 'tryton-cancel'),
