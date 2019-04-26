@@ -6,6 +6,8 @@ from trytond.model import MultiValueMixin, ValueMixin
 from trytond import backend
 from trytond.tools.multivalue import migrate_property
 from trytond.pyson import Eval
+from trytond.modules.company.model import (
+    CompanyMultiValueMixin, CompanyValueMixin)
 
 __all__ = ['Configuration', 'ConfigurationSequence',
     'ConfigurationReceiptAccount']
