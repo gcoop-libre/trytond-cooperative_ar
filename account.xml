@@ -22,14 +22,14 @@ this repository contains the full copyright notices and license terms. -->
         </record>
 
         <record model="ir.ui.view" id="print_balance_social_start_view_form">
-            <field name="model">analytic_account.account.nota.print_balance_social.start</field>
+            <field name="model">analytic_account.print_balance_social.start</field>
             <field name="type">form</field>
             <field name="name">print_balance_social_start_form</field>
         </record>
 
         <record model="ir.action.wizard" id="wizard_print_balance_social">
             <field name="name">Print Balance Social</field>
-            <field name="wiz_name">analytic_account.account.nota.print_balance_social</field>
+            <field name="wiz_name">analytic_account.print_balance_social</field>
         </record>
 
         <menuitem parent="account.menu_reporting" action="wizard_print_balance_social"
