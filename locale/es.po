@@ -4,11 +4,11 @@ msgstr "Content-Type: text/plain; charset=utf-8\n"
 
 msgctxt "error:cooperative.partner:"
 msgid "The file must be unique."
-msgstr "El archivo debe ser único"
+msgstr "El archivo debe ser Ãºnico"
 
 msgctxt "error:party.party:"
 msgid "The VAT number must be unique in each country."
-msgstr "El CUIT debe ser único en cada país"
+msgstr "El CUIT debe ser Ãºnico en cada paÃ­s"
 
 msgctxt "error:cooperative.partner.recibo:"
 msgid "You must set debit/credit account at the journal \"%(journal)s\"."
@@ -16,17 +16,17 @@ msgstr "Debes configurar la cuenta debito/credito del diario \"%(journal)s\"."
 
 msgctxt "error:cooperative.partner.recibo:"
 msgid "You must set debit/credit accounts at the configuration module."
-msgstr "Falta setear la cuenta debito/credito en la configuración del módulo."
+msgstr "Falta setear la cuenta debito/credito en la configuraciÃ³n del mÃ³dulo."
 
 #, fuzzy
 msgctxt "field:cooperative.meeting,create_date:"
 msgid "Create Date"
-msgstr "Fecha de Creación"
+msgstr "Fecha de CreaciÃ³n"
 
 #, fuzzy
 msgctxt "field:cooperative.meeting,create_uid:"
 msgid "Create User"
-msgstr "Usuario creación"
+msgstr "Usuario creaciÃ³n"
 
 msgctxt "field:cooperative.meeting,end_time:"
 msgid "End Time"
@@ -71,12 +71,12 @@ msgstr "Tipo"
 #, fuzzy
 msgctxt "field:cooperative.meeting,write_date:"
 msgid "Write Date"
-msgstr "Fecha modificación"
+msgstr "Fecha modificaciÃ³n"
 
 #, fuzzy
 msgctxt "field:cooperative.meeting,write_uid:"
 msgid "Write User"
-msgstr "Usuario modificación"
+msgstr "Usuario modificaciÃ³n"
 
 #, fuzzy
 msgctxt "field:cooperative.partner,company:"
@@ -86,12 +86,12 @@ msgstr "Empresa"
 #, fuzzy
 msgctxt "field:cooperative.partner,create_date:"
 msgid "Create Date"
-msgstr "Fecha de Creación"
+msgstr "Fecha de CreaciÃ³n"
 
 #, fuzzy
 msgctxt "field:cooperative.partner,create_uid:"
 msgid "Create User"
-msgstr "Usuario creación"
+msgstr "Usuario creaciÃ³n"
 
 msgctxt "field:cooperative.partner,dni:"
 msgid "DNI"
@@ -108,7 +108,7 @@ msgstr "Nombre"
 
 msgctxt "field:cooperative.partner,gender:"
 msgid "Gender"
-msgstr "Género"
+msgstr "GÃ©nero"
 
 #, fuzzy
 msgctxt "field:cooperative.partner,id:"
@@ -117,7 +117,7 @@ msgstr "ID"
 
 msgctxt "field:cooperative.partner,incorporation_date:"
 msgid "Incorporation Date"
-msgstr "Fecha de Incorporación"
+msgstr "Fecha de IncorporaciÃ³n"
 
 msgctxt "field:cooperative.partner,last_name:"
 msgid "Last Name"
@@ -133,11 +133,11 @@ msgstr "Estado Civil"
 
 msgctxt "field:cooperative.partner,meeting:"
 msgid "Meeting"
-msgstr "Reunión"
+msgstr "ReuniÃ³n"
 
 msgctxt "field:cooperative.partner,meeting_date_of_incoroporation:"
 msgid "Meeting date of incorporation"
-msgstr "Fecha de Reunión de Incorporación"
+msgstr "Fecha de ReuniÃ³n de IncorporaciÃ³n"
 
 msgctxt "field:cooperative.partner,nationality:"
 msgid "Nationality"
@@ -154,11 +154,11 @@ msgstr "Cuotas pagadas"
 
 msgctxt "field:cooperative.partner,proof_tax:"
 msgid "Proof of tax registation"
-msgstr "Comprobante de Inscripción de Impuestos"
+msgstr "Comprobante de InscripciÃ³n de Impuestos"
 
 msgctxt "field:cooperative.partner,proposal_letter:"
 msgid "Proposal Letter"
-msgstr "Carta de Presentación"
+msgstr "Carta de PresentaciÃ³n"
 
 #, fuzzy
 msgctxt "field:cooperative.partner,rec_name:"
@@ -171,7 +171,7 @@ msgstr "Recibo"
 
 msgctxt "field:cooperative.partner,sanction:"
 msgid "Sanction"
-msgstr "Sanción"
+msgstr "SanciÃ³n"
 
 msgctxt "field:cooperative.partner,status:"
 msgid "Status"
@@ -183,27 +183,27 @@ msgstr "Vacaciones"
 
 msgctxt "field:cooperative.partner,vacation_days:"
 msgid "Vacation Days"
-msgstr "Días de Vacaciones"
+msgstr "DÃ­as de Vacaciones"
 
 #, fuzzy
 msgctxt "field:cooperative.partner,write_date:"
 msgid "Write Date"
-msgstr "Fecha modificación"
+msgstr "Fecha modificaciÃ³n"
 
 #, fuzzy
 msgctxt "field:cooperative.partner,write_uid:"
 msgid "Write User"
-msgstr "Usuario modificación"
+msgstr "Usuario modificaciÃ³n"
 
 #, fuzzy
 msgctxt "field:cooperative.partner-meeting,create_date:"
 msgid "Create Date"
-msgstr "Fecha de Creación"
+msgstr "Fecha de CreaciÃ³n"
 
 #, fuzzy
 msgctxt "field:cooperative.partner-meeting,create_uid:"
 msgid "Create User"
-msgstr "Usuario creación"
+msgstr "Usuario creaciÃ³n"
 
 #, fuzzy
 msgctxt "field:cooperative.partner-meeting,id:"
@@ -212,7 +212,7 @@ msgstr "ID"
 
 msgctxt "field:cooperative.partner-meeting,meeting:"
 msgid "Meeting"
-msgstr "Reunión"
+msgstr "ReuniÃ³n"
 
 msgctxt "field:cooperative.partner-meeting,partner:"
 msgid "Partner"
@@ -226,22 +226,22 @@ msgstr "Nombre del adjunto"
 #, fuzzy
 msgctxt "field:cooperative.partner-meeting,write_date:"
 msgid "Write Date"
-msgstr "Fecha modificación"
+msgstr "Fecha modificaciÃ³n"
 
 #, fuzzy
 msgctxt "field:cooperative.partner-meeting,write_uid:"
 msgid "Write User"
-msgstr "Usuario modificación"
+msgstr "Usuario modificaciÃ³n"
 
 #, fuzzy
 msgctxt "field:cooperative.partner.recibo,create_date:"
 msgid "Create Date"
-msgstr "Fecha de Creación"
+msgstr "Fecha de CreaciÃ³n"
 
 #, fuzzy
 msgctxt "field:cooperative.partner.recibo,create_uid:"
 msgid "Create User"
-msgstr "Usuario creación"
+msgstr "Usuario creaciÃ³n"
 
 #, fuzzy
 msgctxt "field:cooperative.partner.recibo,date:"
@@ -275,22 +275,22 @@ msgstr "Estado"
 #, fuzzy
 msgctxt "field:cooperative.partner.recibo,write_date:"
 msgid "Write Date"
-msgstr "Fecha modificación"
+msgstr "Fecha modificaciÃ³n"
 
 #, fuzzy
 msgctxt "field:cooperative.partner.recibo,write_uid:"
 msgid "Write User"
-msgstr "Usuario modificación"
+msgstr "Usuario modificaciÃ³n"
 
 #, fuzzy
 msgctxt "field:cooperative.partner.sanction,create_date:"
 msgid "Create Date"
-msgstr "Fecha de Creación"
+msgstr "Fecha de CreaciÃ³n"
 
 #, fuzzy
 msgctxt "field:cooperative.partner.sanction,create_uid:"
 msgid "Create User"
-msgstr "Usuario creación"
+msgstr "Usuario creaciÃ³n"
 
 #, fuzzy
 msgctxt "field:cooperative.partner.sanction,date:"
@@ -326,27 +326,27 @@ msgstr "Tipo"
 #, fuzzy
 msgctxt "field:cooperative.partner.sanction,write_date:"
 msgid "Write Date"
-msgstr "Fecha modificación"
+msgstr "Fecha modificaciÃ³n"
 
 #, fuzzy
 msgctxt "field:cooperative.partner.sanction,write_uid:"
 msgid "Write User"
-msgstr "Usuario modificación"
+msgstr "Usuario modificaciÃ³n"
 
 #, fuzzy
 msgctxt "field:cooperative.partner.vacation,create_date:"
 msgid "Create Date"
-msgstr "Fecha de Creación"
+msgstr "Fecha de CreaciÃ³n"
 
 #, fuzzy
 msgctxt "field:cooperative.partner.vacation,create_uid:"
 msgid "Create User"
-msgstr "Usuario creación"
+msgstr "Usuario creaciÃ³n"
 
 #, fuzzy
 msgctxt "field:cooperative.partner.vacation,days:"
 msgid "Days"
-msgstr "Días"
+msgstr "DÃ­as"
 
 #, fuzzy
 msgctxt "field:cooperative.partner.vacation,end_date:"
@@ -379,12 +379,12 @@ msgstr "Tipo"
 #, fuzzy
 msgctxt "field:cooperative.partner.vacation,write_date:"
 msgid "Write Date"
-msgstr "Fecha modificación"
+msgstr "Fecha modificaciÃ³n"
 
 #, fuzzy
 msgctxt "field:cooperative.partner.vacation,write_uid:"
 msgid "Write User"
-msgstr "Usuario modificación"
+msgstr "Usuario modificaciÃ³n"
 
 msgctxt "model:cooperative.meeting,name:"
 msgid "cooperative_ar"
@@ -412,7 +412,7 @@ msgstr ""
 
 msgctxt "model:ir.action,name:act_meeting_form"
 msgid "Meeting"
-msgstr "Reunión"
+msgstr "ReuniÃ³n"
 
 msgctxt "model:ir.action,name:act_partner_form"
 msgid "Partner"
@@ -424,7 +424,7 @@ msgstr "Recibos"
 
 msgctxt "model:ir.action,name:act_sanction_form"
 msgid "Sanction"
-msgstr "Sanción"
+msgstr "SanciÃ³n"
 
 msgctxt "model:ir.action,name:act_vacation_form"
 msgid "Permit and Vacation"
@@ -436,7 +436,7 @@ msgstr "Cooperativas"
 
 msgctxt "model:ir.ui.menu,name:menu_meeting_form"
 msgid "Meeting"
-msgstr "Reunión"
+msgstr "ReuniÃ³n"
 
 msgctxt "model:ir.ui.menu,name:menu_partner_form"
 msgid "Partner"
@@ -448,7 +448,7 @@ msgstr "Recibos"
 
 msgctxt "model:ir.ui.menu,name:menu_sanction_form"
 msgid "Sanction"
-msgstr "Sanción"
+msgstr "SanciÃ³n"
 
 msgctxt "model:ir.ui.menu,name:menu_vacation_form"
 msgid "Permit and Vacation"
@@ -472,7 +472,7 @@ msgstr "Ordinaria"
 
 msgctxt "selection:cooperative.meeting,type:"
 msgid "Reunion"
-msgstr "Reunión"
+msgstr "ReuniÃ³n"
 
 msgctxt "selection:cooperative.partner,gender:"
 msgid "Female"
@@ -541,20 +541,20 @@ msgid "Apercibimiento"
 msgstr "Apercibimiento"
 
 msgctxt "selection:cooperative.partner.sanction,type:"
-msgid "Exclusión"
-msgstr "Exclusión"
+msgid "ExclusiÃ³n"
+msgstr "ExclusiÃ³n"
 
 msgctxt "selection:cooperative.partner.sanction,type:"
-msgid "Llamada de Atención"
-msgstr "Llamada de Atención"
+msgid "Llamada de AtenciÃ³n"
+msgstr "Llamada de AtenciÃ³n"
 
 msgctxt "selection:cooperative.partner.vacation,type:"
 msgid "Licencia Examen"
 msgstr "Licencia Examen"
 
 msgctxt "selection:cooperative.partner.vacation,type:"
-msgid "Licencia Médica"
-msgstr "Licencia Médica"
+msgid "Licencia MÃ©dica"
+msgstr "Licencia MÃ©dica"
 
 msgctxt "selection:cooperative.partner.vacation,type:"
 msgid "Licencia Paternidad / Maternidad"
@@ -575,7 +575,7 @@ msgstr "General"
 
 msgctxt "view:cooperative.meeting:"
 msgid "Meeting"
-msgstr "Reunión"
+msgstr "ReuniÃ³n"
 
 msgctxt "view:cooperative.meeting:"
 msgid "Record"
@@ -584,7 +584,7 @@ msgstr "Registro"
 #, fuzzy
 msgctxt "view:cooperative.partner.recibo:"
 msgid "Are you sure to cancel the invoice?"
-msgstr "¿Está seguro de cancelar la factura?"
+msgstr "Â¿EstÃ¡ seguro de cancelar la factura?"
 
 msgctxt "view:cooperative.partner.recibo:"
 msgid "Recibo"
@@ -618,7 +618,7 @@ msgstr "Respuesta"
 
 msgctxt "view:cooperative.partner.sanction:"
 msgid "Sanction"
-msgstr "Sanción"
+msgstr "SanciÃ³n"
 
 msgctxt "view:cooperative.partner.vacation:"
 msgid "Permit and Vacation"
@@ -635,7 +635,7 @@ msgstr "General"
 
 msgctxt "view:cooperative.partner:"
 msgid "Incorporacion"
-msgstr "Incorporación"
+msgstr "IncorporaciÃ³n"
 
 msgctxt "view:cooperative.partner:"
 msgid "Legal Documents"
@@ -643,7 +643,7 @@ msgstr "Docuemntos Legales"
 
 msgctxt "view:cooperative.partner:"
 msgid "Meetings"
-msgstr "Reunión"
+msgstr "ReuniÃ³n"
 
 msgctxt "view:cooperative.partner:"
 msgid "Partner"
@@ -659,5 +659,5 @@ msgstr "Recibo"
 
 msgctxt "view:cooperative.partner:"
 msgid "Sanction"
-msgstr "Sanción"
+msgstr "SanciÃ³n"
 
