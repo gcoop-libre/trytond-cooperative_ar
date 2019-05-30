@@ -41,7 +41,10 @@ class Configuration(ModelSingleton, ModelSQL, ModelView, MultiValueMixin):
         pool = Pool()
         if field in {'receipt_account_receivable', 'receipt_account_payable'}:
             return pool.get('cooperative_ar.configuration.receipt_account')
+        elif field == 'receipt_sequence':
+            return pool.get('cooperative_ar.configuration.receipt_sequence')
         return super(Configuration, cls).multivalue_model(field)
+
 
 class _ConfigurationValue(ModelSQL):
 
@@ -79,16 +82,16 @@ class ConfigurationSequence(_ConfigurationValue, ModelSQL, ValueMixin):
 
 class ConfigurationReceiptAccount(ModelSQL, CompanyValueMixin):
     "Account Configuration Receipt Account"
-    __name__ = 'account.configuration.receipt_account'
+    __name__ = 'cooperative_ar.configuration.receipt_account'
     receipt_account_receivable = fields.Many2One(
         'account.account', "Receipt Account Receivable",
         domain=[
-            ('company', '=', Eval('company', -1)),
+            ('company', '=', Eval('context', {}).get('company', -1)),
             ],
         depends=['company'])
     receipt_account_payable = fields.Many2One(
         'account.account', "Receipt Account Payable",
         domain=[
-            ('company', '=', Eval('company', -1)),
+            ('company', '=', Eval('context', {}).get('company', -1)),
             ],
         depends=['company'])
