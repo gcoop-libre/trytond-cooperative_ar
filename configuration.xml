@@ -21,7 +21,7 @@ this repository contains the full copyright notices and license terms. -->
 
         <menuitem parent="menu_configuration"
             action="act_cooperative_ar_configuration_form"
-            id="menu_cooperative_ar_configuration"/>
+            id="menu_cooperative_ar_configuration" icon="tryton-list"/>
         <record model="ir.ui.menu-res.group"
             id="menu_cooperative_ar_configuration_group_cooperative_ar_admin">
             <field name="menu" ref="menu_cooperative_ar_configuration"/>
