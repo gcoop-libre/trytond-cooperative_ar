@@ -2,7 +2,7 @@
 <!-- The COPYRIGHT file at the top level of this repository contains the
      full copyright notices and license terms. -->
 <tryton>
-    <data>
+    <data noupdate="1" skiptest="1">
         <record id="root" model="analytic_account.template">
           <field name="name" lang="es">Balance Social Cooperativo</field>
           <field name="type">root</field>
