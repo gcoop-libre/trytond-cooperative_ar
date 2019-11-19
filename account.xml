@@ -38,7 +38,7 @@ this repository contains the full copyright notices and license terms. -->
         <record model="ir.action.report" id="report_balance_social">
             <field name="name">Balance Social</field>
             <field name="report_name">cooperative_ar.report_balance_social</field>
-            <field name="report">cooperative_ar/balance_social.odt</field>
+            <field name="report">cooperative_ar/balance_social.fodt</field>
         </record>
 
         <record model="ir.module.config_wizard.item"

@@ -32,7 +32,7 @@
             <field name="name">Receipt</field>
             <field name="model">cooperative.partner.recibo</field>
             <field name="report_name">cooperative.partner.recibo</field>
-            <field name="report">cooperative_ar/recibo.odt</field>
+            <field name="report">cooperative_ar/recibo.fodt</field>
         </record>
 
         <record model="ir.action.keyword" id="report_recibo_keyword">
