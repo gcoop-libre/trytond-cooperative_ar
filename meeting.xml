@@ -35,7 +35,7 @@
         <field name="name">Meeting</field>
         <field name="model">cooperative.meeting</field>
         <field name="report_name">cooperative.meeting</field>
-        <field name="report">cooperative_ar/meeting.odt</field>
+        <field name="report">cooperative_ar/meeting.fodt</field>
     </record>
     <record model="ir.action.keyword" id="report_meeting_keyword">
         <field name="keyword">form_print</field>
