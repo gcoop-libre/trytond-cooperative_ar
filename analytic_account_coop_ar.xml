@@ -28,7 +28,7 @@
           <field name="name" lang="es">Tercer principio: Participación económica de los socios</field>
           <field name="code">3</field>
           <field name="type">normal</field>
-          <field name="state">normal</field>
+          <field name="state">closed</field>
           <field name="parent" ref="root" />
           <field name="root" ref="root" />
         </record>
