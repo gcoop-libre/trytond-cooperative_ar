@@ -58,14 +58,24 @@ class Partner(ModelSQL, ModelView):
     birthdate = fields.Date('Birthdate', required=True)
 
     def get_rec_name(self, name):
-        """Return Record name"""
-        return "%d - %s" % (self.file, self.party.rec_name)
+        if self.file:
+            prefix = '[%s]' % self.id
+        if self.party:
+            return '%s %s' % (prefix, self.party.name)
+        else:
+            return prefix
 
     @classmethod
     def search_rec_name(cls, name, clause):
-        if cls.search([('dni',) + tuple(clause[1:])], limit=1):
-            return [('dni',) + tuple(clause[1:])]
-        return [(cls._rec_name,) + tuple(clause[1:])]
+        if clause[1].startswith('!') or clause[1].startswith('not '):
+            bool_op = 'AND'
+        else:
+            bool_op = 'OR'
+
+        return [bool_op,
+            ('party.name',) + tuple(clause[1:]),
+            ('dni',) + tuple(clause[1:]),
+            ]
 
     @staticmethod
     def default_status():

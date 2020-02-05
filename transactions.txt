@@ -1,0 +1,3 @@
+{% for record in records %}\
+${get_account_type(record)}${get_bank_code(record)}${get_filial(record)}${get_num_cuenta_mas_digito(record)}${get_digito_verificador(record)}${format_decimal(record.amount)}${justify(strip_accents(record.party.name), 40)}${justify(strip_accents(record.description), 60)}${justify(get_address(record), 50)}
+{% end %}\

@@ -52,6 +52,8 @@ requires.append(get_require_version('trytond'))
 requires.append('httplib2')
 requires.append('pyafipws')
 requires.append('pysimplesoap')
+requires.append('singing-girl')
+requires.append('python-stdnum')
 
 tests_require = [get_require_version('proteus')]
 dependency_links = [
@@ -78,7 +80,7 @@ setup(name=name,
     package_data={
         'trytond.modules.cooperative_ar': (info.get('xml', [])
             + ['tryton.cfg', 'view/*.xml', 'locale/*.po', '*.fodt',
-                'icons/*.svg']),
+                'icons/*.svg', '*.txt']),
         },
     classifiers=[
         'Development Status :: 4 - Beta',
