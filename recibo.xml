@@ -27,6 +27,38 @@
             <field name="act_window" ref="act_recibo_form" />
         </record>
 
+        <record id="recibo_lote_view_tree" model="ir.ui.view">
+            <field name="model">cooperative.partner.recibo.lote</field>
+            <field name="type">tree</field>
+            <field name="name">recibo_lote_tree</field>
+        </record>
+        <record id="recibo_lote_view_form" model="ir.ui.view">
+            <field name="model">cooperative.partner.recibo.lote</field>
+            <field name="type">form</field>
+            <field name="name">recibo_lote_form</field>
+        </record>
+        <record id="act_recibo_lote_form" model="ir.action.act_window">
+            <field name="name">Crear recibos en lote</field>
+            <field name="res_model">cooperative.partner.recibo.lote</field>
+        </record>
+        <record id="act_recibo_lote_form_view1" model="ir.action.act_window.view">
+            <field eval="10" name="sequence" />
+            <field name="view" ref="recibo_lote_view_tree" />
+            <field name="act_window" ref="act_recibo_lote_form" />
+        </record>
+        <record id="act_recibo_lote_form_view2" model="ir.action.act_window.view">
+            <field eval="20" name="sequence" />
+            <field name="view" ref="recibo_lote_view_form" />
+            <field name="act_window" ref="act_recibo_lote_form" />
+        </record>
+
+        <record model="ir.ui.view" id="recibo_line_view_tree_sequence">
+            <field name="model">cooperative.partner.recibo</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="20"/>
+            <field name="name">recibo_line_tree_sequence</field>
+        </record>
+
         <record model="ir.action.report" id="report_recibo">
             <field name="active" eval="True"/>
             <field name="name">Receipt</field>
@@ -78,6 +110,9 @@
         <menuitem action="act_recibo_form"
             id="menu_recibo_form" parent="menu_cooperative_ar" sequence="1" />
 
+        <menuitem action="act_recibo_lote_form"
+            id="menu_recibo_lote_form" parent="menu_cooperative_ar" sequence="1" />
+
         <record model="ir.sequence.type" id="seq_type_cooperative_receipt">
             <field name="name">Cooperative Receipt</field>
             <field name="code">account.cooperative.receipt</field>
@@ -104,14 +139,30 @@
             <field name="model" search="[('model', '=', 'cooperative.partner.recibo')]"/>
         </record>
         <record model="ir.model.button" id="recibo_confirmed_button">
-            <field name="name">confirmed</field>
-            <field name="string">Confirmed</field>
+            <field name="name">confirm</field>
+            <field name="string">Confirm</field>
             <field name="model" search="[('model', '=', 'cooperative.partner.recibo')]"/>
         </record>
         <record model="ir.model.button" id="recibo_cancel_button">
             <field name="name">cancel</field>
             <field name="string">Cancel</field>
             <field name="model" search="[('model', '=', 'cooperative.partner.recibo')]"/>
+        </record>
+
+        <record model="ir.model.button" id="recibo_lote_draft_button">
+            <field name="name">draft</field>
+            <field name="string">Draft</field>
+            <field name="model" search="[('model', '=', 'cooperative.partner.recibo.lote')]"/>
+        </record>
+        <record model="ir.model.button" id="recibo_lote_confirmed_button">
+            <field name="name">confirm</field>
+            <field name="string">Confirm</field>
+            <field name="model" search="[('model', '=', 'cooperative.partner.recibo.lote')]"/>
+        </record>
+        <record model="ir.model.button" id="recibo_lote_cancel_button">
+            <field name="name">cancel</field>
+            <field name="string">Cancel</field>
+            <field name="model" search="[('model', '=', 'cooperative.partner.recibo.lote')]"/>
         </record>
     </data>
 </tryton>

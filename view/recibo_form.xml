@@ -25,13 +25,10 @@ this repository contains the full copyright notices and license terms. -->
             <group col="6" colspan="4" id="buttons">
                 <label name="state"/>
                 <field name="state"/>
-                <button name="cancel" string="_Cancel"
-                    icon="tryton-cancel"
+                <button name="cancel" icon="tryton-cancel"
                     confirm="Are you sure to cancel the receipt?"/>
-                <button name="draft" string="_Draft"
-                    icon="tryton-go-previous"/>
-                <button name="confirmed" string="_Confirm"
-                    icon="tryton-ok"/>
+                <button name="draft" icon="tryton-go-previous"/>
+                <button name="confirm" icon="tryton-ok"/>
             </group>
         </page>
     <page string="Other Info" id="info">

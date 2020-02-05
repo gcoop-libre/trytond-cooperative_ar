@@ -24,6 +24,7 @@ def register():
         PrintBalanceSocialStart,
         recibo.Move,
         recibo.ReciboTransactionsStart,
+        recibo.ReciboLote,
         module='cooperative_ar', type_='model')
     Pool.register(
         PrintBalanceSocial,
