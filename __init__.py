@@ -4,7 +4,7 @@ from .meeting import *
 from .vacation import *
 from .partnermeeting import *
 from .sanction import *
-from .recibo import *
+from . import recibo
 from .analytic_account import *
 from . import configuration
 
@@ -19,14 +19,18 @@ def register():
         Vacation,
         PartnerMeeting,
         Sanction,
-        Recibo,
+        recibo.Recibo,
         AnalyticAccountNota,
         PrintBalanceSocialStart,
+        recibo.Move,
+        recibo.ReciboTransactionsStart,
         module='cooperative_ar', type_='model')
     Pool.register(
         PrintBalanceSocial,
+        recibo.ReciboTransactions,
         module='cooperative_ar', type_='wizard')
     Pool.register(
-        ReciboReport,
+        recibo.ReciboReport,
+        recibo.ReciboTransactionsReport,
         BalanceSocial,
         module='cooperative_ar', type_='report')
