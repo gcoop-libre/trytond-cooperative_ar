@@ -14,7 +14,7 @@ from trytond.wizard import Wizard, StateView, StateReport, Button
 from trytond.report import Report
 
 __all__ = ['Move', 'Recibo', 'ReciboReport', 'ReciboTransactionsStart',
-    'ReciboTransactions', 'ReciboTransactionsReport']
+    'ReciboTransactions', 'ReciboTransactionsReport', 'ReciboLote']
 
 _DEPENDS = ['state']
 
@@ -42,8 +42,8 @@ class Recibo(Workflow, ModelSQL, ModelView):
         depends=_DEPENDS, required=True)
     state = fields.Selection([
         ('draft', 'Draft'),
-        ('confirmed', 'Confirm'),
-        ('cancel', 'Canceled'),
+        ('confirmed', 'Confirmed'),
+        ('cancelled', 'Cancelled'),
         ], 'State', readonly=True)
     number = fields.Char('Number', size=None, readonly=True, select=True)
     description = fields.Char('Description', size=None, states=_STATES,
@@ -115,6 +115,7 @@ class Recibo(Workflow, ModelSQL, ModelView):
             'numbers.type': 'cbu',
             },
         depends=_DEPENDS + ['party'])
+    lote = fields.Many2One('cooperative.partner.recibo.lote', 'Lote')
 
     @classmethod
     def __setup__(cls):
@@ -129,9 +130,9 @@ class Recibo(Workflow, ModelSQL, ModelView):
                 })
         cls._transitions |= set((
                 ('draft', 'confirmed'),
-                ('draft', 'cancel'),
+                ('draft', 'cancelled'),
                 ('confirmed', 'draft'),
-                ('confirmed', 'cancel'),
+                ('confirmed', 'cancelled'),
                 ('cancel', 'draft'),
                 ))
         cls._buttons.update({
@@ -139,9 +140,9 @@ class Recibo(Workflow, ModelSQL, ModelView):
                     'invisible': ~Eval('state').in_(['draft']),
                     },
                 'draft': {
-                    'invisible': ~Eval('state').in_(['cancel']),
+                    'invisible': ~Eval('state').in_(['cancelled']),
                     },
-                'confirmed': {
+                'confirm': {
                     'invisible': ~Eval('state').in_(['draft']),
                     },
                 })
@@ -234,6 +235,7 @@ class Recibo(Workflow, ModelSQL, ModelView):
         default['confirmed_move'] = None
         default['paid_move'] = None
         default['amount'] = Decimal('0')
+        default['lote'] = None
         return super(Recibo, cls).copy(receipts, default=default)
 
     @classmethod
@@ -270,29 +272,23 @@ class Recibo(Workflow, ModelSQL, ModelView):
     @classmethod
     @ModelView.button
     @Workflow.transition('confirmed')
-    def confirmed(cls, recibos):
+    def confirm(cls, recibos):
         Move = Pool().get('account.move')
 
         moves = []
         for recibo in recibos:
             recibo.set_number()
-            confirmed_move = recibo.create_confirmed_move()
-            payed_move = recibo.create_paid_move()
-            moves.append(confirmed_move)
-            moves.append(payed_move)
+            recibo.create_move()
 
         cls.write(recibos, {
                 'state': 'confirmed',
                 })
-        Move.post(moves)
 
     @classmethod
     @ModelView.button
-    @Workflow.transition('cancel')
+    @Workflow.transition('cancelled')
     def cancel(cls, recibos):
-        cls.write(recibos, {
-                'state': 'cancel',
-                })
+        pass
 
     def set_number(self):
         '''
@@ -318,7 +314,7 @@ class Recibo(Workflow, ModelSQL, ModelView):
 
         self.write([self], vals)
 
-    def _get_move_line(self, date, amount, account=None):
+    def _get_move_line(self, date, amount, account):
         '''
         Return move line
         '''
@@ -336,10 +332,8 @@ class Recibo(Workflow, ModelSQL, ModelView):
             line.second_currency = None
         if amount <= 0:
             line.debit, line.credit = -amount, 0
-            account = self.account_expense
         else:
             line.debit, line.credit = 0, amount
-            account = self.account
         if line.amount_second_currency:
             line.amount_second_currency = (
                 line.amount_second_currency.copy_sign(
@@ -371,12 +365,13 @@ class Recibo(Workflow, ModelSQL, ModelView):
         move.lines = move_lines
         return move
 
-    def create_confirmed_move(self):
+    def create_move(self):
         '''
         Create account move for the receipt and return the created move
         '''
         pool = Pool()
         Move = pool.get('account.move')
+        MoveLine = pool.get('account.move.line')
         move_lines = []
         accounting_date = self.accounting_date or self.date
 
@@ -388,21 +383,15 @@ class Recibo(Workflow, ModelSQL, ModelView):
 
         move = self.get_move(move_lines, self.journal)
         Move.save([move])
+        Move.post([move])
+
+        reconcile_lines = [l for l in move.lines if l.party_required]
 
         self.write([self], {
                 'confirmed_move': move.id,
                 })
-        return move
 
-    def create_paid_move(self):
-        '''
-        Create account move for the receipt and return the created move
-        '''
-        pool = Pool()
-        Move = pool.get('account.move')
         move_lines = []
-        accounting_date = self.accounting_date or self.date
-
         val = self._get_move_line(accounting_date, self.amount,
             self.payment_method.credit_account)
         move_lines.append(val)
@@ -411,11 +400,15 @@ class Recibo(Workflow, ModelSQL, ModelView):
 
         move = self.get_move(move_lines, self.payment_method.journal)
         Move.save([move])
+        Move.post([move])
+
+        reconcile_lines += [l for l in move.lines if l.party_required]
 
         self.write([self], {
                 'paid_move': move.id,
                 })
-        return move
+
+        MoveLine.reconcile(reconcile_lines)
 
 
 class ReciboReport(Report):
@@ -542,3 +535,139 @@ class ReciboTransactionsReport(Report):
                 'email', usage='invoice')
             if contact and contact.email:
                 return contact.email
+
+
+class ReciboLote(Workflow, ModelSQL, ModelView):
+    'Recibo Lote'
+    __name__ = 'cooperative.partner.recibo.lote'
+
+    number = fields.Char('Number')
+    date = fields.Date('Date', states=_STATES, depends=_DEPENDS, required=True)
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('confirmed', 'Confirmed'),
+        ('cancelled', 'Canceled'),
+        ], 'State', readonly=True)
+    journal = fields.Many2One('account.journal', "Journal", required=True,
+        domain=[('type', '=', 'cash')], states=_STATES, depends=_DEPENDS)
+    payment_method = fields.Many2One(
+        'account.invoice.payment.method', "Payment Method",  required=True,
+        domain=[
+            ('company', '=', Eval('company')),
+            ],
+        states=_STATES,
+        depends=_DEPENDS + ['company'])
+    company = fields.Many2One('company.company', 'Company', states=_STATES,
+        domain=[
+            ('id', If(Eval('context', {}).contains('company'), '=', '!='),
+                Eval('context', {}).get('company', -1)),
+            ],
+        depends=_DEPENDS, required=True, select=True)
+    recibos = fields.One2Many('cooperative.partner.recibo', 'lote',
+        'Recibos', states=_STATES, depends=_DEPENDS)
+
+    @classmethod
+    def __setup__(cls):
+        super(ReciboLote, cls).__setup__()
+        cls._transitions |= set((
+                ('draft', 'confirmed'),
+                ('draft', 'cancelled'),
+                ('confirmed', 'draft'),
+                ('confirmed', 'cancelled'),
+                ('cancelled', 'draft'),
+                ))
+        cls._buttons.update({
+                'cancel': {
+                    'invisible': ~Eval('state').in_(['draft']),
+                    },
+                'draft': {
+                    'invisible': ~Eval('state').in_(['cancelled']),
+                    },
+                'confirm': {
+                    'invisible': ~Eval('state').in_(['draft']),
+                    },
+                })
+
+    @staticmethod
+    def default_state():
+        return 'draft'
+
+    @staticmethod
+    def default_date():
+        return Pool().get('ir.date').today()
+
+    @staticmethod
+    def default_company():
+        return Transaction().context.get('company')
+
+    @fields.depends('recibos', 'company', 'journal', 'payment_method', 'date')
+    def on_change_payment_method(self):
+        self.add_recibos()
+
+    @fields.depends('recibos', 'company', 'journal', 'payment_method', 'date')
+    def on_change_journal(self):
+        self.add_recibos()
+
+    @fields.depends('recibos', 'company', 'journal', 'payment_method', 'date')
+    def on_change_company(self):
+        self.add_recibos()
+
+    def add_recibos(self):
+        pool = Pool()
+        Recibo = pool.get('cooperative.partner.recibo')
+        Partner = pool.get('cooperative.partner')
+        Currency = pool.get('currency.currency')
+        lines = []
+
+        if not self.journal or not self.payment_method or not self.date:
+            self.recibos = lines
+            return
+
+        if self.recibos:
+            return
+
+        partners = Partner.search([('status', '=', 'active')],
+            order=[('file', 'ASC')])
+
+        for partner in partners:
+            recibo = Recibo()
+            recibo.partner = partner
+            recibo.party = recibo.on_change_with_party()
+            recibo.bank_account = recibo.on_change_with_bank_account()
+            recibo.account = recibo.default_account()
+            recibo.account_expense = recibo.default_account_expense()
+            recibo.date = self.date
+            recibo.company = self.company
+            recibo.currency = recibo.default_currency()
+            recibo.currency_digits = recibo.on_change_with_currency_digits()
+            recibo.currency_date = recibo.on_change_with_currency_date()
+            recibo.description = recibo.default_description()
+            recibo.journal = self.journal
+            recibo.payment_method = self.payment_method
+            recibo.amount = Decimal('0')
+            recibo.state = recibo.default_state()
+            lines.append(recibo)
+
+        self.recibos = lines
+
+    @classmethod
+    @ModelView.button
+    @Workflow.transition('draft')
+    def draft(cls, lotes):
+        pass
+
+    @classmethod
+    @ModelView.button
+    @Workflow.transition('cancel')
+    def cancel(cls, lotes):
+        pass
+
+    @classmethod
+    @ModelView.button
+    @Workflow.transition('confirmed')
+    def confirm(cls, lotes):
+        pool = Pool()
+        Recibo = pool.get('cooperative.partner.recibo')
+
+        for lote in lotes:
+            Recibo.confirm(lote.recibos)

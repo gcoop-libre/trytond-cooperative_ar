@@ -57,6 +57,20 @@ class Partner(ModelSQL, ModelView):
         'Meeting date of incorporation', required=True)
     birthdate = fields.Date('Birthdate', required=True)
 
+    @classmethod
+    def copy(cls, partners, default=None):
+        if default is None:
+            default = {}
+        default = default.copy()
+        default['file'] = 9999
+        # default['party'] = None
+        default['recibo'] = None
+        default['sanction'] = None
+        default['meeting'] = None
+        default['vacation'] = None
+        default['vacation_days'] = 0
+        return super(Partner, cls).copy(partners, default=default)
+
     def get_rec_name(self, name):
         if self.file:
             prefix = '[%s]' % self.id
