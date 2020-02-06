@@ -133,6 +133,12 @@
             <field name="code">account.cooperative.receipt</field>
         </record>
 
+        <record model="ir.sequence" id="sequence_recibo_lote">
+            <field name="name">Lote</field>
+            <field name="code">account.cooperative.receipt</field>
+        </record>
+
+
         <record model="ir.model.button" id="recibo_draft_button">
             <field name="name">draft</field>
             <field name="string">Draft</field>
