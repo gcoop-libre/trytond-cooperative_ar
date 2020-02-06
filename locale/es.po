@@ -411,20 +411,20 @@ msgid "cooperative_ar"
 msgstr ""
 
 msgctxt "model:ir.action,name:act_meeting_form"
-msgid "Meeting"
-msgstr "Reunión"
+msgid "Meetings"
+msgstr "Reuniones"
 
 msgctxt "model:ir.action,name:act_partner_form"
-msgid "Partner"
-msgstr "Socio"
+msgid "Partners"
+msgstr "Socios"
 
 msgctxt "model:ir.action,name:act_recibo_form"
 msgid "Recibos"
 msgstr "Recibos"
 
 msgctxt "model:ir.action,name:act_sanction_form"
-msgid "Sanction"
-msgstr "Sanción"
+msgid "Sanctions"
+msgstr "Sanciones"
 
 msgctxt "model:ir.action,name:act_vacation_form"
 msgid "Permit and Vacation"
@@ -435,20 +435,20 @@ msgid "Cooperatives"
 msgstr "Cooperativas"
 
 msgctxt "model:ir.ui.menu,name:menu_meeting_form"
-msgid "Meeting"
-msgstr "Reunión"
+msgid "Meetings"
+msgstr "Reuniones"
 
 msgctxt "model:ir.ui.menu,name:menu_partner_form"
-msgid "Partner"
-msgstr "Socio"
+msgid "Partners"
+msgstr "Socios"
 
 msgctxt "model:ir.ui.menu,name:menu_recibo_form"
 msgid "Recibos"
 msgstr "Recibos"
 
 msgctxt "model:ir.ui.menu,name:menu_sanction_form"
-msgid "Sanction"
-msgstr "Sanción"
+msgid "Sanctions"
+msgstr "Sanciones"
 
 msgctxt "model:ir.ui.menu,name:menu_vacation_form"
 msgid "Permit and Vacation"

@@ -13,19 +13,18 @@ from trytond.modules.company.model import (
 __all__ = ['Configuration', 'ConfigurationSequence',
     'ConfigurationReceiptAccount']
 
-receipt_sequence = fields.Many2One('ir.sequence', 'Receipt Sequence',
-    domain=[
-        ('code', '=', 'account.cooperative.receipt'),
-        ],
-    help="Used to generate the receipt number.")
-receipt_lote_sequence = fields.Many2One('ir.sequence', 'Lote sequence',
-    domain=[
-        ('code', '=', 'account.cooperative.receipt'),
-        ],
-    help="Used to generate the receipt number.")
+
+def default_func(field_name):
+    @classmethod
+    def default(cls, **pattern):
+        return getattr(
+            cls.multivalue_model(field_name),
+            'default_%s' % field_name, lambda: None)()
+    return default
 
 
-class Configuration(ModelSingleton, ModelSQL, ModelView, MultiValueMixin):
+class Configuration(
+        ModelSingleton, ModelSQL, ModelView, CompanyMultiValueMixin):
     'Cooperative Configuration'
     __name__ = 'cooperative_ar.configuration'
 
@@ -39,19 +38,32 @@ class Configuration(ModelSingleton, ModelSQL, ModelView, MultiValueMixin):
             domain=[
                 ('company', '=', Eval('context', {}).get('company', -1)),
                 ]))
-    receipt_sequence = fields.MultiValue(receipt_sequence)
-    receipt_lote_sequence = fields.MultiValue(receipt_lote_sequence)
+    recibo_sequence = fields.MultiValue(fields.Many2One(
+            'ir.sequence', "Recibo Sequence", required=True,
+            domain=[
+                ('company', 'in',
+                    [Eval('context', {}).get('company', -1), None]),
+                ('code', '=', 'cooperative.receipt'),
+                ]))
+    recibo_lote_sequence = fields.MultiValue(fields.Many2One(
+            'ir.sequence', "Recibo Lote Sequence", required=True,
+            domain=[
+                ('company', 'in',
+                    [Eval('context', {}).get('company', -1), None]),
+                ('code', '=', 'cooperative.receipt'),
+                ]))
 
     @classmethod
     def multivalue_model(cls, field):
         pool = Pool()
         if field in {'receipt_account_receivable', 'receipt_account_payable'}:
             return pool.get('cooperative_ar.configuration.receipt_account')
-        elif field == 'receipt_sequence':
-            return pool.get('cooperative_ar.configuration.receipt_sequence')
-        elif field == 'receipt_lote_sequence':
-            return pool.get('cooperative_ar.configuration.receipt_sequence')
+        if field in {'recibo_sequence', 'recibo_lote_sequence'}:
+            return pool.get('cooperative_ar.configuration.sequence')
         return super(Configuration, cls).multivalue_model(field)
+
+    default_recibo_sequence = default_func('recibo_sequence')
+    default_recibo_lote_sequence = default_func('recibo_lote_sequence')
 
 
 class _ConfigurationValue(ModelSQL):
@@ -77,29 +89,37 @@ class _ConfigurationValue(ModelSQL):
             fields=fields)
 
 
-class ConfigurationSequence(_ConfigurationValue, ModelSQL, ValueMixin):
+class ConfigurationSequence(_ConfigurationValue, ModelSQL, CompanyValueMixin):
     'Receipt Configuration Sequence'
-    __name__ = 'cooperative_ar.configuration.receipt_sequence'
-    receipt_sequence = receipt_sequence
-    receipt_lote_sequence = receipt_lote_sequence
-    _configuration_value_field = 'receipt_sequence'
-    _configuration_value_field = 'receipt_lote_sequence'
+    __name__ = 'cooperative_ar.configuration.sequence'
+    recibo_sequence = fields.Many2One(
+        'ir.sequence', "Recibo Sequence", required=True,
+        domain=[
+            ('company', 'in', [Eval('company', -1), None]),
+            ('code', '=', 'cooperative.receipt'),
+            ],
+        depends=['company'])
+    recibo_lote_sequence = fields.Many2One(
+        'ir.sequence', "Recibo Lote Sequence", required=True,
+        domain=[
+            ('company', 'in', [Eval('company', -1), None]),
+            ('code', '=', 'cooperative.receipt'),
+            ],
+        depends=['company'])
+    _configuration_value_field = 'recibo_sequence'
+    _configuration_value_field = 'recibo_lote_sequence'
 
     @classmethod
-    def check_xml_record(cls, records, values):
-        return True
-
-    @classmethod
-    def default_receipt_sequence(cls):
+    def default_recibo_sequence(cls):
         pool = Pool()
         ModelData = pool.get('ir.model.data')
         try:
-            return ModelData.get_id('cooperative_ar', 'sequence_cooperative_receipt')
+            return ModelData.get_id('cooperative_ar', 'sequence_recibo')
         except KeyError:
             return None
 
     @classmethod
-    def default_receipt_lote_sequence(cls):
+    def default_recibo_lote_sequence(cls):
         pool = Pool()
         ModelData = pool.get('ir.model.data')
         try:

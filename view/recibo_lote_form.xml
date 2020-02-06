@@ -16,7 +16,7 @@ this repository contains the full copyright notices and license terms. -->
     <label name="description"/>
     <field name="description" colspan="3"/>
     <notebook colspan="6">
-        <page string="Lote" id="lote" col="6">
+        <page string="Recibos" id="lote" col="6">
             <field name="recibos" colspan="6"
                 view_ids="cooperative_ar.recibo_line_view_tree_sequence"/>
             <group col="6" colspan="4" id="buttons">

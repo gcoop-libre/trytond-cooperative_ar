@@ -116,29 +116,29 @@
         <menuitem action="act_recibo_lote_form"
             id="menu_recibo_lote_form" parent="menu_recibos" sequence="20" />
 
-        <record model="ir.sequence.type" id="seq_type_cooperative_receipt">
-            <field name="name">Cooperative Receipt</field>
-            <field name="code">account.cooperative.receipt</field>
+        <record model="ir.sequence.type" id="sequence_type_recibo">
+            <field name="name">Recibo</field>
+            <field name="code">cooperative.receipt</field>
         </record>
         <record model="ir.sequence.type-res.group"
             id="seq_type_cooperative_receipt_group_admin">
-            <field name="sequence_type" ref="seq_type_cooperative_receipt"/>
+            <field name="sequence_type" ref="sequence_type_recibo"/>
             <field name="group" ref="res.group_admin"/>
         </record>
         <record model="ir.sequence.type-res.group"
             id="seq_type_cooperative_receipt_group_account_admin">
-            <field name="sequence_type" ref="seq_type_cooperative_receipt"/>
+            <field name="sequence_type" ref="sequence_type_recibo"/>
             <field name="group" ref="group_cooperative_ar_admin"/>
         </record>
 
-        <record model="ir.sequence" id="sequence_cooperative_receipt">
-            <field name="name">Cooperative Receipt</field>
-            <field name="code">account.cooperative.receipt</field>
+        <record model="ir.sequence" id="sequence_recibo">
+            <field name="name">Recibo</field>
+            <field name="code">cooperative.receipt</field>
         </record>
 
         <record model="ir.sequence" id="sequence_recibo_lote">
             <field name="name">Lote</field>
-            <field name="code">account.cooperative.receipt</field>
+            <field name="code">cooperative.receipt</field>
         </record>
 
 

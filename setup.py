@@ -46,6 +46,8 @@ for dep in info.get('depends', []):
         requires.append(get_require_version('trytonar_%s' % dep))
     elif dep == 'account_coop_ar':
         requires.append(get_require_version('trytonar_%s' % dep))
+    elif dep == 'bank_ar':
+        requires.append(get_require_version('trytonar_%s' % dep))
     elif not re.match(r'(ir|res)(\W|$)', dep):
         requires.append(get_require_version('trytond_%s' % dep))
 requires.append(get_require_version('trytond'))
@@ -54,10 +56,13 @@ requires.append('pyafipws')
 requires.append('pysimplesoap')
 requires.append('singing-girl')
 requires.append('python-stdnum')
+requires.append('werkzeug<1.0')
 
 tests_require = [get_require_version('proteus')]
 dependency_links = [
     'https://github.com/tryton-ar/party_ar/tarball/%s.%s#egg=trytonar_party_ar-%s.%s' \
+        % (major_version, minor_version, major_version, minor_version),
+    'https://github.com/tryton-ar/bank_ar/tarball/%s.%s#egg=trytonar_bank_ar-%s.%s' \
         % (major_version, minor_version, major_version, minor_version),
     'https://github.com/gcoop-libre/trytond-analytic_account_chart_template/tarball/%s.%s#egg=trytonar_analytic_account_chart_template-%s.%s' \
         % (major_version, minor_version, major_version, minor_version),
