@@ -47,7 +47,7 @@ this repository contains the full copyright notices and license terms. -->
         </record>
 
         <menuitem action="act_analytic_account_nota_form" 
-            id="menu_analytic_account_nota" name="Balance Social" 
+            id="menu_analytic_account_nota"
             parent="menu_cooperative_ar" sequence="1" />
     </data>
 </tryton>
