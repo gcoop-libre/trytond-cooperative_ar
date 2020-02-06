@@ -15,7 +15,12 @@ __all__ = ['Configuration', 'ConfigurationSequence',
 
 receipt_sequence = fields.Many2One('ir.sequence', 'Receipt Sequence',
     domain=[
-        ('code', '=', 'cooperative.receipt'),
+        ('code', '=', 'account.cooperative.receipt'),
+        ],
+    help="Used to generate the receipt number.")
+receipt_lote_sequence = fields.Many2One('ir.sequence', 'Lote sequence',
+    domain=[
+        ('code', '=', 'account.cooperative.receipt'),
         ],
     help="Used to generate the receipt number.")
 
@@ -35,6 +40,7 @@ class Configuration(ModelSingleton, ModelSQL, ModelView, MultiValueMixin):
                 ('company', '=', Eval('context', {}).get('company', -1)),
                 ]))
     receipt_sequence = fields.MultiValue(receipt_sequence)
+    receipt_lote_sequence = fields.MultiValue(receipt_lote_sequence)
 
     @classmethod
     def multivalue_model(cls, field):
@@ -42,6 +48,8 @@ class Configuration(ModelSingleton, ModelSQL, ModelView, MultiValueMixin):
         if field in {'receipt_account_receivable', 'receipt_account_payable'}:
             return pool.get('cooperative_ar.configuration.receipt_account')
         elif field == 'receipt_sequence':
+            return pool.get('cooperative_ar.configuration.receipt_sequence')
+        elif field == 'receipt_lote_sequence':
             return pool.get('cooperative_ar.configuration.receipt_sequence')
         return super(Configuration, cls).multivalue_model(field)
 
@@ -73,11 +81,31 @@ class ConfigurationSequence(_ConfigurationValue, ModelSQL, ValueMixin):
     'Receipt Configuration Sequence'
     __name__ = 'cooperative_ar.configuration.receipt_sequence'
     receipt_sequence = receipt_sequence
+    receipt_lote_sequence = receipt_lote_sequence
     _configuration_value_field = 'receipt_sequence'
+    _configuration_value_field = 'receipt_lote_sequence'
 
     @classmethod
     def check_xml_record(cls, records, values):
         return True
+
+    @classmethod
+    def default_receipt_sequence(cls):
+        pool = Pool()
+        ModelData = pool.get('ir.model.data')
+        try:
+            return ModelData.get_id('cooperative_ar', 'sequence_cooperative_receipt')
+        except KeyError:
+            return None
+
+    @classmethod
+    def default_receipt_lote_sequence(cls):
+        pool = Pool()
+        ModelData = pool.get('ir.model.data')
+        try:
+            return ModelData.get_id('cooperative_ar', 'sequence_recibo_lote')
+        except KeyError:
+            return None
 
 
 class ConfigurationReceiptAccount(ModelSQL, CompanyValueMixin):

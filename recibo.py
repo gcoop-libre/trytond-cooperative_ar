@@ -545,8 +545,9 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
     'Recibo Lote'
     __name__ = 'cooperative.partner.recibo.lote'
 
-    number = fields.Char('Number')
+    number = fields.Char('Number', readonly=True, select=True)
     date = fields.Date('Date', states=_STATES, depends=_DEPENDS, required=True)
+    description = fields.Char('Description', states=_STATES, depends=_DEPENDS)
     state = fields.Selection([
         ('draft', 'Draft'),
         ('confirmed', 'Confirmed'),
@@ -655,6 +656,23 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
         self.recibos = lines
 
     @classmethod
+    def set_number(cls, lotes):
+        '''
+        Fill the number field with the lote sequence
+        '''
+        pool = Pool()
+        Sequence = pool.get('ir.sequence')
+        Config = Pool().get('cooperative_ar.configuration')
+
+        config = Config(1)
+        for lote in lotes:
+            if lote.number:
+                continue
+            lote.number = Sequence.get_id(config.receipt_lote_sequence.id)
+        cls.save(lotes)
+
+
+    @classmethod
     @ModelView.button
     @Workflow.transition('draft')
     def draft(cls, lotes):
@@ -673,5 +691,6 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
         pool = Pool()
         Recibo = pool.get('cooperative.partner.recibo')
 
+        cls.set_number(lotes)
         for lote in lotes:
             Recibo.confirm(lote.recibos)
