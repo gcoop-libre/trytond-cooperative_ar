@@ -12,6 +12,9 @@ this repository contains the full copyright notices and license terms. -->
     <field name="payment_method" />
     <label name="company"/>
     <field name="company"/>
+    <newline />
+    <label name="description"/>
+    <field name="description" colspan="3"/>
     <notebook colspan="6">
         <page string="Lote" id="lote" col="6">
             <field name="recibos" colspan="6"

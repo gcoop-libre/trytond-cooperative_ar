@@ -116,7 +116,8 @@ class Recibo(Workflow, ModelSQL, ModelView):
             'numbers.type': 'cbu',
             },
         depends=_DEPENDS + ['party'])
-    lote = fields.Many2One('cooperative.partner.recibo.lote', 'Lote')
+    lote = fields.Many2One('cooperative.partner.recibo.lote', 'Lote',
+        ondelete='CASCADE')
 
     @classmethod
     def __setup__(cls):
@@ -576,6 +577,10 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
     @classmethod
     def __setup__(cls):
         super(ReciboLote, cls).__setup__()
+        cls._error_messages.update({
+                'delete_numbered': ('The numbered lote "%s" can not be '
+                    'deleted.'),
+                })
         cls._transitions |= set((
                 ('draft', 'confirmed'),
                 ('draft', 'cancelled'),
@@ -600,6 +605,10 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
         return 'draft'
 
     @staticmethod
+    def default_description():
+        return 'retornos a cuenta de excedentes'
+
+    @staticmethod
     def default_date():
         return Pool().get('ir.date').today()
 
@@ -607,15 +616,23 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
     def default_company():
         return Transaction().context.get('company')
 
-    @fields.depends('recibos', 'company', 'journal', 'payment_method', 'date')
+    @fields.depends('recibos', 'company', 'journal', 'payment_method',
+        'date', 'description')
+    def on_change_description(self):
+        self.add_recibos()
+
+    @fields.depends('recibos', 'company', 'journal', 'payment_method',
+        'date', 'description')
     def on_change_payment_method(self):
         self.add_recibos()
 
-    @fields.depends('recibos', 'company', 'journal', 'payment_method', 'date')
+    @fields.depends('recibos', 'company', 'journal', 'payment_method',
+        'date', 'description')
     def on_change_journal(self):
         self.add_recibos()
 
-    @fields.depends('recibos', 'company', 'journal', 'payment_method', 'date')
+    @fields.depends('recibos', 'company', 'journal', 'payment_method',
+        'date', 'description')
     def on_change_company(self):
         self.add_recibos()
 
@@ -648,7 +665,7 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
             recibo.currency = recibo.default_currency()
             recibo.currency_digits = recibo.on_change_with_currency_digits()
             recibo.currency_date = recibo.on_change_with_currency_date()
-            recibo.description = recibo.default_description()
+            recibo.description = self.description
             recibo.journal = self.journal
             recibo.payment_method = self.payment_method
             recibo.amount = Decimal('0')
@@ -673,6 +690,12 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
             lote.number = Sequence.get_id(config.receipt_lote_sequence.id)
         cls.save(lotes)
 
+    @classmethod
+    def delete(cls, lotes):
+        for lote in lotes:
+            if lote.number:
+                cls.raise_user_error('delete_numbered', (lote.rec_name,))
+        super(ReciboLote, cls).delete(lote)
 
     @classmethod
     @ModelView.button
