@@ -11,7 +11,7 @@
       <field name="name">sanction_form</field>
     </record>
     <record id="act_sanction_form" model="ir.action.act_window">
-      <field name="name">Sanction</field>
+      <field name="name">Sanctions</field>
       <field name="res_model">cooperative.partner.sanction</field>
     </record>
     <record id="act_sanction_form_view1" model="ir.action.act_window.view">

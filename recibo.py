@@ -135,7 +135,7 @@ class Recibo(Workflow, ModelSQL, ModelView):
                 ('draft', 'cancelled'),
                 ('confirmed', 'draft'),
                 ('confirmed', 'cancelled'),
-                ('cancel', 'draft'),
+                ('cancelled', 'draft'),
                 ))
         cls._buttons.update({
                 'cancel': {
@@ -189,14 +189,18 @@ class Recibo(Workflow, ModelSQL, ModelView):
         pool = Pool()
         Config = Pool().get('cooperative_ar.configuration')
         config = Config(1)
-        return config.receipt_account_receivable.id
+        if config.receipt_account_receivable:
+            return config.receipt_account_receivable.id
+        return None
 
     @staticmethod
     def default_account():
         pool = Pool()
         Config = Pool().get('cooperative_ar.configuration')
         config = Config(1)
-        return config.receipt_account_payable.id
+        if config.receipt_account_payable:
+            return config.receipt_account_payable.id
+        return None
 
     @fields.depends('partner')
     def on_change_with_party(self, name=None):
@@ -305,7 +309,7 @@ class Recibo(Workflow, ModelSQL, ModelView):
             return
 
         config = Configuration(1)
-        sequence = config.receipt_sequence
+        sequence = config.recibo_sequence
         if not sequence:
             self.raise_user_error('no_cooperative_sequence')
 
@@ -687,7 +691,7 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
         for lote in lotes:
             if lote.number:
                 continue
-            lote.number = Sequence.get_id(config.receipt_lote_sequence.id)
+            lote.number = Sequence.get_id(config.recibo_lote_sequence.id)
         cls.save(lotes)
 
     @classmethod

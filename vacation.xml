@@ -11,7 +11,7 @@
       <field name="name">vacation_form</field>
     </record>
     <record id="act_vacation_form" model="ir.action.act_window">
-      <field name="name">Permit and Vacation</field>
+      <field name="name">Permits and Vacations</field>
       <field name="res_model">cooperative.partner.vacation</field>
     </record>
     <record id="act_vacation_form_view1" model="ir.action.act_window.view">

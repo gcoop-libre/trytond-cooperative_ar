@@ -28,10 +28,4 @@ this repository contains the full copyright notices and license terms. -->
             <field name="group" ref="group_cooperative_ar_admin"/>
         </record>
     </data>
-    <data noupdate="1">
-        <record model="cooperative_ar.configuration.receipt_sequence"
-            id="configuration_receipt_sequence">
-            <field name="receipt_sequence" ref="sequence_receipt"/>
-        </record>
-    </data>
 </tryton>

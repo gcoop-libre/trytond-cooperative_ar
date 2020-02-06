@@ -16,7 +16,7 @@
       <field name="name">meeting_partners_tree</field>
     </record>
     <record id="act_meeting_form" model="ir.action.act_window">
-      <field name="name">Meeting</field>
+      <field name="name">Meetings</field>
       <field name="res_model">cooperative.meeting</field>
     </record>
     <record id="act_meeting_form_view1" model="ir.action.act_window.view">
