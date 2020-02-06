@@ -5,6 +5,7 @@
 from singing_girl import Singer
 from decimal import Decimal
 import stdnum.ar.cbu as cbu
+import stdnum.ar.cuit as cuit
 
 from trytond.model import ModelView, Workflow, ModelSQL, fields
 from trytond.pyson import Eval, If
@@ -153,7 +154,7 @@ class Recibo(Workflow, ModelSQL, ModelView):
 
     @staticmethod
     def default_description():
-        return 'Retornos a cuenta de excedentes'
+        return 'retornos a cuenta de excedentes'
 
     @staticmethod
     def default_company():
@@ -417,17 +418,15 @@ class ReciboReport(Report):
 
     @classmethod
     def get_context(cls, records, data):
-        report_context = super(ReciboReport, cls).get_context(records, data)
-        report_context['company'] = report_context['user'].company
-        report_context['vat_number'] = \
-            cls._get_vat_number(report_context['user'].company)
-        report_context['get_place'] = cls.get_place
-        return report_context
+        context = super(ReciboReport, cls).get_context(records, data)
+        context['vat_number'] = cls.get_vat_number
+        context['get_place'] = cls.get_place
+        return context
 
     @classmethod
-    def _get_vat_number(cls, company):
+    def get_vat_number(cls, company):
         value = company.party.vat_number
-        return '%s-%s-%s' % (value[:2], value[2:-1], value[-1])
+        return cuit.format(value)
 
     @classmethod
     def get_place(cls, party):
