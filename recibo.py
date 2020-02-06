@@ -462,6 +462,7 @@ class ReciboTransactions(Wizard):
         ids = [r.id for r in recibos
             if r.state == 'confirmed'
             and r.party
+            and r.bank_account
             and r.paid_move]
         if ids:
             return action, {
@@ -476,9 +477,6 @@ class ReciboTransactionsReport(Report):
 
     @classmethod
     def get_context(cls, records, data):
-
-        def get_eol():
-            return '\r\n'
 
         def justify(string, size):
             return string[:size].ljust(size)
@@ -507,28 +505,32 @@ class ReciboTransactionsReport(Report):
         context['format_decimal'] = format_decimal
         context['justify'] = justify
         context['get_address'] = cls._get_address
-        context['get_eol'] = get_eol
         return context
 
     @classmethod
     def _get_account_type(cls, record):
-        return cbu.compact(record.bank_account.rec_name)[10]
+        '''
+        Informacion del CBU
+        CBU: '0': 'CC $' y '1': 'CA $'
+        Importador transferencias BCCL: '1': 'CC $' y '2': 'CA $'
+        '''
+        return str(int(cbu.compact(record.bank_account.rec_name)[10]) + 1)
 
     @classmethod
     def _get_bank_code(cls, record):
-        return record.bank_account.bank.bcra_code
+        return cbu.compact(record.bank_account.rec_name)[0:3]
 
     @classmethod
     def _get_filial(cls, record):
-        return cbu.compact(record.bank_account.rec_name)[3:7]
+        return cbu.compact(record.bank_account.rec_name)[4:7]
 
     @classmethod
     def _get_num_cuenta_mas_digito(cls, record):
-        return cbu.compact(record.bank_account.rec_name)[14:]
+        return cbu.compact(record.bank_account.rec_name)[14:-1]
 
     @classmethod
     def _get_digito_verificador(cls, record):
-        return cbu.compact(record.bank_account.rec_name)[-1]
+        return cbu.compact(record.bank_account.rec_name)[-2]
 
     @classmethod
     def _get_address(cls, record):
@@ -539,6 +541,7 @@ class ReciboTransactionsReport(Report):
                 'email', usage='invoice')
             if contact and contact.email:
                 return contact.email
+        return ''
 
 
 class ReciboLote(Workflow, ModelSQL, ModelView):
