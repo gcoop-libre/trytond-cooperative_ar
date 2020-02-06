@@ -477,6 +477,9 @@ class ReciboTransactionsReport(Report):
     @classmethod
     def get_context(cls, records, data):
 
+        def get_eol():
+            return '\r\n'
+
         def justify(string, size):
             return string[:size].ljust(size)
 
@@ -504,6 +507,7 @@ class ReciboTransactionsReport(Report):
         context['format_decimal'] = format_decimal
         context['justify'] = justify
         context['get_address'] = cls._get_address
+        context['get_eol'] = get_eol
         return context
 
     @classmethod
