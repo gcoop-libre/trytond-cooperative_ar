@@ -23,3 +23,8 @@ class Vacation(ModelSQL, ModelView):
         ('otras', 'Otras Licencias'),
         ('vacaciones', 'Vacaciones'),
         ], 'Tipo', required=True)
+
+    @classmethod
+    def __setup__(cls):
+        super(Vacation, cls).__setup__()
+        cls._order.insert(0, ('year', 'ASC'))
