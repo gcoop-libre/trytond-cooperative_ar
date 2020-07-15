@@ -695,6 +695,15 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
         cls.save(lotes)
 
     @classmethod
+    def copy(cls, lotes, default=None):
+        if default is None:
+            default = {}
+        else:
+            default = default.copy()
+        default.setdefault('number', None)
+        return super(ReciboLote, cls).copy(lotes, default=default)
+
+    @classmethod
     def delete(cls, lotes):
         for lote in lotes:
             if lote.number:
