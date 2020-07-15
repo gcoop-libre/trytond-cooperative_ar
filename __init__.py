@@ -27,6 +27,7 @@ def register():
         analytic_account.AnalyticAccountNota,
         analytic_account.PrintBalanceSocialStart,
         recibo.Move,
+        recibo.MoveLine,
         recibo.ReciboTransactionsStart,
         recibo.ReciboLote,
         module='cooperative_ar', type_='model')
