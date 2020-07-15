@@ -161,6 +161,8 @@ Create Recibo::
     >>> recibo.click('confirm')
     >>> recibo.state
     'confirmed'
+    >>> bool(recibo.confirmed_move)
+    True
 
 Create new Recibo::
 
@@ -175,6 +177,17 @@ Create new Recibo::
     >>> recibo.click('confirm')
     >>> recibo.state
     'confirmed'
+    >>> recibo.reload()
+    >>> bool(recibo.confirmed_move)
+    True
+    >>> bool(recibo.paid_move)
+    True
+
+Cancel Recibo::
+
+    >>> recibo.click('cancel')
+    >>> recibo.state
+    'cancelled'
 
 Create Lote::
 

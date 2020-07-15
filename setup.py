@@ -110,7 +110,7 @@ setup(name=name,
     package_data={
         'trytond.modules.cooperative_ar': (info.get('xml', [])
             + ['tryton.cfg', 'view/*.xml', 'locale/*.po', '*.fodt',
-                'icons/*.svg', '*.txt']),
+                'icons/*.svg', 'tests/*.rst', '*.txt']),
         },
     classifiers=[
         'Development Status :: 4 - Beta',
