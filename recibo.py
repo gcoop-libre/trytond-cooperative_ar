@@ -68,11 +68,32 @@ class Recibo(Workflow, ModelSQL, ModelView):
         depends=_DEPENDS, required=True, select=True)
     accounting_date = fields.Date('Accounting Date', states=_STATES,
         depends=_DEPENDS)
-    confirmed_move = fields.Many2One('account.move', 'Confirmed Move',
-        readonly=True)
-    paid_move = fields.Many2One('account.move', 'Paid Move', states={
-            'invisible': Eval('state').in_(['draft']),
-            }, readonly=True)
+    paid_cancel_move = fields.Many2One('account.move', 'Paid Cancel Move', readonly=True,
+       domain=[
+           ('company', '=', Eval('company', -1)),
+           ],
+      states={
+          'invisible': ~Eval('paid_cancel_move'),
+          },
+       depends=['company'])
+    confirmed_cancel_move = fields.Many2One('account.move', 'Confirmed Cancel Move', readonly=True,
+      domain=[
+          ('company', '=', Eval('company', -1)),
+          ],
+      states={
+          'invisible': ~Eval('confirmed_cancel_move'),
+          },
+      depends=['company'])
+    confirmed_move = fields.Many2One('account.move', 'Confirmed Move', readonly=True,
+        domain=[
+            ('company', '=', Eval('company', -1)),
+            ],
+        depends=['company'])
+    paid_move = fields.Many2One('account.move', 'Paid Move', readonly=True,
+        domain=[
+            ('company', '=', Eval('company', -1)),
+            ],
+        depends=['company'])
     journal = fields.Many2One('account.journal', "Journal", required=True,
         domain=[('type', '=', 'cash')], states=_STATES, depends=_DEPENDS)
     payment_method = fields.Many2One(
@@ -137,17 +158,17 @@ class Recibo(Workflow, ModelSQL, ModelView):
                     'deleted.'),
                 'no_cooperative_sequence': ('You must set a receipt sequence '
                     'at the configuration module.'),
+                'delete_cancel': ('Receipt "%s" must be cancelled before '
+                    'deletion.'),
                 })
         cls._transitions |= set((
                 ('draft', 'confirmed'),
-                ('draft', 'cancelled'),
                 ('confirmed', 'draft'),
                 ('confirmed', 'cancelled'),
-                ('cancelled', 'draft'),
                 ))
         cls._buttons.update({
                 'cancel': {
-                    'invisible': ~Eval('state').in_(['draft']),
+                    'invisible': ~Eval('state').in_(['confirmed']),
                     },
                 'draft': {
                     'invisible': ~Eval('state').in_(['cancelled']),
@@ -242,14 +263,20 @@ class Recibo(Workflow, ModelSQL, ModelView):
     def copy(cls, receipts, default=None):
         if default is None:
             default = {}
-        default = default.copy()
-        default['number'] = None
-        default['state'] = 'draft'
-        default['accounting_date'] = None
-        default['confirmed_move'] = None
-        default['paid_move'] = None
-        default['amount'] = Decimal('0')
-        default['lote'] = None
+        else:
+            default = default.copy()
+        lote = Transaction().context.get('lote', False)
+
+        default.setdefault('number', None)
+        default.setdefault('state', 'draft')
+        default.setdefault('accounting_date', None)
+        default.setdefault('confirmed_move', None)
+        default.setdefault('paid_move', None)
+        default.setdefault('confirmed_cancel_move', None)
+        default.setdefault('paid_cancel_move', None)
+        default.setdefault('amount', Decimal('0'))
+        if not lote:
+            default.setdefault('lote', None)
         return super(Recibo, cls).copy(receipts, default=default)
 
     @classmethod
@@ -302,7 +329,58 @@ class Recibo(Workflow, ModelSQL, ModelView):
     @ModelView.button
     @Workflow.transition('cancelled')
     def cancel(cls, recibos):
-        pass
+        pool = Pool()
+        Move = pool.get('account.move')
+        Line = pool.get('account.move.line')
+        Reconciliation = pool.get('account.move.reconciliation')
+
+        cancel_moves = []
+        delete_moves = []
+        to_save = set()
+
+        for recibo in recibos:
+            reconciliations_c = [x.reconciliation for x in recibo.confirmed_move.lines
+                    if x.reconciliation]
+            reconciliations_p = [x.reconciliation for x in recibo.paid_move.lines
+                    if x.reconciliation]
+            with Transaction().set_user(0, set_context=True):
+                if reconciliations_c:
+                    Reconciliation.delete(reconciliations_c)
+                if reconciliations_p:
+                    Reconciliation.delete(reconciliations_p)
+
+            if recibo.confirmed_move:
+                recibo.confirmed_cancel_move = recibo.confirmed_move.cancel()
+                recibo.save()
+                cancel_moves.append(recibo.confirmed_cancel_move)
+            if recibo.paid_move:
+                recibo.paid_cancel_move = recibo.paid_move.cancel()
+                recibo.save()
+                cancel_moves.append(recibo.paid_cancel_move)
+        if cancel_moves:
+            Move.save(cancel_moves)
+        if delete_moves:
+            Move.delete(delete_moves)
+        if cancel_moves:
+            Move.post(cancel_moves)
+        cls.write(recibos, {
+                'state': 'cancelled',
+                })
+
+        for recibo in recibos:
+            if not recibo.confirmed_move or not recibo.confirmed_cancel_move:
+                continue
+            to_reconcile = []
+            for line in recibo.confirmed_move.lines + recibo.confirmed_cancel_move.lines:
+                if line.account == recibo.account:
+                    to_reconcile.append(line)
+            Line.reconcile(to_reconcile)
+
+            to_reconcile = []
+            for line in recibo.paid_move.lines + recibo.paid_cancel_move.lines:
+                if line.account == recibo.account:
+                    to_reconcile.append(line)
+            Line.reconcile(to_reconcile)
 
     def set_number(self):
         '''
@@ -592,17 +670,17 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
         cls._error_messages.update({
                 'delete_numbered': ('The numbered lote "%s" can not be '
                     'deleted.'),
+                'delete_cancel': ('Lote "%s" must be cancelled before '
+                    'deletion.'),
                 })
         cls._transitions |= set((
                 ('draft', 'confirmed'),
-                ('draft', 'cancelled'),
                 ('confirmed', 'draft'),
                 ('confirmed', 'cancelled'),
-                ('cancelled', 'draft'),
                 ))
         cls._buttons.update({
                 'cancel': {
-                    'invisible': ~Eval('state').in_(['draft']),
+                    'invisible': ~Eval('state').in_(['confirmed']),
                     },
                 'draft': {
                     'invisible': ~Eval('state').in_(['cancelled']),
@@ -709,14 +787,15 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
         else:
             default = default.copy()
         default.setdefault('number', None)
-        return super(ReciboLote, cls).copy(lotes, default=default)
+        with Transaction().set_context(lote=True):
+            return super(ReciboLote, cls).copy(lotes, default=default)
 
     @classmethod
     def delete(cls, lotes):
         for lote in lotes:
             if lote.number:
                 cls.raise_user_error('delete_numbered', (lote.rec_name,))
-        super(ReciboLote, cls).delete(lote)
+        super(ReciboLote, cls).delete(lotes)
 
     @classmethod
     @ModelView.button
@@ -726,9 +805,13 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
 
     @classmethod
     @ModelView.button
-    @Workflow.transition('cancel')
+    @Workflow.transition('cancelled')
     def cancel(cls, lotes):
-        pass
+        pool = Pool()
+        Recibo = pool.get('cooperative.partner.recibo')
+
+        for lote in lotes:
+            Recibo.cancel(lote.recibos)
 
     @classmethod
     @ModelView.button

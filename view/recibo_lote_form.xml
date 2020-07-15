@@ -24,7 +24,6 @@ this repository contains the full copyright notices and license terms. -->
                 <field name="state"/>
                 <button name="cancel" icon="tryton-cancel"
                     confirm="Are you sure to cancel the lote?"/>
-                <button name="draft" icon="tryton-go-previous"/>
                 <button name="confirm" icon="tryton-ok"/>
             </group>
         </page>
