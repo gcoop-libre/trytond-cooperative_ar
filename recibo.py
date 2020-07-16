@@ -653,6 +653,8 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
                 Eval('context', {}).get('company', -1)),
             ],
         depends=_DEPENDS, required=True, select=True)
+    amount_recibos = fields.Function(fields.Numeric('Total Recibos',
+        digits=(16, 2)), 'on_change_with_amount_recibos')
     recibos = fields.One2Many('cooperative.partner.recibo', 'lote',
         'Recibos', states=_STATES, depends=_DEPENDS)
 
@@ -697,6 +699,18 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
     @staticmethod
     def default_company():
         return Transaction().context.get('company')
+
+    @staticmethod
+    def default_amount_recibos():
+        return Decimal('0')
+
+    @fields.depends('recibos')
+    def on_change_with_amount_recibos(self, name=None):
+        total = Decimal('0')
+        if self.recibos:
+            for recibo in self.recibos:
+                total += recibo.amount
+        return total
 
     @fields.depends('recibos', 'company', 'journal', 'payment_method',
         'date', 'description')
