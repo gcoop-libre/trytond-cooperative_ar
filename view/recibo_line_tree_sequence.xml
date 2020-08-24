@@ -7,5 +7,7 @@ this repository contains the full copyright notices and license terms. -->
     <field name="description"/>
     <field name="account"/>
     <field name="account_expense"/>
+    <field name="journal"/>
+    <field name="payment_method"/>
     <field name="amount"/>
 </tree>
