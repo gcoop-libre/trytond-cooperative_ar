@@ -10,9 +10,6 @@ from trytond.pool import Pool
 from trytond.modules.company.model import (
     CompanyMultiValueMixin, CompanyValueMixin)
 
-__all__ = ['Configuration', 'ConfigurationSequence',
-    'ConfigurationReceiptAccount']
-
 
 def default_func(field_name):
     @classmethod

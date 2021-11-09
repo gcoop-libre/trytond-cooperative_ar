@@ -8,9 +8,6 @@ from trytond.pool import Pool
 from trytond.wizard import Wizard, StateView, StateAction, Button
 from trytond.report import Report
 
-__all__ = ['AnalyticAccountNota', 'PrintBalanceSocialStart',
-    'PrintBalanceSocial', 'BalanceSocial']
-
 
 class AnalyticAccountNota(ModelSQL, ModelView):
     'Notes Analytic Account'

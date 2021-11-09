@@ -10,8 +10,6 @@ from . import recibo
 from . import analytic_account
 from . import configuration
 
-__all__ = ['register']
-
 
 def register():
     Pool.register(
