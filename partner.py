@@ -66,7 +66,7 @@ class Partner(ModelSQL, ModelView):
         default['meeting'] = None
         default['vacation'] = None
         default['vacation_days'] = 0
-        return super(Partner, cls).copy(partners, default=default)
+        return super().copy(partners, default=default)
 
     def get_rec_name(self, name):
         if self.file:
@@ -118,7 +118,7 @@ class Partner(ModelSQL, ModelView):
             if data and data != partners:
                 cls.raise_user_error('unique_file')
 
-        return super(Partner, cls).write(partners, vals)
+        return super().write(partners, vals)
 
     @classmethod
     def create(cls, vlist):
@@ -128,4 +128,4 @@ class Partner(ModelSQL, ModelView):
                 if data:
                     cls.raise_user_error('unique_file')
 
-        return super(Partner, cls).create(vlist)
+        return super().create(vlist)

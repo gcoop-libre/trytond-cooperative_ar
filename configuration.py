@@ -60,7 +60,7 @@ class Configuration(
             return pool.get('cooperative_ar.configuration.receipt_account')
         if field in {'recibo_sequence', 'recibo_lote_sequence'}:
             return pool.get('cooperative_ar.configuration.sequence')
-        return super(Configuration, cls).multivalue_model(field)
+        return super().multivalue_model(field)
 
     default_recibo_sequence = default_func('recibo_sequence')
     default_recibo_lote_sequence = default_func('recibo_lote_sequence')
@@ -75,7 +75,7 @@ class _ConfigurationValue(ModelSQL):
         TableHandler = backend.get('TableHandler')
         exist = TableHandler.table_exist(cls._table)
 
-        super(_ConfigurationValue, cls).__register__(module_name)
+        super().__register__(module_name)
 
         if not exist:
             cls._migrate_property([], [], [])

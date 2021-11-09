@@ -26,7 +26,7 @@ class Move(metaclass=PoolMeta):
 
     @classmethod
     def _get_origin(cls):
-        return super(Move, cls)._get_origin() + [
+        return super()._get_origin() + [
             'cooperative.partner.recibo']
 
 
@@ -150,7 +150,7 @@ class Recibo(Workflow, ModelSQL, ModelView):
 
     @classmethod
     def __setup__(cls):
-        super(Recibo, cls).__setup__()
+        super().__setup__()
         cls._error_messages.update({
                 'missing_config_accounts': ('You must set debit/credit '
                     'accounts at the configuration module.'),
@@ -277,14 +277,14 @@ class Recibo(Workflow, ModelSQL, ModelView):
         default.setdefault('amount', Decimal('0'))
         if not lote:
             default.setdefault('lote', None)
-        return super(Recibo, cls).copy(receipts, default=default)
+        return super().copy(receipts, default=default)
 
     @classmethod
     def delete(cls, receipts):
         for receipt in receipts:
             if receipt.number:
                 cls.raise_user_error('delete_numbered', (receipt.rec_name,))
-        super(Recibo, cls).delete(receipts)
+        super().delete(receipts)
 
     @classmethod
     def get_sing_number(self, recibo_amount):
@@ -668,7 +668,7 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
 
     @classmethod
     def __setup__(cls):
-        super(ReciboLote, cls).__setup__()
+        super().__setup__()
         cls._error_messages.update({
                 'delete_numbered': ('The numbered lote "%s" can not be '
                     'deleted.'),
@@ -802,14 +802,14 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
             default = default.copy()
         default.setdefault('number', None)
         with Transaction().set_context(lote=True):
-            return super(ReciboLote, cls).copy(lotes, default=default)
+            return super().copy(lotes, default=default)
 
     @classmethod
     def delete(cls, lotes):
         for lote in lotes:
             if lote.number:
                 cls.raise_user_error('delete_numbered', (lote.rec_name,))
-        super(ReciboLote, cls).delete(lotes)
+        super().delete(lotes)
 
     @classmethod
     @ModelView.button

@@ -23,5 +23,5 @@ class Vacation(ModelSQL, ModelView):
 
     @classmethod
     def __setup__(cls):
-        super(Vacation, cls).__setup__()
+        super().__setup__()
         cls._order.insert(0, ('year', 'ASC'))
