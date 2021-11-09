@@ -39,7 +39,6 @@ Create coop user::
     >>> user = User()
     >>> user.name = 'coop'
     >>> user.login = 'coop'
-    >>> user.main_company = company
     >>> group, = Group.find([('name', '=', 'Cooperatives')])
     >>> user.groups.append(group)
     >>> user.save()
