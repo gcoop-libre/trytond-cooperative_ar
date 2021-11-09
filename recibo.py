@@ -12,6 +12,8 @@ from trytond.transaction import Transaction
 from trytond.pool import Pool, PoolMeta
 from trytond.wizard import Wizard, StateView, StateReport, Button
 from trytond.report import Report
+from trytond.exceptions import UserError
+from trytond.i18n import gettext
 
 
 class Move(metaclass=PoolMeta):
@@ -134,16 +136,6 @@ class Recibo(Workflow, ModelSQL, ModelView):
     @classmethod
     def __setup__(cls):
         super().__setup__()
-        cls._error_messages.update({
-                'missing_config_accounts': ('You must set debit/credit '
-                    'accounts at the configuration module.'),
-                'delete_numbered': ('The numbered receipt "%s" can not be '
-                    'deleted.'),
-                'no_cooperative_sequence': ('You must set a receipt sequence '
-                    'at the configuration module.'),
-                'delete_cancel': ('Receipt "%s" must be cancelled before '
-                    'deletion.'),
-                })
         cls._transitions |= set((
                 ('draft', 'confirmed'),
                 ('confirmed', 'draft'),
@@ -266,7 +258,9 @@ class Recibo(Workflow, ModelSQL, ModelView):
     def delete(cls, receipts):
         for receipt in receipts:
             if receipt.number:
-                cls.raise_user_error('delete_numbered', (receipt.rec_name,))
+                raise UserError(gettext(
+                    'cooperative_ar.msg_receipt_delete_numbered',
+                    receipt=receipt.rec_name))
         super().delete(receipts)
 
     @classmethod
@@ -380,7 +374,8 @@ class Recibo(Workflow, ModelSQL, ModelView):
         config = Configuration(1)
         sequence = config.recibo_sequence
         if not sequence:
-            self.raise_user_error('no_cooperative_sequence')
+            raise UserError(gettext(
+                'cooperative_ar.msg_no_cooperative_sequence'))
 
         with Transaction().set_context(
                 date=self.date or Date.today()):
@@ -654,12 +649,6 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
     @classmethod
     def __setup__(cls):
         super().__setup__()
-        cls._error_messages.update({
-                'delete_numbered': ('The numbered lote "%s" can not be '
-                    'deleted.'),
-                'delete_cancel': ('Lote "%s" must be cancelled before '
-                    'deletion.'),
-                })
         cls._transitions |= set((
                 ('draft', 'confirmed'),
                 ('confirmed', 'draft'),
@@ -793,7 +782,9 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
     def delete(cls, lotes):
         for lote in lotes:
             if lote.number:
-                cls.raise_user_error('delete_numbered', (lote.rec_name,))
+                raise UserError(gettext(
+                    'cooperative_ar.msg_lot_delete_numbered',
+                    lot=lote.rec_name))
         super().delete(lotes)
 
     @classmethod

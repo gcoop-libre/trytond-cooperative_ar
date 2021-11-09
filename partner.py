@@ -5,6 +5,8 @@ from trytond.pool import Pool
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.pyson import Equal, Eval
 from trytond.transaction import Transaction
+from trytond.exceptions import UserError
+from trytond.i18n import gettext
 
 
 class Partner(ModelSQL, ModelView):
@@ -105,19 +107,11 @@ class Partner(ModelSQL, ModelView):
         return Transaction().context.get('company')
 
     @classmethod
-    def __setup__(cls):
-        super(Partner, cls).__setup__()
-        cls._error_messages.update({
-            'unique_file': 'The file must be unique.',
-            })
-
-    @classmethod
     def write(cls, partners, vals):
         if 'file' in vals:
             data = cls.search([('file', '=', vals['file'])])
             if data and data != partners:
-                cls.raise_user_error('unique_file')
-
+                raise UserError(gettext('cooperative_ar.msg_unique_file'))
         return super().write(partners, vals)
 
     @classmethod
@@ -126,6 +120,5 @@ class Partner(ModelSQL, ModelView):
             if 'file' in vals:
                 data = cls.search([('file', '=', vals['file'])])
                 if data:
-                    cls.raise_user_error('unique_file')
-
+                    raise UserError(gettext('cooperative_ar.msg_unique_file'))
         return super().create(vlist)

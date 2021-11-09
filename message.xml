@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<tryton>
+    <data grouped="1">
+        <record model="ir.message" id="msg_no_cooperative_sequence">
+            <field name="text">You must set a receipt sequence at the configuration module.</field>
+        </record>
+        <record model="ir.message" id="msg_unique_file">
+            <field name="text">The file must be unique.</field>
+        </record>
+        <record model="ir.message" id="msg_receipt_delete_numbered">
+            <field name="text">The numbered receipt "%(receipt)s" can not be deleted.</field>
+        </record>
+        <record model="ir.message" id="msg_receipt_delete_cancel">
+            <field name="text">Receipt "%s" must be cancelled before deletion.</field>
+        </record>
+        <record model="ir.message" id="msg_lot_delete_numbered">
+            <field name="text">The numbered lote "%(lot)s" can not be deleted.</field>
+        </record>
+        <record model="ir.message" id="msg_lot_delete_cancel">
+            <field name="text">Lot "%s" must be cancelled before deletion.</field>
+        </record>
+    </data>
+</tryton>
