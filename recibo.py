@@ -14,13 +14,6 @@ from trytond.wizard import Wizard, StateView, StateReport, Button
 from trytond.report import Report
 
 
-_DEPENDS = ['state']
-
-_STATES = {
-    'readonly': Eval('state') != 'draft',
-}
-
-
 class Move(metaclass=PoolMeta):
     __name__ = 'account.move'
 
@@ -43,75 +36,63 @@ class Recibo(Workflow, ModelSQL, ModelView):
     'Cooperative receipt'
     __name__ = 'cooperative.partner.recibo'
 
-    date = fields.Date('Date', states=_STATES, depends=_DEPENDS, required=True)
+    _states = {'readonly': Eval('state') != 'draft'}
+    _depends = ['state']
+
+    date = fields.Date('Date', states=_states, depends=_depends, required=True)
     amount = fields.Numeric('Amount', digits=(16, Eval('currency_digits', 2)),
-            states=_STATES, required=True,
-            depends=_DEPENDS + ['currency_digits'])
-    partner = fields.Many2One('cooperative.partner', 'Partner', states=_STATES,
-        depends=_DEPENDS, required=True)
+        states=_states, required=True,
+        depends=_depends + ['currency_digits'])
+    partner = fields.Many2One('cooperative.partner', 'Partner', states=_states,
+        depends=_depends, required=True)
     state = fields.Selection([
         ('draft', 'Draft'),
         ('confirmed', 'Confirmed'),
         ('cancelled', 'Cancelled'),
         ], 'State', readonly=True)
     number = fields.Char('Number', size=None, readonly=True, select=True)
-    description = fields.Char('Description', size=None, states=_STATES,
-        depends=_DEPENDS)
+    description = fields.Char('Description', size=None, states=_states,
+        depends=_depends)
     party = fields.Function(fields.Many2One(
-            'party.party', 'Party', required=True, states=_STATES,
-            depends=_DEPENDS), 'on_change_with_party')
-    company = fields.Many2One('company.company', 'Company', states=_STATES,
+        'party.party', 'Party', required=True, states=_states,
+        depends=_depends), 'on_change_with_party')
+    company = fields.Many2One('company.company', 'Company', states=_states,
         domain=[
             ('id', If(Eval('context', {}).contains('company'), '=', '!='),
                 Eval('context', {}).get('company', -1)),
             ],
-        depends=_DEPENDS, required=True, select=True)
-    accounting_date = fields.Date('Accounting Date', states=_STATES,
-        depends=_DEPENDS)
-    paid_cancel_move = fields.Many2One('account.move', 'Paid Cancel Move', readonly=True,
-       domain=[
-           ('company', '=', Eval('company', -1)),
-           ],
-      states={
-          'invisible': ~Eval('paid_cancel_move'),
-          },
-       depends=['company'])
-    confirmed_cancel_move = fields.Many2One('account.move', 'Confirmed Cancel Move', readonly=True,
-      domain=[
-          ('company', '=', Eval('company', -1)),
-          ],
-      states={
-          'invisible': ~Eval('confirmed_cancel_move'),
-          },
-      depends=['company'])
-    confirmed_move = fields.Many2One('account.move', 'Confirmed Move', readonly=True,
-        domain=[
-            ('company', '=', Eval('company', -1)),
-            ],
+        depends=_depends, required=True, select=True)
+    accounting_date = fields.Date('Accounting Date', states=_states,
+        depends=_depends)
+    paid_cancel_move = fields.Many2One('account.move', 'Paid Cancel Move',
+        readonly=True, domain=[('company', '=', Eval('company', -1))],
+        states={'invisible': ~Eval('paid_cancel_move')},
+        depends=['company'])
+    confirmed_cancel_move = fields.Many2One('account.move',
+        'Confirmed Cancel Move', readonly=True,
+        domain=[('company', '=', Eval('company', -1))],
+        states={'invisible': ~Eval('confirmed_cancel_move')},
+        depends=['company'])
+    confirmed_move = fields.Many2One('account.move', 'Confirmed Move',
+        readonly=True, domain=[('company', '=', Eval('company', -1))],
         depends=['company'])
     paid_move = fields.Many2One('account.move', 'Paid Move', readonly=True,
-        domain=[
-            ('company', '=', Eval('company', -1)),
-            ],
+        domain=[('company', '=', Eval('company', -1))],
         depends=['company'])
     journal = fields.Many2One('account.journal', "Journal", required=True,
-        domain=[('type', '=', 'cash')], states=_STATES, depends=_DEPENDS)
+        domain=[('type', '=', 'cash')], states=_states, depends=_depends)
     payment_method = fields.Many2One(
-        'account.invoice.payment.method', "Payment Method",  required=True,
-        domain=[
-            ('company', '=', Eval('company')),
-            ],
-        states=_STATES,
-        depends=_DEPENDS + ['company'])
-    currency = fields.Many2One('currency.currency', 'Currency', states={
-            'readonly': Eval('state') != 'draft',
-            }, depends=['state'], required=True)
+        'account.invoice.payment.method', "Payment Method", required=True,
+        domain=[('company', '=', Eval('company'))],
+        states=_states, depends=_depends + ['company'])
+    currency = fields.Many2One('currency.currency', 'Currency', required=True,
+        states={'readonly': Eval('state') != 'draft'}, depends=['state'])
     currency_digits = fields.Function(fields.Integer('Currency Digits'),
         'on_change_with_currency_digits')
     currency_date = fields.Function(fields.Date('Currency Date'),
         'on_change_with_currency_date')
     account = fields.Many2One('account.account', 'Account', required=True,
-        states=_STATES, depends=_DEPENDS + [
+        states=_states, depends=_depends + [
             'company', 'accounting_date', 'date'],
         domain=[
             ('company', '=', Eval('company', -1)),
@@ -123,7 +104,7 @@ class Recibo(Workflow, ModelSQL, ModelView):
                 Eval('date')),
             })
     account_expense = fields.Many2One('account.account', 'Account',
-        required=True, states=_STATES, depends=_DEPENDS + [
+        required=True, states=_states, depends=_depends + [
             'company', 'accounting_date', 'date'],
         domain=[
             ('company', '=', Eval('company', -1)),
@@ -135,7 +116,7 @@ class Recibo(Workflow, ModelSQL, ModelView):
                 Eval('date')),
             })
     bank_account = fields.Many2One('bank.account', 'Bank account',
-        states=_STATES,
+        states=_states,
         domain=[
             ('owners', '=', Eval('party')),
             ('numbers.type', '=', 'cbu'),
@@ -144,9 +125,11 @@ class Recibo(Workflow, ModelSQL, ModelView):
             'owners': Eval('party'),
             'numbers.type': 'cbu',
             },
-        depends=_DEPENDS + ['party'])
+        depends=_depends + ['party'])
     lote = fields.Many2One('cooperative.partner.recibo.lote', 'Lote',
         ondelete='CASCADE')
+
+    del _states, _depends
 
     @classmethod
     def __setup__(cls):
@@ -638,33 +621,35 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
     'Recibo Lote'
     __name__ = 'cooperative.partner.recibo.lote'
 
+    _states = {'readonly': Eval('state') != 'draft'}
+    _depends = ['state']
+
     number = fields.Char('Number', readonly=True, select=True)
-    date = fields.Date('Date', states=_STATES, depends=_DEPENDS, required=True)
-    description = fields.Char('Description', states=_STATES, depends=_DEPENDS)
+    date = fields.Date('Date', states=_states, depends=_depends, required=True)
+    description = fields.Char('Description', states=_states, depends=_depends)
     state = fields.Selection([
         ('draft', 'Draft'),
         ('confirmed', 'Confirmed'),
-        ('cancelled', 'Canceled'),
+        ('cancelled', 'Cancelled'),
         ], 'State', readonly=True)
     journal = fields.Many2One('account.journal', "Journal", required=True,
-        domain=[('type', '=', 'cash')], states=_STATES, depends=_DEPENDS)
+        domain=[('type', '=', 'cash')], states=_states, depends=_depends)
     payment_method = fields.Many2One(
-        'account.invoice.payment.method', "Payment Method",  required=True,
-        domain=[
-            ('company', '=', Eval('company')),
-            ],
-        states=_STATES,
-        depends=_DEPENDS + ['company'])
-    company = fields.Many2One('company.company', 'Company', states=_STATES,
+        'account.invoice.payment.method', "Payment Method", required=True,
+        domain=[('company', '=', Eval('company'))],
+        states=_states, depends=_depends + ['company'])
+    company = fields.Many2One('company.company', 'Company', states=_states,
         domain=[
             ('id', If(Eval('context', {}).contains('company'), '=', '!='),
                 Eval('context', {}).get('company', -1)),
             ],
-        depends=_DEPENDS, required=True, select=True)
+        depends=_depends, required=True, select=True)
     amount_recibos = fields.Function(fields.Numeric('Total Recibos',
         digits=(16, 2)), 'on_change_with_amount_recibos')
     recibos = fields.One2Many('cooperative.partner.recibo', 'lote',
-        'Recibos', states=_STATES, depends=_DEPENDS)
+        'Recibos', states=_states, depends=_depends)
+
+    del _states, _depends
 
     @classmethod
     def __setup__(cls):

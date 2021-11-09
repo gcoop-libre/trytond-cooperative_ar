@@ -5,14 +5,13 @@ from trytond.model import ModelView, ModelSQL, fields
 from trytond.pyson import Eval
 from trytond.report import Report
 
-STATES = {'required': Eval('status') == 'complete'}
-
 
 class Meeting(ModelSQL, ModelView):
     'Meeting'
     __name__ = 'cooperative.meeting'
 
     _states = {'required': Eval('status') == 'complete'}
+    _depends = ['status']
 
     type = fields.Selection([
         ('ordinaria', 'Ordinaria'),
@@ -23,17 +22,15 @@ class Meeting(ModelSQL, ModelView):
         ('planned', 'Planned'),
         ('complete', 'Complete'),
         ], 'Status', required=True)
-    start_date = fields.Date('Start Date', states=_states)
-    start_time = fields.Time('Start Time', states=_states)
-    end_time = fields.Time('End Time', states=_states)
-    record = fields.Text('Record', states=_states)
+    start_date = fields.Date('Start Date', states=_states, depends=_depends)
+    start_time = fields.Time('Start Time', states=_states, depends=_depends)
+    end_time = fields.Time('End Time', states=_states, depends=_depends)
+    record = fields.Text('Record', states=_states, depends=_depends)
     partners = fields.Many2Many('cooperative.partner-meeting',
         'meeting', 'partner', 'Partner',
-        domain=[
-            ('status', '=', 'active'),
-            ])
+        domain=[('status', '=', 'active')])
 
-    del _states
+    del _states, _depends
 
     @staticmethod
     def default_type():
