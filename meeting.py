@@ -53,9 +53,8 @@ class MeetingReport(Report):
     __name__ = 'cooperative.meeting'
 
     @classmethod
-    def get_context(cls, records, data):
-        report_context = super(MeetingReport, cls).get_context(records,
-            data)
+    def get_context(cls, records, header, data):
+        report_context = super().get_context(records, header, data)
         report_context['company'] = report_context['user'].company
         report_context['format_vat_number'] = cls.format_vat_number
         return report_context

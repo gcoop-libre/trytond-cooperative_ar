@@ -93,8 +93,8 @@ class BalanceSocial(Report):
         return accounts
 
     @classmethod
-    def get_context(cls, records, data):
-        report_context = super(BalanceSocial, cls).get_context(records, data)
+    def get_context(cls, records, header, data):
+        report_context = super().get_context(records, header, data)
         company = report_context['user'].company
         report_context['company'] = company
         report_context['digits'] = company.currency.digits

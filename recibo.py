@@ -484,8 +484,8 @@ class ReciboReport(Report):
     __name__ = 'cooperative.partner.recibo'
 
     @classmethod
-    def get_context(cls, records, data):
-        context = super(ReciboReport, cls).get_context(records, data)
+    def get_context(cls, records, header, data):
+        context = super().get_context(records, header, data)
         context['vat_number'] = cls.get_vat_number
         context['get_place'] = cls.get_place
         return context
@@ -542,7 +542,7 @@ class ReciboTransactionsReport(Report):
     __name__ = 'cooperative.partner.recibo.transactions_report'
 
     @classmethod
-    def get_context(cls, records, data):
+    def get_context(cls, records, header, data):
 
         def justify(string, size):
             return string[:size].ljust(size)
@@ -557,7 +557,7 @@ class ReciboTransactionsReport(Report):
             return ''.join(c for c in normalize('NFD', s)
                 if category(c) != 'Mn')
 
-        context = super(ReciboTransactionsReport, cls).get_context(records, data)
+        context = super().get_context(records, header, data)
         pool = Pool()
         Recibo = pool.get('cooperative.partner.recibo')
         recibos = Recibo.browse(data['ids'])
