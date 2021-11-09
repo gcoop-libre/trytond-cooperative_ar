@@ -5,8 +5,8 @@ from trytond.model import ModelView, ModelSQL, ModelSingleton, fields
 from trytond.model import MultiValueMixin, ValueMixin
 from trytond import backend
 from trytond.tools.multivalue import migrate_property
-from trytond.pyson import Eval
 from trytond.pool import Pool
+from trytond.pyson import Eval, Id
 from trytond.modules.company.model import (
     CompanyMultiValueMixin, CompanyValueMixin)
 
@@ -38,16 +38,18 @@ class Configuration(
     recibo_sequence = fields.MultiValue(fields.Many2One(
             'ir.sequence', "Recibo Sequence", required=True,
             domain=[
+                ('sequence_type', '=',
+                    Id('cooperative_ar', 'sequence_type_recibo')),
                 ('company', 'in',
                     [Eval('context', {}).get('company', -1), None]),
-                ('code', '=', 'cooperative.receipt'),
                 ]))
     recibo_lote_sequence = fields.MultiValue(fields.Many2One(
             'ir.sequence', "Recibo Lote Sequence", required=True,
             domain=[
+                ('sequence_type', '=',
+                    Id('cooperative_ar', 'sequence_type_recibo')),
                 ('company', 'in',
                     [Eval('context', {}).get('company', -1), None]),
-                ('code', '=', 'cooperative.receipt'),
                 ]))
 
     @classmethod
@@ -92,15 +94,17 @@ class ConfigurationSequence(_ConfigurationValue, ModelSQL, CompanyValueMixin):
     recibo_sequence = fields.Many2One(
         'ir.sequence', "Recibo Sequence", required=True,
         domain=[
+            ('sequence_type', '=',
+                Id('cooperative_ar', 'sequence_type_recibo')),
             ('company', 'in', [Eval('company', -1), None]),
-            ('code', '=', 'cooperative.receipt'),
             ],
         depends=['company'])
     recibo_lote_sequence = fields.Many2One(
         'ir.sequence', "Recibo Lote Sequence", required=True,
         domain=[
+            ('sequence_type', '=',
+                Id('cooperative_ar', 'sequence_type_recibo')),
             ('company', 'in', [Eval('company', -1), None]),
-            ('code', '=', 'cooperative.receipt'),
             ],
         depends=['company'])
     _configuration_value_field = 'recibo_sequence'

@@ -365,7 +365,6 @@ class Recibo(Workflow, ModelSQL, ModelView):
         '''
         pool = Pool()
         Date = pool.get('ir.date')
-        Sequence = pool.get('ir.sequence')
         Configuration = pool.get('cooperative_ar.configuration')
 
         if self.number:
@@ -379,8 +378,7 @@ class Recibo(Workflow, ModelSQL, ModelView):
 
         with Transaction().set_context(
                 date=self.date or Date.today()):
-            number = Sequence.get_id(sequence.id)
-            vals = {'number': number}
+            vals = {'number': sequence.get()}
 
         self.write([self], vals)
 
@@ -758,14 +756,13 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
         Fill the number field with the lote sequence
         '''
         pool = Pool()
-        Sequence = pool.get('ir.sequence')
-        Config = Pool().get('cooperative_ar.configuration')
+        Config = pool.get('cooperative_ar.configuration')
 
         config = Config(1)
         for lote in lotes:
             if lote.number:
                 continue
-            lote.number = Sequence.get_id(config.recibo_lote_sequence.id)
+            lote.number = config.recibo_lote_sequence.get()
         cls.save(lotes)
 
     @classmethod
