@@ -2,105 +2,81 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
-msgctxt "error:cooperative.partner:"
-msgid "The file must be unique."
-msgstr "El archivo debe ser único"
+msgctxt "field:analytic_account.account.nota,account:"
+msgid "Account"
+msgstr "Cuenta"
 
-msgctxt "error:party.party:"
-msgid "The VAT number must be unique in each country."
-msgstr "El CUIT debe ser único en cada país"
+msgctxt "field:analytic_account.account.nota,date:"
+msgid "Date"
+msgstr "Fecha"
 
-msgctxt "error:cooperative.partner.recibo:"
-msgid "You must set debit/credit account at the journal \"%(journal)s\"."
-msgstr "Debes configurar la cuenta debito/credito del diario \"%(journal)s\"."
+msgctxt "field:analytic_account.account.nota,name:"
+msgid "Name"
+msgstr "Nombre"
 
-msgctxt "error:cooperative.partner.recibo:"
-msgid "You must set debit/credit accounts at the configuration module."
-msgstr "Falta setear la cuenta debito/credito en la configuración del módulo."
+msgctxt "field:analytic_account.account.nota,note:"
+msgid "Note"
+msgstr "Nota"
 
-#, fuzzy
-msgctxt "field:cooperative.meeting,create_date:"
-msgid "Create Date"
-msgstr "Fecha de Creación"
+msgctxt "field:analytic_account.account.nota,type:"
+msgid "Type"
+msgstr "Tipo"
 
-#, fuzzy
-msgctxt "field:cooperative.meeting,create_uid:"
-msgid "Create User"
-msgstr "Usuario creación"
+msgctxt "field:analytic_account.print_balance_social.start,company:"
+msgid "Company"
+msgstr "Empresa"
+
+msgctxt "field:analytic_account.print_balance_social.start,from_date:"
+msgid "From Date"
+msgstr "Desde la fecha"
+
+msgctxt "field:analytic_account.print_balance_social.start,to_date:"
+msgid "To Date"
+msgstr "Hasta la fecha"
 
 msgctxt "field:cooperative.meeting,end_time:"
 msgid "End Time"
-msgstr "Fecha Fin"
-
-#, fuzzy
-msgctxt "field:cooperative.meeting,id:"
-msgid "ID"
-msgstr "ID"
+msgstr "Hora fin"
 
 msgctxt "field:cooperative.meeting,partners:"
 msgid "Partner"
 msgstr "Socio"
 
-#, fuzzy
-msgctxt "field:cooperative.meeting,rec_name:"
-msgid "Name"
-msgstr "Nombre del adjunto"
-
 msgctxt "field:cooperative.meeting,record:"
 msgid "Record"
 msgstr "Registro"
 
-#, fuzzy
 msgctxt "field:cooperative.meeting,start_date:"
 msgid "Start Date"
-msgstr "Fecha inicial"
+msgstr "Fecha inicio"
 
 msgctxt "field:cooperative.meeting,start_time:"
 msgid "Start Time"
-msgstr "Fecha Inicio"
+msgstr "Hora inicio"
 
 msgctxt "field:cooperative.meeting,status:"
 msgid "Status"
 msgstr "Estado"
 
-#, fuzzy
 msgctxt "field:cooperative.meeting,type:"
 msgid "Type"
 msgstr "Tipo"
 
-#, fuzzy
-msgctxt "field:cooperative.meeting,write_date:"
-msgid "Write Date"
-msgstr "Fecha modificación"
+msgctxt "field:cooperative.partner,birthdate:"
+msgid "Birthdate"
+msgstr "Fecha Nacimiento"
 
-#, fuzzy
-msgctxt "field:cooperative.meeting,write_uid:"
-msgid "Write User"
-msgstr "Usuario modificación"
-
-#, fuzzy
 msgctxt "field:cooperative.partner,company:"
 msgid "Company"
 msgstr "Empresa"
-
-#, fuzzy
-msgctxt "field:cooperative.partner,create_date:"
-msgid "Create Date"
-msgstr "Fecha de Creación"
-
-#, fuzzy
-msgctxt "field:cooperative.partner,create_uid:"
-msgid "Create User"
-msgstr "Usuario creación"
 
 msgctxt "field:cooperative.partner,dni:"
 msgid "DNI"
 msgstr "DNI"
 
-#, fuzzy
 msgctxt "field:cooperative.partner,file:"
 msgid "File"
-msgstr "Archivo"
+msgstr "Legajo"
 
 msgctxt "field:cooperative.partner,first_name:"
 msgid "First Name"
@@ -109,11 +85,6 @@ msgstr "Nombre"
 msgctxt "field:cooperative.partner,gender:"
 msgid "Gender"
 msgstr "Género"
-
-#, fuzzy
-msgctxt "field:cooperative.partner,id:"
-msgid "ID"
-msgstr "ID"
 
 msgctxt "field:cooperative.partner,incorporation_date:"
 msgid "Incorporation Date"
@@ -143,10 +114,9 @@ msgctxt "field:cooperative.partner,nationality:"
 msgid "Nationality"
 msgstr "Nacionalidad"
 
-#, fuzzy
 msgctxt "field:cooperative.partner,party:"
 msgid "Party"
-msgstr "Entidades"
+msgstr "Entidad"
 
 msgctxt "field:cooperative.partner,payed_quotes:"
 msgid "Payed Quotes"
@@ -160,18 +130,13 @@ msgctxt "field:cooperative.partner,proposal_letter:"
 msgid "Proposal Letter"
 msgstr "Carta de Presentación"
 
-#, fuzzy
-msgctxt "field:cooperative.partner,rec_name:"
-msgid "Name"
-msgstr "Nombre del adjunto"
-
 msgctxt "field:cooperative.partner,recibo:"
-msgid "Recibo"
-msgstr "Recibo"
+msgid "Recibos"
+msgstr "Recibos"
 
 msgctxt "field:cooperative.partner,sanction:"
-msgid "Sanction"
-msgstr "Sanción"
+msgid "Sanctions"
+msgstr "Sanciones"
 
 msgctxt "field:cooperative.partner,status:"
 msgid "Status"
@@ -185,31 +150,6 @@ msgctxt "field:cooperative.partner,vacation_days:"
 msgid "Vacation Days"
 msgstr "Días de Vacaciones"
 
-#, fuzzy
-msgctxt "field:cooperative.partner,write_date:"
-msgid "Write Date"
-msgstr "Fecha modificación"
-
-#, fuzzy
-msgctxt "field:cooperative.partner,write_uid:"
-msgid "Write User"
-msgstr "Usuario modificación"
-
-#, fuzzy
-msgctxt "field:cooperative.partner-meeting,create_date:"
-msgid "Create Date"
-msgstr "Fecha de Creación"
-
-#, fuzzy
-msgctxt "field:cooperative.partner-meeting,create_uid:"
-msgid "Create User"
-msgstr "Usuario creación"
-
-#, fuzzy
-msgctxt "field:cooperative.partner-meeting,id:"
-msgid "ID"
-msgstr "ID"
-
 msgctxt "field:cooperative.partner-meeting,meeting:"
 msgid "Meeting"
 msgstr "Reunión"
@@ -218,98 +158,137 @@ msgctxt "field:cooperative.partner-meeting,partner:"
 msgid "Partner"
 msgstr "Socio"
 
-#, fuzzy
-msgctxt "field:cooperative.partner-meeting,rec_name:"
-msgid "Name"
-msgstr "Nombre del adjunto"
+msgctxt "field:cooperative.partner.recibo,account:"
+msgid "Account"
+msgstr "Cuenta"
 
-#, fuzzy
-msgctxt "field:cooperative.partner-meeting,write_date:"
-msgid "Write Date"
-msgstr "Fecha modificación"
+msgctxt "field:cooperative.partner.recibo,account_expense:"
+msgid "Account"
+msgstr "Cuenta"
 
-#, fuzzy
-msgctxt "field:cooperative.partner-meeting,write_uid:"
-msgid "Write User"
-msgstr "Usuario modificación"
+msgctxt "field:cooperative.partner.recibo,accounting_date:"
+msgid "Accounting Date"
+msgstr "Fecha efectiva asiento"
 
-#, fuzzy
-msgctxt "field:cooperative.partner.recibo,create_date:"
-msgid "Create Date"
-msgstr "Fecha de Creación"
+msgctxt "field:cooperative.partner.recibo,amount:"
+msgid "Amount"
+msgstr "Importe"
 
-#, fuzzy
-msgctxt "field:cooperative.partner.recibo,create_uid:"
-msgid "Create User"
-msgstr "Usuario creación"
+msgctxt "field:cooperative.partner.recibo,bank_account:"
+msgid "Bank account"
+msgstr "Cuenta bancaria"
 
-#, fuzzy
+msgctxt "field:cooperative.partner.recibo,company:"
+msgid "Company"
+msgstr "Empresa"
+
+msgctxt "field:cooperative.partner.recibo,confirmed_cancel_move:"
+msgid "Confirmed Cancel Move"
+msgstr "Asiento cancelación confirmación"
+
+msgctxt "field:cooperative.partner.recibo,confirmed_move:"
+msgid "Confirmed Move"
+msgstr "Aisento confirmación"
+
+msgctxt "field:cooperative.partner.recibo,currency:"
+msgid "Currency"
+msgstr "Moneda"
+
+msgctxt "field:cooperative.partner.recibo,currency_date:"
+msgid "Currency Date"
+msgstr "Fecha moneda"
+
+msgctxt "field:cooperative.partner.recibo,currency_digits:"
+msgid "Currency Digits"
+msgstr "Decimales de la moneda"
+
 msgctxt "field:cooperative.partner.recibo,date:"
 msgid "Date"
 msgstr "Fecha"
 
-#, fuzzy
-msgctxt "field:cooperative.partner.recibo,id:"
-msgid "ID"
-msgstr "ID"
+msgctxt "field:cooperative.partner.recibo,description:"
+msgid "Description"
+msgstr "Descripción"
 
-#, fuzzy
-msgctxt "field:cooperative.partner.recibo,monto:"
-msgid "Amount"
-msgstr "Importe"
+msgctxt "field:cooperative.partner.recibo,journal:"
+msgid "Journal"
+msgstr "Diario"
+
+msgctxt "field:cooperative.partner.recibo,lote:"
+msgid "Lote"
+msgstr ""
+
+msgctxt "field:cooperative.partner.recibo,number:"
+msgid "Number"
+msgstr "Número"
+
+msgctxt "field:cooperative.partner.recibo,paid_cancel_move:"
+msgid "Paid Cancel Move"
+msgstr "Asiento cancelación pago"
+
+msgctxt "field:cooperative.partner.recibo,paid_move:"
+msgid "Paid Move"
+msgstr "Asiento pago"
 
 msgctxt "field:cooperative.partner.recibo,partner:"
 msgid "Partner"
 msgstr "Socio"
 
-#, fuzzy
-msgctxt "field:cooperative.partner.recibo,rec_name:"
-msgid "Name"
-msgstr "Nombre del adjunto"
+msgctxt "field:cooperative.partner.recibo,party:"
+msgid "Party"
+msgstr "Entidad"
 
-#, fuzzy
+msgctxt "field:cooperative.partner.recibo,payment_method:"
+msgid "Payment Method"
+msgstr "Método de pago"
+
 msgctxt "field:cooperative.partner.recibo,state:"
 msgid "State"
 msgstr "Estado"
 
-#, fuzzy
-msgctxt "field:cooperative.partner.recibo,write_date:"
-msgid "Write Date"
-msgstr "Fecha modificación"
+msgctxt "field:cooperative.partner.recibo.lote,amount_recibos:"
+msgid "Total Recibos"
+msgstr ""
 
-#, fuzzy
-msgctxt "field:cooperative.partner.recibo,write_uid:"
-msgid "Write User"
-msgstr "Usuario modificación"
+msgctxt "field:cooperative.partner.recibo.lote,company:"
+msgid "Company"
+msgstr "Empresa"
 
-#, fuzzy
-msgctxt "field:cooperative.partner.sanction,create_date:"
-msgid "Create Date"
-msgstr "Fecha de Creación"
+msgctxt "field:cooperative.partner.recibo.lote,date:"
+msgid "Date"
+msgstr "Fecha"
 
-#, fuzzy
-msgctxt "field:cooperative.partner.sanction,create_uid:"
-msgid "Create User"
-msgstr "Usuario creación"
+msgctxt "field:cooperative.partner.recibo.lote,description:"
+msgid "Description"
+msgstr "Descripción"
 
-#, fuzzy
+msgctxt "field:cooperative.partner.recibo.lote,journal:"
+msgid "Journal"
+msgstr "Diario"
+
+msgctxt "field:cooperative.partner.recibo.lote,number:"
+msgid "Number"
+msgstr "Número"
+
+msgctxt "field:cooperative.partner.recibo.lote,payment_method:"
+msgid "Payment Method"
+msgstr "Método de pago"
+
+msgctxt "field:cooperative.partner.recibo.lote,recibos:"
+msgid "Recibos"
+msgstr ""
+
+msgctxt "field:cooperative.partner.recibo.lote,state:"
+msgid "State"
+msgstr "Estado"
+
 msgctxt "field:cooperative.partner.sanction,date:"
 msgid "Date"
 msgstr "Fecha"
 
-#, fuzzy
-msgctxt "field:cooperative.partner.sanction,id:"
-msgid "ID"
-msgstr "ID"
-
 msgctxt "field:cooperative.partner.sanction,partner:"
 msgid "Partner"
 msgstr "Socio"
-
-#, fuzzy
-msgctxt "field:cooperative.partner.sanction,rec_name:"
-msgid "Name"
-msgstr "Nombre del adjunto"
 
 msgctxt "field:cooperative.partner.sanction,record:"
 msgid "Record"
@@ -323,51 +302,18 @@ msgctxt "field:cooperative.partner.sanction,type:"
 msgid "Tipo"
 msgstr "Tipo"
 
-#, fuzzy
-msgctxt "field:cooperative.partner.sanction,write_date:"
-msgid "Write Date"
-msgstr "Fecha modificación"
-
-#, fuzzy
-msgctxt "field:cooperative.partner.sanction,write_uid:"
-msgid "Write User"
-msgstr "Usuario modificación"
-
-#, fuzzy
-msgctxt "field:cooperative.partner.vacation,create_date:"
-msgid "Create Date"
-msgstr "Fecha de Creación"
-
-#, fuzzy
-msgctxt "field:cooperative.partner.vacation,create_uid:"
-msgid "Create User"
-msgstr "Usuario creación"
-
-#, fuzzy
 msgctxt "field:cooperative.partner.vacation,days:"
 msgid "Days"
 msgstr "Días"
 
-#, fuzzy
 msgctxt "field:cooperative.partner.vacation,end_date:"
 msgid "End Date"
 msgstr "Fecha final"
-
-#, fuzzy
-msgctxt "field:cooperative.partner.vacation,id:"
-msgid "ID"
-msgstr "ID"
 
 msgctxt "field:cooperative.partner.vacation,partner:"
 msgid "Partner"
 msgstr "Socio"
 
-#, fuzzy
-msgctxt "field:cooperative.partner.vacation,rec_name:"
-msgid "Name"
-msgstr "Nombre del adjunto"
-
-#, fuzzy
 msgctxt "field:cooperative.partner.vacation,start_date:"
 msgid "Start Date"
 msgstr "Fecha inicial"
@@ -376,39 +322,111 @@ msgctxt "field:cooperative.partner.vacation,type:"
 msgid "Tipo"
 msgstr "Tipo"
 
-#, fuzzy
-msgctxt "field:cooperative.partner.vacation,write_date:"
-msgid "Write Date"
-msgstr "Fecha modificación"
+msgctxt "field:cooperative.partner.vacation,year:"
+msgid "Year"
+msgstr "Año"
 
-#, fuzzy
-msgctxt "field:cooperative.partner.vacation,write_uid:"
-msgid "Write User"
-msgstr "Usuario modificación"
+msgctxt "field:cooperative_ar.configuration,receipt_account_payable:"
+msgid "Default Account Payable"
+msgstr "Cuenta a pagar por defecto"
+
+msgctxt "field:cooperative_ar.configuration,receipt_account_receivable:"
+msgid "Default Account Receivable"
+msgstr "Cuenta a cobrar por defecto"
+
+msgctxt "field:cooperative_ar.configuration,recibo_lote_sequence:"
+msgid "Recibo Lote Sequence"
+msgstr "Secuencia Recibo Lote"
+
+msgctxt "field:cooperative_ar.configuration,recibo_sequence:"
+msgid "Recibo Sequence"
+msgstr "Secuencia Recibo"
+
+msgctxt "field:cooperative_ar.configuration.receipt_account,company:"
+msgid "Company"
+msgstr "Empresa"
+
+msgctxt ""
+"field:cooperative_ar.configuration.receipt_account,receipt_account_payable:"
+msgid "Receipt Account Payable"
+msgstr "Cuenta a pagar Recibo"
+
+msgctxt ""
+"field:cooperative_ar.configuration.receipt_account,receipt_account_receivable:"
+msgid "Receipt Account Receivable"
+msgstr "Cuenta a cobrar Recibo"
+
+msgctxt "field:cooperative_ar.configuration.sequence,company:"
+msgid "Company"
+msgstr "Empresa"
+
+msgctxt "field:cooperative_ar.configuration.sequence,recibo_lote_sequence:"
+msgid "Recibo Lote Sequence"
+msgstr "Secuencia Recibo Lote"
+
+msgctxt "field:cooperative_ar.configuration.sequence,recibo_sequence:"
+msgid "Recibo Sequence"
+msgstr "Secuencia Recibo"
+
+msgctxt "model:analytic_account.account.nota,name:"
+msgid "Notes Analytic Account"
+msgstr "Notas Cuenta analítica"
+
+msgctxt "model:analytic_account.print_balance_social.start,name:"
+msgid "Print Balance Social"
+msgstr "Imprimir Balance Social"
 
 msgctxt "model:cooperative.meeting,name:"
-msgid "cooperative_ar"
-msgstr ""
+msgid "Meeting"
+msgstr "Reunión"
 
 msgctxt "model:cooperative.partner,name:"
-msgid "cooperative_ar"
-msgstr ""
+msgid "Partner"
+msgstr "Socio"
 
 msgctxt "model:cooperative.partner-meeting,name:"
-msgid "cooperative_ar"
-msgstr ""
+msgid "Partner Meeting"
+msgstr "Reunión Socio"
 
 msgctxt "model:cooperative.partner.recibo,name:"
-msgid "cooperative_ar"
-msgstr ""
+msgid "Cooperative receipt"
+msgstr "Recibo Cooperativa"
+
+msgctxt "model:cooperative.partner.recibo.lote,name:"
+msgid "Recibo Lote"
+msgstr "Recibo Lote"
+
+msgctxt "model:cooperative.partner.recibo.transactions.start,name:"
+msgid "Recibo Transactions"
+msgstr "Transacciones Recibo"
 
 msgctxt "model:cooperative.partner.sanction,name:"
-msgid "cooperative_ar"
-msgstr ""
+msgid "Cooperative sanction"
+msgstr "Sanción Cooperativa"
 
 msgctxt "model:cooperative.partner.vacation,name:"
-msgid "cooperative_ar"
+msgid "Cooperative vacation"
+msgstr "Vacación Cooperativa"
+
+msgctxt "model:cooperative_ar.configuration,name:"
+msgid "Cooperative Configuration"
+msgstr "Configuración de Cooperativa"
+
+msgctxt "model:cooperative_ar.configuration.receipt_account,name:"
+msgid "Account Configuration Receipt Account"
+msgstr "Configuración de Cuenta a pagar Cooperativa"
+
+msgctxt "model:cooperative_ar.configuration.sequence,name:"
+msgid "Receipt Configuration Sequence"
+msgstr "Configuración de Secuencia Recibo Cooperativa"
+
+msgctxt "model:ir.action,name:act_analytic_account_nota_form"
+msgid "Balance Social"
 msgstr ""
+
+msgctxt "model:ir.action,name:act_cooperative_ar_configuration_form"
+msgid "Cooperative Configuration"
+msgstr "Configuración de Cooperativa"
 
 msgctxt "model:ir.action,name:act_meeting_form"
 msgid "Meetings"
@@ -419,20 +437,120 @@ msgid "Partners"
 msgstr "Socios"
 
 msgctxt "model:ir.action,name:act_recibo_form"
-msgid "Recibos"
-msgstr "Recibos"
+msgid "Recibos de asociado"
+msgstr ""
+
+msgctxt "model:ir.action,name:act_recibo_lote_form"
+msgid "Lotes"
+msgstr ""
 
 msgctxt "model:ir.action,name:act_sanction_form"
 msgid "Sanctions"
 msgstr "Sanciones"
 
 msgctxt "model:ir.action,name:act_vacation_form"
-msgid "Permit and Vacation"
+msgid "Permits and Vacations"
 msgstr "Vacaciones y Licencias"
+
+msgctxt "model:ir.action,name:report_balance_social"
+msgid "Balance Social"
+msgstr ""
+
+msgctxt "model:ir.action,name:report_meeting"
+msgid "Meeting"
+msgstr "Reunión"
+
+msgctxt "model:ir.action,name:report_recibo"
+msgid "Receipt"
+msgstr "Recibo"
+
+msgctxt "model:ir.action,name:report_recibo_transcations"
+msgid "Recibo Transactions"
+msgstr "Transacciones Recibo"
+
+msgctxt "model:ir.action,name:wizard_print_balance_social"
+msgid "Print Balance Social"
+msgstr "Imprimir Balance Social"
+
+msgctxt "model:ir.action,name:wizard_recibo_transactions"
+msgid "Recibo Transactions"
+msgstr "Transacciones Recibo"
+
+msgctxt "model:ir.message,text:msg_lot_delete_cancel"
+msgid "Lot \"%s\" must be cancelled before deletion."
+msgstr "Debe cancelar el lote \"%s\" antes de eliminarlo."
+
+msgctxt "model:ir.message,text:msg_lot_delete_numbered"
+msgid "The numbered lote \"%(lot)s\" can not be deleted."
+msgstr "Le lote numerado \"%(lot)s\" no puede ser eliminado."
+
+msgctxt "model:ir.message,text:msg_no_cooperative_sequence"
+msgid "You must set a receipt sequence at the configuration module."
+msgstr "Debe definir la Secuencia de recibo en la configuración"
+
+msgctxt "model:ir.message,text:msg_receipt_delete_cancel"
+msgid "Receipt \"%s\" must be cancelled before deletion."
+msgstr "Debe cancelar el recibo \"%s\" antes de eliminarlo."
+
+msgctxt "model:ir.message,text:msg_receipt_delete_numbered"
+msgid "The numbered receipt \"%(receipt)s\" can not be deleted."
+msgstr "Le recibo numerado \"%(lot)s\" no puede ser eliminado."
+
+msgctxt "model:ir.message,text:msg_unique_file"
+msgid "The file must be unique."
+msgstr "El legajo debe ser único."
+
+msgctxt "model:ir.model.button,string:recibo_cancel_button"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "model:ir.model.button,string:recibo_confirmed_button"
+msgid "Confirm"
+msgstr "Confirmar"
+
+msgctxt "model:ir.model.button,string:recibo_draft_button"
+msgid "Draft"
+msgstr "Borrador"
+
+msgctxt "model:ir.model.button,string:recibo_lote_cancel_button"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "model:ir.model.button,string:recibo_lote_confirmed_button"
+msgid "Confirm"
+msgstr "Confirmar"
+
+msgctxt "model:ir.model.button,string:recibo_lote_draft_button"
+msgid "Draft"
+msgstr "Borrador"
+
+msgctxt "model:ir.sequence,name:sequence_recibo"
+msgid "Recibo"
+msgstr ""
+
+msgctxt "model:ir.sequence,name:sequence_recibo_lote"
+msgid "Lote"
+msgstr ""
+
+msgctxt "model:ir.sequence.type,name:sequence_type_recibo"
+msgid "Recibo"
+msgstr "Recib"
+
+msgctxt "model:ir.ui.menu,name:menu_analytic_account_nota"
+msgid "Balance Social"
+msgstr ""
+
+msgctxt "model:ir.ui.menu,name:menu_configuration"
+msgid "Configuration"
+msgstr "Configuración"
 
 msgctxt "model:ir.ui.menu,name:menu_cooperative_ar"
 msgid "Cooperatives"
 msgstr "Cooperativas"
+
+msgctxt "model:ir.ui.menu,name:menu_cooperative_ar_configuration"
+msgid "Cooperative Configuration"
+msgstr "Configuración de Cooperativa"
 
 msgctxt "model:ir.ui.menu,name:menu_meeting_form"
 msgid "Meetings"
@@ -442,17 +560,277 @@ msgctxt "model:ir.ui.menu,name:menu_partner_form"
 msgid "Partners"
 msgstr "Socios"
 
+msgctxt "model:ir.ui.menu,name:menu_print_balance_social"
+msgid "Print Balance Social"
+msgstr "Imprimir Balance Social"
+
 msgctxt "model:ir.ui.menu,name:menu_recibo_form"
+msgid "Recibos de asociado"
+msgstr ""
+
+msgctxt "model:ir.ui.menu,name:menu_recibo_lote_form"
+msgid "Lotes"
+msgstr ""
+
+msgctxt "model:ir.ui.menu,name:menu_recibos"
 msgid "Recibos"
-msgstr "Recibos"
+msgstr ""
 
 msgctxt "model:ir.ui.menu,name:menu_sanction_form"
 msgid "Sanctions"
 msgstr "Sanciones"
 
 msgctxt "model:ir.ui.menu,name:menu_vacation_form"
-msgid "Permit and Vacation"
+msgid "Permits and Vacations"
 msgstr "Vacaciones y Licencias"
+
+msgctxt "model:res.group,name:group_cooperative_ar"
+msgid "Cooperatives"
+msgstr "Cooperativas"
+
+msgctxt "model:res.group,name:group_cooperative_ar_admin"
+msgid "Cooperatives Administrator"
+msgstr ""
+
+msgctxt "report:cooperative.meeting:"
+msgid "/"
+msgstr "/"
+
+msgctxt "report:cooperative.meeting:"
+msgid "CUIT:"
+msgstr ""
+
+msgctxt "report:cooperative.meeting:"
+msgid "–"
+msgstr ""
+
+msgctxt "report:cooperative.partner.recibo:"
+msgid ","
+msgstr ""
+
+msgctxt "report:cooperative.partner.recibo:"
+msgid "--------------------------------------------------------"
+msgstr ""
+
+msgctxt "report:cooperative.partner.recibo:"
+msgid "---------------------------------------------------------"
+msgstr ""
+
+msgctxt "report:cooperative.partner.recibo:"
+msgid "Apellido y Nombres"
+msgstr ""
+
+msgctxt "report:cooperative.partner.recibo:"
+msgid "CUIT"
+msgstr ""
+
+msgctxt "report:cooperative.partner.recibo:"
+msgid "CUIT N°"
+msgstr ""
+
+msgctxt "report:cooperative.partner.recibo:"
+msgid "DNI N°"
+msgstr ""
+
+msgctxt "report:cooperative.partner.recibo:"
+msgid "Domicilio"
+msgstr ""
+
+msgctxt "report:cooperative.partner.recibo:"
+msgid "Fecha"
+msgstr ""
+
+msgctxt "report:cooperative.partner.recibo:"
+msgid "Firma autorizado por empresa"
+msgstr ""
+
+msgctxt "report:cooperative.partner.recibo:"
+msgid "Firma del asociado"
+msgstr ""
+
+msgctxt "report:cooperative.partner.recibo:"
+msgid "Lugar"
+msgstr ""
+
+msgctxt "report:cooperative.partner.recibo:"
+msgid "Matrícula"
+msgstr ""
+
+msgctxt "report:cooperative.partner.recibo:"
+msgid "N"
+msgstr ""
+
+msgctxt "report:cooperative.partner.recibo:"
+msgid "N°:"
+msgstr ""
+
+msgctxt "report:cooperative.partner.recibo:"
+msgid "Recibo de anticipo de retornos a cuenta de excedentes"
+msgstr ""
+
+msgctxt "report:cooperative.partner.recibo:"
+msgid "Recibí conforme la suma de Pesos"
+msgstr ""
+
+msgctxt "report:cooperative.partner.recibo:"
+msgid "Son"
+msgstr ""
+
+msgctxt "report:cooperative.partner.recibo:"
+msgid "en concepto de"
+msgstr ""
+
+msgctxt "report:cooperative.partner.recibo:"
+msgid "por mi aporte como trabajador asociado."
+msgstr ""
+
+msgctxt "report:cooperative.partner.recibo:"
+msgid "y"
+msgstr ""
+
+msgctxt "report:cooperative.partner.recibo:"
+msgid "°"
+msgstr ""
+
+msgctxt "report:cooperative.partner.recibo:"
+msgid "° de asociado"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "-"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "/"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "Apellido, Nombre"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "BALANCE SOCIAL COOPERATIVO"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "Cantidad"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "Credito"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "Cuenta analítica"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "DETALLE DEL BALANCE SOCIAL COOPERATIVO"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "Debito"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "Diversidad de género:"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "Edad"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "Extraordinaria"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "Fecha"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "Fecha de Inscripción"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "File"
+msgstr "Legajo"
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "Nota"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "Ordinaria"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "RESULTADO BALANCE SOCIAL COOPERATIVO"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "REUNIONES"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "Reunión de Consejo"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "SOCIOS"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "Socios Presentes"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "Socios que se han dado de baja en el periodo:"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "Socios que se han incorporado en el periodo:"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "Tipo de Asamblea"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "User:"
+msgstr "Usuario:"
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "años"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "femenino"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "masculino"
+msgstr ""
+
+msgctxt "report:cooperative_ar.report_balance_social:"
+msgid "otro"
+msgstr ""
+
+msgctxt "selection:analytic_account.account.nota,type:"
+msgid "Comment"
+msgstr "Comentario"
+
+msgctxt "selection:analytic_account.account.nota,type:"
+msgid "Line"
+msgstr "Línea"
+
+msgctxt "selection:analytic_account.account.nota,type:"
+msgid "Subtotal"
+msgstr "Subtotal"
+
+msgctxt "selection:analytic_account.account.nota,type:"
+msgid "Title"
+msgstr "Título"
 
 msgctxt "selection:cooperative.meeting,status:"
 msgid "Complete"
@@ -464,24 +842,23 @@ msgstr "Planificada"
 
 msgctxt "selection:cooperative.meeting,type:"
 msgid "Extraordinaria"
-msgstr "Extraordinaria"
+msgstr ""
 
 msgctxt "selection:cooperative.meeting,type:"
 msgid "Ordinaria"
-msgstr "Ordinaria"
+msgstr ""
 
 msgctxt "selection:cooperative.meeting,type:"
-msgid "Reunion"
-msgstr "Reunión"
+msgid "Reunion de Consejo"
+msgstr ""
 
 msgctxt "selection:cooperative.partner,gender:"
 msgid "Female"
 msgstr "Femenino"
 
-#, fuzzy
 msgctxt "selection:cooperative.partner,gender:"
 msgid "Male"
-msgstr "Male"
+msgstr "Masculino"
 
 msgctxt "selection:cooperative.partner,gender:"
 msgid "other"
@@ -489,25 +866,24 @@ msgstr "Otro"
 
 msgctxt "selection:cooperative.partner,marital_status:"
 msgid "Casado/a"
-msgstr "Casado/a"
+msgstr ""
 
 msgctxt "selection:cooperative.partner,marital_status:"
 msgid "Divorciado/a"
-msgstr "Divorciado/a"
+msgstr ""
 
 msgctxt "selection:cooperative.partner,marital_status:"
 msgid "Otra"
-msgstr "Otra"
+msgstr ""
 
 msgctxt "selection:cooperative.partner,marital_status:"
 msgid "Soltero/a"
-msgstr "Soltero/a"
+msgstr ""
 
 msgctxt "selection:cooperative.partner,marital_status:"
 msgid "Viudo/a"
-msgstr "Viudo/a"
+msgstr ""
 
-#, fuzzy
 msgctxt "selection:cooperative.partner,status:"
 msgid "Active"
 msgstr "Activo"
@@ -516,97 +892,93 @@ msgctxt "selection:cooperative.partner,status:"
 msgid "Give Up"
 msgstr "Renuncia"
 
-#, fuzzy
 msgctxt "selection:cooperative.partner.recibo,state:"
-msgid "Canceled"
+msgid "Cancelled"
 msgstr "Cancelado"
 
-#, fuzzy
 msgctxt "selection:cooperative.partner.recibo,state:"
-msgid "Confirm"
-msgstr "Confirmar"
+msgid "Confirmed"
+msgstr "Confirmado"
 
-#, fuzzy
 msgctxt "selection:cooperative.partner.recibo,state:"
 msgid "Draft"
 msgstr "Borrador"
 
-#, fuzzy
-msgctxt "selection:cooperative.partner.recibo,state:"
-msgid "Paid"
-msgstr "Pagado"
+msgctxt "selection:cooperative.partner.recibo.lote,state:"
+msgid "Cancelled"
+msgstr "Cancelado"
+
+msgctxt "selection:cooperative.partner.recibo.lote,state:"
+msgid "Confirmed"
+msgstr "Confirmado"
+
+msgctxt "selection:cooperative.partner.recibo.lote,state:"
+msgid "Draft"
+msgstr "Borrador"
 
 msgctxt "selection:cooperative.partner.sanction,type:"
 msgid "Apercibimiento"
-msgstr "Apercibimiento"
+msgstr ""
 
 msgctxt "selection:cooperative.partner.sanction,type:"
 msgid "Exclusión"
-msgstr "Exclusión"
+msgstr ""
 
 msgctxt "selection:cooperative.partner.sanction,type:"
 msgid "Llamada de Atención"
-msgstr "Llamada de Atención"
+msgstr ""
 
 msgctxt "selection:cooperative.partner.vacation,type:"
 msgid "Licencia Examen"
-msgstr "Licencia Examen"
+msgstr ""
 
 msgctxt "selection:cooperative.partner.vacation,type:"
 msgid "Licencia Médica"
-msgstr "Licencia Médica"
+msgstr ""
 
 msgctxt "selection:cooperative.partner.vacation,type:"
 msgid "Licencia Paternidad / Maternidad"
-msgstr "Licencia Paternidad / Maternidad"
+msgstr ""
 
 msgctxt "selection:cooperative.partner.vacation,type:"
 msgid "Otras Licencias"
-msgstr "Otras Licencias"
+msgstr ""
 
 msgctxt "selection:cooperative.partner.vacation,type:"
 msgid "Vacaciones"
-msgstr "Vacaciones"
+msgstr ""
 
-#, fuzzy
+msgctxt "view:analytic_account.account.nota:"
+msgid "Nota"
+msgstr ""
+
 msgctxt "view:cooperative.meeting:"
 msgid "General"
 msgstr "General"
 
 msgctxt "view:cooperative.meeting:"
-msgid "Meeting"
-msgstr "Reunión"
-
-msgctxt "view:cooperative.meeting:"
 msgid "Record"
 msgstr "Registro"
 
-#, fuzzy
-msgctxt "view:cooperative.partner.recibo:"
-msgid "Are you sure to cancel the invoice?"
-msgstr "¿Está seguro de cancelar la factura?"
+msgctxt "view:cooperative.partner.recibo.lote:"
+msgid "Are you sure to cancel the lote?"
+msgstr "¿Está seguro de cancelar el lote?"
+
+msgctxt "view:cooperative.partner.recibo.lote:"
+msgid "Recibos"
+msgstr ""
 
 msgctxt "view:cooperative.partner.recibo:"
-msgid "Recibo"
+msgid "Are you sure to cancel the receipt?"
+msgstr "¿Está seguro de cancelar el recibo?"
+
+msgctxt "view:cooperative.partner.recibo:"
+msgid "Other Info"
+msgstr "Información adicional"
+
+msgctxt "view:cooperative.partner.recibo:"
+msgid "Receipt"
 msgstr "Recibo"
-
-#, fuzzy
-msgctxt "view:cooperative.partner.recibo:"
-msgid "_Cancel"
-msgstr "_Cancelar"
-
-msgctxt "view:cooperative.partner.recibo:"
-msgid "_Confirm"
-msgstr "Confirmado"
-
-#, fuzzy
-msgctxt "view:cooperative.partner.recibo:"
-msgid "_Draft"
-msgstr "_Borrador"
-
-msgctxt "view:cooperative.partner.recibo:"
-msgid "_Paid"
-msgstr "Pagado"
 
 msgctxt "view:cooperative.partner.sanction:"
 msgid "Record"
@@ -616,19 +988,14 @@ msgctxt "view:cooperative.partner.sanction:"
 msgid "Response"
 msgstr "Respuesta"
 
-msgctxt "view:cooperative.partner.sanction:"
-msgid "Sanction"
-msgstr "Sanción"
-
 msgctxt "view:cooperative.partner.vacation:"
 msgid "Permit and Vacation"
 msgstr "Vacaciones y Licencia"
 
 msgctxt "view:cooperative.partner:"
 msgid "Datos Personales"
-msgstr "Datos Personales"
+msgstr ""
 
-#, fuzzy
 msgctxt "view:cooperative.partner:"
 msgid "General"
 msgstr "General"
@@ -643,21 +1010,33 @@ msgstr "Docuemntos Legales"
 
 msgctxt "view:cooperative.partner:"
 msgid "Meetings"
-msgstr "Reunión"
-
-msgctxt "view:cooperative.partner:"
-msgid "Partner"
-msgstr "Socio"
+msgstr "Reuniones"
 
 msgctxt "view:cooperative.partner:"
 msgid "Permit and Vacation"
 msgstr "Vacaciones y Licencias"
 
 msgctxt "view:cooperative.partner:"
-msgid "Recibo"
-msgstr "Recibo"
+msgid "Recibos de Socio"
+msgstr ""
 
 msgctxt "view:cooperative.partner:"
-msgid "Sanction"
-msgstr "Sanción"
+msgid "Sanctions"
+msgstr "Sanciones"
 
+msgctxt "wizard_button:analytic_account.print_balance_social,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "wizard_button:analytic_account.print_balance_social,start,print_:"
+msgid "Print"
+msgstr "Imprimir"
+
+msgctxt "wizard_button:cooperative.partner.recibo.transactions,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt ""
+"wizard_button:cooperative.partner.recibo.transactions,start,transactions:"
+msgid "Process"
+msgstr "Procesar"
