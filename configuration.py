@@ -3,7 +3,6 @@
 # the full copyright notices and license terms.
 from trytond.model import ModelView, ModelSQL, ModelSingleton, fields
 from trytond.model import MultiValueMixin, ValueMixin
-from trytond import backend
 from trytond.tools.multivalue import migrate_property
 from trytond.pool import Pool
 from trytond.pyson import Eval, Id
@@ -71,8 +70,8 @@ class _ConfigurationValue(ModelSQL):
 
     @classmethod
     def __register__(cls, module_name):
-        TableHandler = backend.get('TableHandler')
-        exist = TableHandler.table_exist(cls._table)
+        table_h = cls.__table_handler__(module_name)
+        exist = table_h.table_exist(cls._table)
 
         super().__register__(module_name)
 
