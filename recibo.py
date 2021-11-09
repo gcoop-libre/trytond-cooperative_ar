@@ -7,11 +7,11 @@ import stdnum.ar.cbu as cbu
 import stdnum.ar.cuit as cuit
 
 from trytond.model import ModelView, Workflow, ModelSQL, fields
-from trytond.pyson import Eval, If
-from trytond.transaction import Transaction
-from trytond.pool import Pool, PoolMeta
 from trytond.wizard import Wizard, StateView, StateReport, Button
 from trytond.report import Report
+from trytond.pool import Pool, PoolMeta
+from trytond.pyson import Eval, If
+from trytond.transaction import Transaction
 from trytond.exceptions import UserError
 from trytond.i18n import gettext
 
@@ -193,7 +193,7 @@ class Recibo(Workflow, ModelSQL, ModelView):
     @staticmethod
     def default_account_expense():
         pool = Pool()
-        Config = Pool().get('cooperative_ar.configuration')
+        Config = pool.get('cooperative_ar.configuration')
         config = Config(1)
         if config.receipt_account_receivable:
             return config.receipt_account_receivable.id
@@ -202,13 +202,13 @@ class Recibo(Workflow, ModelSQL, ModelView):
     @staticmethod
     def default_account():
         pool = Pool()
-        Config = Pool().get('cooperative_ar.configuration')
+        Config = pool.get('cooperative_ar.configuration')
         config = Config(1)
         if config.receipt_account_payable:
             return config.receipt_account_payable.id
         return None
 
-    @fields.depends('partner')
+    @fields.depends('partner', '_parent_partner.party')
     def on_change_with_party(self, name=None):
         if self.partner:
             return self.partner.party.id
@@ -224,7 +224,7 @@ class Recibo(Workflow, ModelSQL, ModelView):
         Date = Pool().get('ir.date')
         return self.date or Date.today()
 
-    @fields.depends('partner', 'party')
+    @fields.depends('party', '_parent_party.bank_accounts')
     def on_change_with_bank_account(self, name=None):
         if self.party:
             return self.get_bank_account()
@@ -271,7 +271,6 @@ class Recibo(Workflow, ModelSQL, ModelView):
         Convert numbers in its equivalent string text
         representation in spanish
         '''
-        from singing_girl import Singer
         singer = Singer()
         return singer.sing(recibo_amount)
 
@@ -293,16 +292,10 @@ class Recibo(Workflow, ModelSQL, ModelView):
     @ModelView.button
     @Workflow.transition('confirmed')
     def confirm(cls, recibos):
-        Move = Pool().get('account.move')
-
-        moves = []
         for recibo in recibos:
             recibo.set_number()
             recibo.create_move()
-
-        cls.write(recibos, {
-                'state': 'confirmed',
-                })
+        cls.write(recibos, {'state': 'confirmed'})
 
     @classmethod
     @ModelView.button
@@ -315,13 +308,14 @@ class Recibo(Workflow, ModelSQL, ModelView):
 
         cancel_moves = []
         delete_moves = []
-        to_save = set()
 
         for recibo in recibos:
-            reconciliations_c = [x.reconciliation for x in recibo.confirmed_move.lines
-                    if x.reconciliation]
-            reconciliations_p = [x.reconciliation for x in recibo.paid_move.lines
-                    if x.reconciliation]
+            reconciliations_c = [x.reconciliation
+                for x in recibo.confirmed_move.lines
+                if x.reconciliation]
+            reconciliations_p = [x.reconciliation
+                for x in recibo.paid_move.lines
+                if x.reconciliation]
             with Transaction().set_user(0, set_context=True):
                 if reconciliations_c:
                     Reconciliation.delete(reconciliations_c)
@@ -336,21 +330,21 @@ class Recibo(Workflow, ModelSQL, ModelView):
                 recibo.paid_cancel_move = recibo.paid_move.cancel()
                 recibo.save()
                 cancel_moves.append(recibo.paid_cancel_move)
+
         if cancel_moves:
             Move.save(cancel_moves)
         if delete_moves:
             Move.delete(delete_moves)
         if cancel_moves:
             Move.post(cancel_moves)
-        cls.write(recibos, {
-                'state': 'cancelled',
-                })
+        cls.write(recibos, {'state': 'cancelled'})
 
         for recibo in recibos:
             if not recibo.confirmed_move or not recibo.confirmed_cancel_move:
                 continue
             to_reconcile = []
-            for line in recibo.confirmed_move.lines + recibo.confirmed_cancel_move.lines:
+            for line in (recibo.confirmed_move.lines +
+                    recibo.confirmed_cancel_move.lines):
                 if line.account == recibo.account:
                     to_reconcile.append(line)
             Line.reconcile(to_reconcile)
@@ -417,7 +411,6 @@ class Recibo(Workflow, ModelSQL, ModelView):
         return line
 
     def get_move(self, move_lines, journal):
-
         pool = Pool()
         Move = pool.get('account.move')
         Period = pool.get('account.period')
@@ -509,19 +502,21 @@ class ReciboReport(Report):
 
 
 class ReciboTransactionsStart(ModelView):
-    'Recibo Transactions Start'
+    'Recibo Transactions'
     __name__ = 'cooperative.partner.recibo.transactions.start'
 
 
 class ReciboTransactions(Wizard):
     'Recibo Transactions'
     __name__ = 'cooperative.partner.recibo.transactions'
+
     start = StateView('cooperative.partner.recibo.transactions.start',
         'cooperative_ar.recibo_transactions_start_view_form', [
             Button('Cancel', 'end', 'tryton-cancel'),
             Button('Process', 'transactions', 'tryton-ok', default=True),
         ])
-    transactions = StateReport('cooperative.partner.recibo.transactions_report')
+    transactions = StateReport(
+        'cooperative.partner.recibo.transactions_report')
 
     def do_transactions(self, action):
         pool = Pool()
@@ -718,7 +713,6 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
         pool = Pool()
         Recibo = pool.get('cooperative.partner.recibo')
         Partner = pool.get('cooperative.partner')
-        Currency = pool.get('currency.currency')
         lines = []
 
         if not self.journal or not self.payment_method or not self.date:

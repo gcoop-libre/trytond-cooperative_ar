@@ -1,12 +1,14 @@
 # This file is part of the cooperative_ar module for Tryton.
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
-import datetime
+from dateutil.relativedelta import relativedelta
+from datetime import datetime, date
+
 from trytond.model import ModelView, ModelSQL, fields
-from trytond.transaction import Transaction
-from trytond.pool import Pool
 from trytond.wizard import Wizard, StateView, StateAction, Button
 from trytond.report import Report
+from trytond.pool import Pool
+from trytond.transaction import Transaction
 
 
 class AnalyticAccountNota(ModelSQL, ModelView):
@@ -17,11 +19,10 @@ class AnalyticAccountNota(ModelSQL, ModelView):
     date = fields.Date('Date')
     note = fields.Text('Note')
     account = fields.Many2One('analytic_account.account', 'Account',
-        domain=[
+        required=True, select=True, domain=[
             ('root.name', '=', 'Balance Social Cooperativo'),
             ('type', '=', 'normal'),
-        ], required=True, select=True)
-
+            ])
     type = fields.Selection([
         ('line', 'Line'),
         ('subtotal', 'Subtotal'),
@@ -45,7 +46,7 @@ class PrintBalanceSocialStart(ModelView):
     @staticmethod
     def default_from_date():
         Date = Pool().get('ir.date')
-        return datetime.date(Date.today().year, 1, 1)
+        return date(Date.today().year, 1, 1)
 
     @staticmethod
     def default_to_date():
@@ -60,6 +61,7 @@ class PrintBalanceSocialStart(ModelView):
 class PrintBalanceSocial(Wizard):
     'Print Balance Social'
     __name__ = 'analytic_account.print_balance_social'
+
     start = StateView('analytic_account.print_balance_social.start',
         'cooperative_ar.print_balance_social_start_view_form', [
             Button('Cancel', 'end', 'tryton-cancel'),
@@ -120,7 +122,8 @@ class BalanceSocial(Report):
 
     @classmethod
     def get_analytic_accounts(self, company):
-        AnalyticAccount = Pool().get('analytic_account.account')
+        pool = Pool()
+        AnalyticAccount = pool.get('analytic_account.account')
 
         accounts = AnalyticAccount.search([
                 ('root.name', '=', 'Balance Social Cooperativo'),
@@ -130,7 +133,8 @@ class BalanceSocial(Report):
 
     @classmethod
     def get_analytic_subaccounts(self, account_id):
-        AnalyticAccount = Pool().get('analytic_account.account')
+        pool = Pool()
+        AnalyticAccount = pool.get('analytic_account.account')
 
         accounts = AnalyticAccount.search([
                 ('root.name', '=', 'Balance Social Cooperativo'),
@@ -141,163 +145,162 @@ class BalanceSocial(Report):
 
     @classmethod
     def get_notas(self, analytic_account_id, from_date, to_date):
-        AnalyticAccountNota = Pool().get('analytic_account.account.nota')
+        pool = Pool()
+        AnalyticAccountNota = pool.get('analytic_account.account.nota')
+
         clause = [
             ('date', '>=', from_date),
             ('date', '<=', to_date),
             ('account', '=', analytic_account_id),
-        ]
-        notas = AnalyticAccountNota.search(clause, order=[
-                ('date', 'ASC'), ('id', 'ASC')])
-
+            ]
+        notas = AnalyticAccountNota.search(clause,
+            order=[('date', 'ASC'), ('id', 'ASC')])
         return notas
 
     @classmethod
     def has_notas(self, analytic_account_id, from_date, to_date):
-        AnalyticAccountNota = Pool().get('analytic_account.account.nota')
+        pool = Pool()
+        AnalyticAccountNota = pool.get('analytic_account.account.nota')
+
         clause = [
             ('date', '>=', from_date),
             ('date', '<=', to_date),
             ('account', '=', analytic_account_id),
-        ]
-        notas = AnalyticAccountNota.search(clause, order=[
-                ('date', 'ASC'), ('id', 'ASC')])
-
-        if notas == []:
+            ]
+        notas = AnalyticAccountNota.search(clause,
+            order=[('date', 'ASC'), ('id', 'ASC')])
+        if not notas:
             return False
-        else:
-            return True
+        return True
 
     @classmethod
     def get_summary_meeting(self, from_date, to_date, type):
+        pool = Pool()
         Meeting = Pool().get('cooperative.meeting')
+
         clause = [
             ('start_date', '>=', from_date),
             ('start_date', '<=', to_date),
             ('status', '=', 'complete'),
             ('type', '=', type),
-        ]
-
+            ]
         return len(Meeting.search(clause))
 
     @classmethod
     def get_meetings(self, from_date, to_date):
-        Meeting = Pool().get('cooperative.meeting')
+        pool = Pool()
+        Meeting = pool.get('cooperative.meeting')
+
         clause = [
             ('start_date', '>=', from_date),
             ('start_date', '<=', to_date),
             ('status', '=', 'complete'),
-        ]
-
-        meetings = Meeting.search(clause, order=[
-                ('start_date', 'ASC'), ('type', 'ASC'), ('id', 'ASC')])
-
+            ]
+        meetings = Meeting.search(clause,
+            order=[('start_date', 'ASC'), ('type', 'ASC'), ('id', 'ASC')])
         return meetings
 
     @classmethod
     def get_meeting_type(self, type):
-        Meeting = Pool().get('cooperative.meeting')
+        pool = Pool()
+        Meeting = pool.get('cooperative.meeting')
         return dict(Meeting._fields['type'].selection)[type]
 
     @classmethod
     def get_birthdate(self, partner):
-        from dateutil.relativedelta import relativedelta
-        from datetime import datetime
-
         today = datetime.now()
         age = relativedelta(today, partner.birthdate)  # calculate age
-
         return age.years
 
     @classmethod
     def get_partners_birthdate(self):
-        CooperativePartner = Pool().get('cooperative.partner')
+        pool = Pool()
+        CooperativePartner = pool.get('cooperative.partner')
+
         clause = [
             ('status', '=', 'active'),
-        ]
-
-        partners = CooperativePartner.search(clause, order=[
-                ('last_name', 'ASC'), ('id', 'ASC')])
-
+            ]
+        partners = CooperativePartner.search(clause,
+            order=[('last_name', 'ASC'), ('id', 'ASC')])
         return partners
 
     @classmethod
     def get_partners(self):
-        CooperativePartner = Pool().get('cooperative.partner')
+        pool = Pool()
+        CooperativePartner = pool.get('cooperative.partner')
+
         clause = [
             ('status', '=', 'active'),
-        ]
-
-        partners = CooperativePartner.search(clause, order=[
-                ('last_name', 'ASC'), ('id', 'ASC')])
-
+            ]
+        partners = CooperativePartner.search(clause,
+            order=[('last_name', 'ASC'), ('id', 'ASC')])
         return partners
 
     @classmethod
     def get_partners_leave(self, from_date, to_date):
-        CooperativePartner = Pool().get('cooperative.partner')
+        pool = Pool()
+        CooperativePartner = pool.get('cooperative.partner')
+
         clause = [
             ('leaving_date', '>=', from_date),
             ('leaving_date', '<=', to_date),
             ('status', '=', 'give_up'),
-        ]
-
-        partners = CooperativePartner.search(clause, order=[
-                ('last_name', 'ASC'), ('id', 'ASC')])
-
+            ]
+        partners = CooperativePartner.search(clause,
+            order=[('last_name', 'ASC'), ('id', 'ASC')])
         return partners
 
     @classmethod
     def get_partners_nuevos(self, from_date, to_date):
-        CooperativePartner = Pool().get('cooperative.partner')
+        pool = Pool()
+        CooperativePartner = pool.get('cooperative.partner')
+
         clause = [
             ('incorporation_date', '>=', from_date),
             ('incorporation_date', '<=', to_date),
             ('status', '=', 'active'),
-        ]
-
-        partners = CooperativePartner.search(clause, order=[
-                ('last_name', 'ASC'), ('id', 'ASC')])
-
+            ]
+        partners = CooperativePartner.search(clause,
+            order=[('last_name', 'ASC'), ('id', 'ASC')])
         return partners
 
     @classmethod
     def get_partners_gender(self, from_date, to_date, gender):
-        CooperativePartner = Pool().get('cooperative.partner')
+        pool = Pool()
+        CooperativePartner = pool.get('cooperative.partner')
+
         clause = [
             ('status', '=', 'active'),
             ('gender', '=', gender),
-        ]
-
+            ]
         return len(CooperativePartner.search(clause))
 
     @classmethod
     def get_analytic_lines(self, analytic_account_id, from_date, to_date):
-        AnalyticAccountLine = Pool().get('analytic_account.line')
+        pool = Pool()
+        AnalyticAccountLine = pool.get('analytic_account.line')
+
         clause = [
             ('date', '>=', from_date),
             ('date', '<=', to_date),
             ('account', '=', analytic_account_id),
-        ]
-
-        lines = AnalyticAccountLine.search(clause, order=[
-                ('date', 'ASC'), ('id', 'ASC')])
-
+            ]
+        lines = AnalyticAccountLine.search(clause,
+            order=[('date', 'ASC'), ('id', 'ASC')])
         return lines
 
     @classmethod
     def has_analytic_lines(self, analytic_account_id, from_date, to_date):
-        AnalyticAccountLine = Pool().get('analytic_account.line')
+        pool = Pool()
+        AnalyticAccountLine = pool.get('analytic_account.line')
+
         clause = [
             ('date', '>=', from_date),
             ('date', '<=', to_date),
             ('account', '=', analytic_account_id),
-        ]
-
-        lines = AnalyticAccountLine.search(clause, order=[
-                ('date', 'ASC'), ('id', 'ASC')])
-
-        if lines == []:
+            ]
+        lines = AnalyticAccountLine.search(clause,
+            order=[('date', 'ASC'), ('id', 'ASC')])
+        if not lines:
             return False
-        else:
-            return True
+        return True

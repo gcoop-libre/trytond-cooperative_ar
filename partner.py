@@ -1,8 +1,9 @@
 # This file is part of the cooperative_ar module for Tryton.
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
-from trytond.pool import Pool
+
 from trytond.model import ModelView, ModelSQL, fields
+from trytond.pool import Pool
 from trytond.pyson import Equal, Eval
 from trytond.transaction import Transaction
 from trytond.exceptions import UserError
@@ -12,6 +13,7 @@ from trytond.i18n import gettext
 class Partner(ModelSQL, ModelView):
     'Partner'
     __name__ = 'cooperative.partner'
+
     status = fields.Selection([
         ('active', 'Active'),
         ('give_up', 'Give Up'),
@@ -37,10 +39,12 @@ class Partner(ModelSQL, ModelView):
         ('otra', 'Otra'),
         ], 'Marital Status', required=True)
     incorporation_date = fields.Date('Incorporation Date', required=True)
-    leaving_date = fields.Date('Leaving Date', states={
-                'readonly': ~Equal(Eval('status'), 'give_up'),
-                'required': Equal(Eval('status'), 'give_up'),
-                })
+    leaving_date = fields.Date('Leaving Date',
+        states={
+            'readonly': ~Equal(Eval('status'), 'give_up'),
+            'required': Equal(Eval('status'), 'give_up'),
+            },
+        depends=['status'])
     payed_quotes = fields.Numeric('Payed Quotes')
     vacation_days = fields.Integer('Vacation Days')
     vacation = fields.One2Many('cooperative.partner.vacation', 'partner',
@@ -48,8 +52,9 @@ class Partner(ModelSQL, ModelView):
     meeting = fields.Many2Many('cooperative.partner-meeting', 'partner',
         'meeting', 'Meeting')
     sanction = fields.One2Many('cooperative.partner.sanction', 'partner',
-        'Sanction')
-    recibo = fields.One2Many('cooperative.partner.recibo', 'partner', 'Recibo')
+        'Sanctions')
+    recibo = fields.One2Many('cooperative.partner.recibo', 'partner',
+        'Recibos')
     proposal_letter = fields.Binary('Proposal Letter')
     proof_tax = fields.Binary('Proof of tax registation')
     meeting_date_of_incoroporation = fields.Date(

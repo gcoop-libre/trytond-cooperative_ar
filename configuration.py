@@ -1,11 +1,11 @@
 # This file is part of the cooperative_ar module for Tryton.
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
+
 from trytond.model import ModelView, ModelSQL, ModelSingleton, fields
-from trytond.model import MultiValueMixin, ValueMixin
-from trytond.tools.multivalue import migrate_property
 from trytond.pool import Pool
 from trytond.pyson import Eval, Id
+from trytond.tools.multivalue import migrate_property
 from trytond.modules.company.model import (
     CompanyMultiValueMixin, CompanyValueMixin)
 
@@ -90,6 +90,7 @@ class _ConfigurationValue(ModelSQL):
 class ConfigurationSequence(_ConfigurationValue, ModelSQL, CompanyValueMixin):
     'Receipt Configuration Sequence'
     __name__ = 'cooperative_ar.configuration.sequence'
+
     recibo_sequence = fields.Many2One(
         'ir.sequence', "Recibo Sequence", required=True,
         domain=[
@@ -131,6 +132,7 @@ class ConfigurationSequence(_ConfigurationValue, ModelSQL, CompanyValueMixin):
 class ConfigurationReceiptAccount(ModelSQL, CompanyValueMixin):
     "Account Configuration Receipt Account"
     __name__ = 'cooperative_ar.configuration.receipt_account'
+
     receipt_account_receivable = fields.Many2One(
         'account.account', "Receipt Account Receivable",
         domain=[
