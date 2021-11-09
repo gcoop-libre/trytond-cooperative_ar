@@ -97,8 +97,9 @@ class Recibo(Workflow, ModelSQL, ModelView):
         states=_states, depends=_depends + [
             'company', 'accounting_date', 'date'],
         domain=[
+            ('closed', '!=', True),
+            ('type.payable', '=', True),
             ('company', '=', Eval('company', -1)),
-            ('kind', '=', 'payable'),
             ],
         context={
             'date': If(Eval('accounting_date'),
@@ -109,8 +110,9 @@ class Recibo(Workflow, ModelSQL, ModelView):
         required=True, states=_states, depends=_depends + [
             'company', 'accounting_date', 'date'],
         domain=[
+            ('closed', '!=', True),
+            ('type.expense', '=', True),
             ('company', '=', Eval('company', -1)),
-            ('kind', '=', 'expense'),
             ],
         context={
             'date': If(Eval('accounting_date'),
