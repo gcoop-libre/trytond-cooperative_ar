@@ -1,48 +1,57 @@
 <tryton>
-  <data>
-    <record id="meeting_view_tree" model="ir.ui.view">
-      <field name="model">cooperative.meeting</field>
-      <field name="type">tree</field>
-      <field name="name">meeting_tree</field>
-    </record>
-    <record id="meeting_view_form" model="ir.ui.view">
-      <field name="model">cooperative.meeting</field>
-      <field name="type">form</field>
-      <field name="name">meeting_form</field>
-    </record>
-    <record id="meeting_partners_view_tree" model="ir.ui.view">
-      <field name="model">cooperative.partner</field>
-      <field name="type">tree</field>
-      <field name="name">meeting_partners_tree</field>
-    </record>
-    <record id="act_meeting_form" model="ir.action.act_window">
-      <field name="name">Meetings</field>
-      <field name="res_model">cooperative.meeting</field>
-    </record>
-    <record id="act_meeting_form_view1" model="ir.action.act_window.view">
-      <field eval="10" name="sequence" />
-      <field name="view" ref="meeting_view_tree" />
-      <field name="act_window" ref="act_meeting_form" />
-    </record>
-    <record id="act_meeting_form_view2" model="ir.action.act_window.view">
-      <field eval="20" name="sequence" />
-      <field name="view" ref="meeting_view_form" />
-      <field name="act_window" ref="act_meeting_form" />
-    </record>
-    <!-- MeetingReport -->
-    <record model="ir.action.report" id="report_meeting">
-        <field name="active" eval="True"/>
-        <field name="name">Meeting</field>
-        <field name="model">cooperative.meeting</field>
-        <field name="report_name">cooperative.meeting</field>
-        <field name="report">cooperative_ar/meeting.fodt</field>
-    </record>
-    <record model="ir.action.keyword" id="report_meeting_keyword">
-        <field name="keyword">form_print</field>
-        <field name="model">cooperative.meeting,-1</field>
-        <field name="action" ref="report_meeting"/>
-    </record>
-    <menuitem action="act_meeting_form" id="menu_meeting_form" 
-        parent="menu_cooperative_ar" sequence="1" />
-  </data>
+    <data>
+
+<!-- Meetings -->
+
+        <record id="meeting_view_tree" model="ir.ui.view">
+            <field name="model">cooperative.meeting</field>
+            <field name="type">tree</field>
+            <field name="name">meeting_tree</field>
+        </record>
+        <record id="meeting_view_form" model="ir.ui.view">
+            <field name="model">cooperative.meeting</field>
+            <field name="type">form</field>
+            <field name="name">meeting_form</field>
+        </record>
+        <record id="meeting_partners_view_tree" model="ir.ui.view">
+            <field name="model">cooperative.partner</field>
+            <field name="type">tree</field>
+            <field name="name">meeting_partners_tree</field>
+        </record>
+
+        <record id="act_meeting_form" model="ir.action.act_window">
+            <field name="name">Meetings</field>
+            <field name="res_model">cooperative.meeting</field>
+        </record>
+        <record id="act_meeting_form_view1" model="ir.action.act_window.view">
+            <field eval="10" name="sequence" />
+            <field name="view" ref="meeting_view_tree" />
+            <field name="act_window" ref="act_meeting_form" />
+        </record>
+        <record id="act_meeting_form_view2" model="ir.action.act_window.view">
+            <field eval="20" name="sequence" />
+            <field name="view" ref="meeting_view_form" />
+            <field name="act_window" ref="act_meeting_form" />
+        </record>
+
+        <menuitem action="act_meeting_form" id="menu_meeting_form"
+            parent="menu_cooperative_ar" sequence="1" />
+
+<!-- Meeting Report -->
+
+        <record model="ir.action.report" id="report_meeting">
+            <field name="active" eval="True"/>
+            <field name="name">Meeting</field>
+            <field name="model">cooperative.meeting</field>
+            <field name="report_name">cooperative.meeting</field>
+            <field name="report">cooperative_ar/meeting.fodt</field>
+        </record>
+
+        <record model="ir.action.keyword" id="report_meeting_keyword">
+            <field name="keyword">form_print</field>
+            <field name="model">cooperative.meeting,-1</field>
+            <field name="action" ref="report_meeting"/>
+        </record>
+
+    </data>
 </tryton>

@@ -1,24 +1,22 @@
 <?xml version="1.0"?>
-<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
-this repository contains the full copyright notices and license terms. -->
 <form>
-    <label name="partner" />
-    <field name="partner" />
-    <label name="number" />
-    <field name="number" />
+    <label name="partner"/>
+    <field name="partner"/>
+    <label name="number"/>
+    <field name="number"/>
     <label name="bank_account"/>
     <field name="bank_account"/>
-    <label name="date" />
-    <field name="date" />
-    <label name="amount" />
-    <field name="amount" />
-    <label name="journal" />
-    <field name="journal" />
-    <label name="payment_method" />
-    <field name="payment_method" />
-    <label name="currency" />
-    <field name="currency" />
-    <label name="description" />
+    <label name="date"/>
+    <field name="date"/>
+    <label name="amount"/>
+    <field name="amount"/>
+    <label name="journal"/>
+    <field name="journal"/>
+    <label name="payment_method"/>
+    <field name="payment_method"/>
+    <label name="currency"/>
+    <field name="currency"/>
+    <label name="description"/>
     <field name="description" colspan="3"/>
     <notebook colspan="6">
         <page string="Receipt" id="receipt" col="6">
@@ -30,25 +28,25 @@ this repository contains the full copyright notices and license terms. -->
                 <button name="confirm" icon="tryton-ok"/>
             </group>
         </page>
-    <page string="Other Info" id="info">
-        <label name="company"/>
-        <field name="company"/>
-        <label name="lote"/>
-        <field name="lote"/>
-        <label name="account" />
-        <field name="account" />
-        <label name="account_expense" />
-        <field name="account_expense" />
-        <label name="confirmed_move"/>
-        <field name="confirmed_move"/>
-        <label name="paid_move"/>
-        <field name="paid_move"/>
-        <label name="confirmed_cancel_move"/>
-        <field name="confirmed_cancel_move"/>
-        <label name="paid_cancel_move"/>
-        <field name="paid_cancel_move"/>
-        <label name="accounting_date"/>
-        <field name="accounting_date"/>
-      </page>
+        <page string="Other Info" id="info">
+            <label name="company"/>
+            <field name="company"/>
+            <label name="lote"/>
+            <field name="lote"/>
+            <label name="account"/>
+            <field name="account"/>
+            <label name="account_expense"/>
+            <field name="account_expense"/>
+            <label name="confirmed_move"/>
+            <field name="confirmed_move"/>
+            <label name="paid_move"/>
+            <field name="paid_move"/>
+            <label name="confirmed_cancel_move"/>
+            <field name="confirmed_cancel_move"/>
+            <label name="paid_cancel_move"/>
+            <field name="paid_cancel_move"/>
+            <label name="accounting_date"/>
+            <field name="accounting_date"/>
+        </page>
     </notebook>
 </form>

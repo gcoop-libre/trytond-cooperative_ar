@@ -1,13 +1,15 @@
 <?xml version="1.0"?>
-<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
-this repository contains the full copyright notices and license terms. -->
 <tryton>
     <data>
+
+<!-- Cooperative Configuration -->
+
         <record model="ir.ui.view" id="cooperative_ar_configuration_view_form">
             <field name="model">cooperative_ar.configuration</field>
             <field name="type">form</field>
             <field name="name">configuration_form</field>
         </record>
+
         <record model="ir.action.act_window" id="act_cooperative_ar_configuration_form">
             <field name="name">Cooperative Configuration</field>
             <field name="res_model">cooperative_ar.configuration</field>
@@ -22,10 +24,12 @@ this repository contains the full copyright notices and license terms. -->
         <menuitem parent="menu_configuration"
             action="act_cooperative_ar_configuration_form"
             id="menu_cooperative_ar_configuration" icon="tryton-list"/>
+
         <record model="ir.ui.menu-res.group"
             id="menu_cooperative_ar_configuration_group_cooperative_ar_admin">
             <field name="menu" ref="menu_cooperative_ar_configuration"/>
             <field name="group" ref="group_cooperative_ar_admin"/>
         </record>
+
     </data>
 </tryton>

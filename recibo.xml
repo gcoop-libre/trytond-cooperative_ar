@@ -1,5 +1,11 @@
 <tryton>
     <data>
+
+        <menuitem name="Recibos" parent="menu_cooperative_ar"
+            id="menu_recibos" sequence="100"/>
+
+<!-- Recibos de asociado -->
+
         <record id="recibo_view_tree" model="ir.ui.view">
             <field name="model">cooperative.partner.recibo</field>
             <field name="type">tree</field>
@@ -10,12 +16,17 @@
             <field name="type">form</field>
             <field name="name">recibo_form</field>
         </record>
+        <record model="ir.ui.view" id="recibo_line_view_tree_sequence">
+            <field name="model">cooperative.partner.recibo</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="20"/>
+            <field name="name">recibo_line_tree_sequence</field>
+        </record>
 
         <record id="act_recibo_form" model="ir.action.act_window">
             <field name="name">Recibos de asociado</field>
             <field name="res_model">cooperative.partner.recibo</field>
         </record>
-
         <record id="act_recibo_form_view1" model="ir.action.act_window.view">
             <field eval="10" name="sequence" />
             <field name="view" ref="recibo_view_tree" />
@@ -27,120 +38,8 @@
             <field name="act_window" ref="act_recibo_form" />
         </record>
 
-        <record id="recibo_lote_view_tree" model="ir.ui.view">
-            <field name="model">cooperative.partner.recibo.lote</field>
-            <field name="type">tree</field>
-            <field name="name">recibo_lote_tree</field>
-        </record>
-        <record id="recibo_lote_view_form" model="ir.ui.view">
-            <field name="model">cooperative.partner.recibo.lote</field>
-            <field name="type">form</field>
-            <field name="name">recibo_lote_form</field>
-        </record>
-        <record id="act_recibo_lote_form" model="ir.action.act_window">
-            <field name="name">Lotes</field>
-            <field name="res_model">cooperative.partner.recibo.lote</field>
-        </record>
-        <record id="act_recibo_lote_form_view1" model="ir.action.act_window.view">
-            <field eval="10" name="sequence" />
-            <field name="view" ref="recibo_lote_view_tree" />
-            <field name="act_window" ref="act_recibo_lote_form" />
-        </record>
-        <record id="act_recibo_lote_form_view2" model="ir.action.act_window.view">
-            <field eval="20" name="sequence" />
-            <field name="view" ref="recibo_lote_view_form" />
-            <field name="act_window" ref="act_recibo_lote_form" />
-        </record>
-
-        <record model="ir.ui.view" id="recibo_line_view_tree_sequence">
-            <field name="model">cooperative.partner.recibo</field>
-            <field name="type">tree</field>
-            <field name="priority" eval="20"/>
-            <field name="name">recibo_line_tree_sequence</field>
-        </record>
-
-        <record model="ir.action.report" id="report_recibo">
-            <field name="active" eval="True"/>
-            <field name="name">Receipt</field>
-            <field name="model">cooperative.partner.recibo</field>
-            <field name="report_name">cooperative.partner.recibo</field>
-            <field name="report">cooperative_ar/recibo.fodt</field>
-        </record>
-
-        <record model="ir.action.keyword" id="report_recibo_keyword">
-            <field name="keyword">form_print</field>
-            <field name="model">cooperative.partner.recibo,-1</field>
-            <field name="action" ref="report_recibo"/>
-        </record>
-
-        <record model="ir.ui.view" id="recibo_transactions_start_view_form">
-            <field name="model">cooperative.partner.recibo.transactions.start</field>
-            <field name="type">form</field>
-            <field name="name">recibo_transactions_start_form</field>
-        </record>
-
-        <record model="ir.action.report" id="report_recibo_transcations">
-            <field name="name">Recibo Transactions</field>
-            <field name="model">cooperative.partner.recibo</field>
-            <field name="report_name">cooperative.partner.recibo.transactions_report</field>
-            <field name="report">cooperative_ar/transactions.txt</field>
-            <field name="template_extension">txt</field>
-            <field name="translatable" eval="False"/>
-        </record>
-        <record model="ir.action-res.group" id="report_recibo_transcations_group_account">
-            <field name="action" ref="report_recibo_transcations"/>
-            <field name="group" ref="account.group_account"/>
-        </record>
-        <record model="ir.action-res.group" id="report_recibo_transcations_group_account_admin">
-            <field name="action" ref="report_recibo_transcations"/>
-            <field name="group" ref="account.group_account_admin"/>
-        </record>
-
-        <record model="ir.action.wizard" id="wizard_recibo_transactions">
-            <field name="name">Recibo Transactions</field>
-            <field name="wiz_name">cooperative.partner.recibo.transactions</field>
-            <field name="model">cooperative.partner.recibo</field>
-        </record>
-        <record model="ir.action.keyword" id="recibo_transactions_keyword">
-            <field name="keyword">form_action</field>
-            <field name="model">cooperative.partner.recibo,-1</field>
-            <field name="action" ref="wizard_recibo_transactions"/>
-        </record>
-
-        <menuitem name="Recibos" parent="menu_cooperative_ar"
-            id="menu_recibos" sequence="100"/>
-
         <menuitem action="act_recibo_form"
             id="menu_recibo_form" parent="menu_recibos" sequence="10" />
-
-        <menuitem action="act_recibo_lote_form"
-            id="menu_recibo_lote_form" parent="menu_recibos" sequence="20" />
-
-        <record model="ir.sequence.type" id="sequence_type_recibo">
-            <field name="name">Recibo</field>
-            <field name="code">cooperative.receipt</field>
-        </record>
-        <record model="ir.sequence.type-res.group"
-            id="seq_type_cooperative_receipt_group_admin">
-            <field name="sequence_type" ref="sequence_type_recibo"/>
-            <field name="group" ref="res.group_admin"/>
-        </record>
-        <record model="ir.sequence.type-res.group"
-            id="seq_type_cooperative_receipt_group_account_admin">
-            <field name="sequence_type" ref="sequence_type_recibo"/>
-            <field name="group" ref="group_cooperative_ar_admin"/>
-        </record>
-
-        <record model="ir.sequence" id="sequence_recibo">
-            <field name="name">Recibo</field>
-            <field name="code">cooperative.receipt</field>
-        </record>
-
-        <record model="ir.sequence" id="sequence_recibo_lote">
-            <field name="name">Lote</field>
-            <field name="code">cooperative.receipt</field>
-        </record>
-
 
         <record model="ir.model.button" id="recibo_draft_button">
             <field name="name">draft</field>
@@ -158,6 +57,37 @@
             <field name="model" search="[('model', '=', 'cooperative.partner.recibo')]"/>
         </record>
 
+<!-- Lotes -->
+
+        <record id="recibo_lote_view_tree" model="ir.ui.view">
+            <field name="model">cooperative.partner.recibo.lote</field>
+            <field name="type">tree</field>
+            <field name="name">recibo_lote_tree</field>
+        </record>
+        <record id="recibo_lote_view_form" model="ir.ui.view">
+            <field name="model">cooperative.partner.recibo.lote</field>
+            <field name="type">form</field>
+            <field name="name">recibo_lote_form</field>
+        </record>
+
+        <record id="act_recibo_lote_form" model="ir.action.act_window">
+            <field name="name">Lotes</field>
+            <field name="res_model">cooperative.partner.recibo.lote</field>
+        </record>
+        <record id="act_recibo_lote_form_view1" model="ir.action.act_window.view">
+            <field eval="10" name="sequence" />
+            <field name="view" ref="recibo_lote_view_tree" />
+            <field name="act_window" ref="act_recibo_lote_form" />
+        </record>
+        <record id="act_recibo_lote_form_view2" model="ir.action.act_window.view">
+            <field eval="20" name="sequence" />
+            <field name="view" ref="recibo_lote_view_form" />
+            <field name="act_window" ref="act_recibo_lote_form" />
+        </record>
+
+        <menuitem action="act_recibo_lote_form"
+            id="menu_recibo_lote_form" parent="menu_recibos" sequence="20" />
+
         <record model="ir.model.button" id="recibo_lote_draft_button">
             <field name="name">draft</field>
             <field name="string">Draft</field>
@@ -173,5 +103,87 @@
             <field name="string">Cancel</field>
             <field name="model" search="[('model', '=', 'cooperative.partner.recibo.lote')]"/>
         </record>
+
+<!-- Receipt Report -->
+
+        <record model="ir.action.report" id="report_recibo">
+            <field name="active" eval="True"/>
+            <field name="name">Receipt</field>
+            <field name="model">cooperative.partner.recibo</field>
+            <field name="report_name">cooperative.partner.recibo</field>
+            <field name="report">cooperative_ar/recibo.fodt</field>
+        </record>
+
+        <record model="ir.action.keyword" id="report_recibo_keyword">
+            <field name="keyword">form_print</field>
+            <field name="model">cooperative.partner.recibo,-1</field>
+            <field name="action" ref="report_recibo"/>
+        </record>
+
+<!-- Recibo Transactions Report -->
+
+        <record model="ir.action.report" id="report_recibo_transcations">
+            <field name="name">Recibo Transactions</field>
+            <field name="model">cooperative.partner.recibo</field>
+            <field name="report_name">cooperative.partner.recibo.transactions_report</field>
+            <field name="report">cooperative_ar/transactions.txt</field>
+            <field name="template_extension">txt</field>
+            <field name="translatable" eval="False"/>
+        </record>
+
+        <record model="ir.action-res.group" id="report_recibo_transcations_group_account">
+            <field name="action" ref="report_recibo_transcations"/>
+            <field name="group" ref="account.group_account"/>
+        </record>
+        <record model="ir.action-res.group" id="report_recibo_transcations_group_account_admin">
+            <field name="action" ref="report_recibo_transcations"/>
+            <field name="group" ref="account.group_account_admin"/>
+        </record>
+
+<!-- Recibo Transactions -->
+
+        <record model="ir.ui.view" id="recibo_transactions_start_view_form">
+            <field name="model">cooperative.partner.recibo.transactions.start</field>
+            <field name="type">form</field>
+            <field name="name">recibo_transactions_start_form</field>
+        </record>
+
+        <record model="ir.action.wizard" id="wizard_recibo_transactions">
+            <field name="name">Recibo Transactions</field>
+            <field name="wiz_name">cooperative.partner.recibo.transactions</field>
+            <field name="model">cooperative.partner.recibo</field>
+        </record>
+        <record model="ir.action.keyword" id="recibo_transactions_keyword">
+            <field name="keyword">form_action</field>
+            <field name="model">cooperative.partner.recibo,-1</field>
+            <field name="action" ref="wizard_recibo_transactions"/>
+        </record>
+
+<!-- Recibo Sequence -->
+
+        <record model="ir.sequence.type" id="sequence_type_recibo">
+            <field name="name">Recibo</field>
+        </record>
+        <record model="ir.sequence.type-res.group"
+            id="seq_type_cooperative_receipt_group_admin">
+            <field name="sequence_type" ref="sequence_type_recibo"/>
+            <field name="group" ref="res.group_admin"/>
+        </record>
+        <record model="ir.sequence.type-res.group"
+            id="seq_type_cooperative_receipt_group_account_admin">
+            <field name="sequence_type" ref="sequence_type_recibo"/>
+            <field name="group" ref="group_cooperative_ar_admin"/>
+        </record>
+
+        <record model="ir.sequence" id="sequence_recibo">
+            <field name="name">Recibo</field>
+            <field name="sequence_type" ref="sequence_type_recibo"/>
+        </record>
+
+        <record model="ir.sequence" id="sequence_recibo_lote">
+            <field name="name">Lote</field>
+            <field name="sequence_type" ref="sequence_type_recibo"/>
+        </record>
+
     </data>
 </tryton>

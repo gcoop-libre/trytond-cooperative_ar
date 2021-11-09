@@ -1,30 +1,36 @@
 <tryton>
-  <data>
-    <record id="partner_view_tree" model="ir.ui.view">
-      <field name="model">cooperative.partner</field>
-      <field name="type">tree</field>
-      <field name="name">partner_tree</field>
-    </record>
-    <record id="partner_view_form" model="ir.ui.view">
-      <field name="model">cooperative.partner</field>
-      <field name="type">form</field>
-      <field name="name">partner_form</field>
-    </record>
-    <record id="act_partner_form" model="ir.action.act_window">
-      <field name="name">Partners</field>
-      <field name="res_model">cooperative.partner</field>
-    </record>
-    <record id="act_partner_form_view1" model="ir.action.act_window.view">
-      <field eval="10" name="sequence" />
-      <field name="view" ref="partner_view_tree" />
-      <field name="act_window" ref="act_partner_form" />
-    </record>
-    <record id="act_partner_form_view2" model="ir.action.act_window.view">
-      <field eval="20" name="sequence" />
-      <field name="view" ref="partner_view_form" />
-      <field name="act_window" ref="act_partner_form" />
-    </record>
-    <menuitem action="act_partner_form" id="menu_partner_form" 
-        parent="menu_cooperative_ar" sequence="1" />
-  </data>
+    <data>
+
+<!-- Partners -->
+
+        <record id="partner_view_tree" model="ir.ui.view">
+            <field name="model">cooperative.partner</field>
+            <field name="type">tree</field>
+            <field name="name">partner_tree</field>
+        </record>
+        <record id="partner_view_form" model="ir.ui.view">
+            <field name="model">cooperative.partner</field>
+            <field name="type">form</field>
+            <field name="name">partner_form</field>
+        </record>
+
+        <record id="act_partner_form" model="ir.action.act_window">
+            <field name="name">Partners</field>
+            <field name="res_model">cooperative.partner</field>
+        </record>
+        <record id="act_partner_form_view1" model="ir.action.act_window.view">
+            <field eval="10" name="sequence" />
+            <field name="view" ref="partner_view_tree" />
+            <field name="act_window" ref="act_partner_form" />
+        </record>
+        <record id="act_partner_form_view2" model="ir.action.act_window.view">
+            <field eval="20" name="sequence" />
+            <field name="view" ref="partner_view_form" />
+            <field name="act_window" ref="act_partner_form" />
+        </record>
+
+        <menuitem action="act_partner_form" id="menu_partner_form"
+            parent="menu_cooperative_ar" sequence="1" />
+
+    </data>
 </tryton>

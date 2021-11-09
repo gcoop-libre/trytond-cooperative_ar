@@ -1,15 +1,14 @@
 <?xml version="1.0"?>
-<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
-this repository contains the full copyright notices and license terms. -->
 <tryton>
     <data>
+
+<!-- Balance Social -->
 
         <record model="ir.ui.view" id="analytic_account_nota_view_tree">
             <field name="model">analytic_account.account.nota</field>
             <field name="type">tree</field>
             <field name="name">analytic_account_nota_tree</field>
         </record>
-
         <record model="ir.ui.view" id="analytic_account_nota_view_form">
             <field name="model">analytic_account.account.nota</field>
             <field name="type">form</field>
@@ -20,6 +19,12 @@ this repository contains the full copyright notices and license terms. -->
             <field name="name">Balance Social</field>
             <field name="res_model">analytic_account.account.nota</field>
         </record>
+
+        <menuitem action="act_analytic_account_nota_form"
+            id="menu_analytic_account_nota" icon="tryton-list"
+            parent="menu_cooperative_ar" sequence="1" />
+
+<!-- Print Balance Social -->
 
         <record model="ir.ui.view" id="print_balance_social_start_view_form">
             <field name="model">analytic_account.print_balance_social.start</field>
@@ -35,6 +40,8 @@ this repository contains the full copyright notices and license terms. -->
         <menuitem parent="account.menu_reporting" action="wizard_print_balance_social"
             id="menu_print_balance_social"/>
 
+<!-- Balance Social Report -->
+
         <record model="ir.action.report" id="report_balance_social">
             <field name="name">Balance Social</field>
             <field name="report_name">cooperative_ar.report_balance_social</field>
@@ -46,8 +53,5 @@ this repository contains the full copyright notices and license terms. -->
             <field name="action" ref="analytic_account_chart_template.wizard_create_chart"/>
         </record>
 
-        <menuitem action="act_analytic_account_nota_form" 
-            id="menu_analytic_account_nota" icon="tryton-list"
-            parent="menu_cooperative_ar" sequence="1" />
     </data>
 </tryton>
