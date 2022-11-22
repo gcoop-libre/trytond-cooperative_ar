@@ -1,0 +1,41 @@
+<tryton>
+    <data>
+        <!-- Recibo INAES Report -->
+        <record model="ir.action.report" id="report_recibo_inaes">
+            <field name="name">Recibo INAES</field>
+            <field name="model">cooperative.partner.recibo</field>
+            <field name="report_name">cooperative.partner.recibo.inaes_report</field>
+            <field name="report">cooperative_ar/recibos_inaes.csv</field>
+            <field name="template_extension">csv</field>
+            <field name="translatable" eval="False"/>
+        </record>
+
+        <record model="ir.action-res.group" id="report_recibo_inaes_group_account">
+            <field name="action" ref="report_recibo_inaes"/>
+            <field name="group" ref="account.group_account"/>
+        </record>
+        <record model="ir.action-res.group" id="report_recibo_inaes_group_account_admin">
+            <field name="action" ref="report_recibo_inaes"/>
+            <field name="group" ref="account.group_account_admin"/>
+        </record>
+
+        <!-- Recibo INAES -->
+        <record model="ir.ui.view" id="recibo_inaes_start_view_form">
+            <field name="model">cooperative.partner.recibo.inaes.start</field>
+            <field name="type">form</field>
+            <field name="name">recibo_inaes_start_form</field>
+        </record>
+
+        <record model="ir.action.wizard" id="wizard_recibo_inaes">
+            <field name="name">Recibo Inaes</field>
+            <field name="wiz_name">cooperative.partner.recibo.inaes</field>
+            <field name="model">cooperative.partner.recibo</field>
+        </record>
+        <record model="ir.action.keyword" id="recibo_inaes_keyword">
+            <field name="keyword">form_action</field>
+            <field name="model">cooperative.partner.recibo,-1</field>
+            <field name="action" ref="wizard_recibo_inaes"/>
+        </record>
+
+    </data>
+</tryton>
