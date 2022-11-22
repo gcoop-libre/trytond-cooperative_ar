@@ -20,6 +20,7 @@ class Vacation(ModelSQL, ModelView):
         ('licencia_paternidad', 'Licencia Paternidad / Maternidad'),
         ('otras', 'Otras Licencias'),
         ('vacaciones', 'Vacaciones'),
+        ('licencia_rp', 'Licencia RP'),
         ], 'Tipo', required=True)
 
     @classmethod
