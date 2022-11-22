@@ -7,6 +7,7 @@ from . import meeting
 from . import vacation
 from . import sanction
 from . import recibo
+from . import inaes
 from . import analytic_account
 from . import configuration
 
@@ -28,14 +29,17 @@ def register():
         recibo.MoveLine,
         recibo.ReciboTransactionsStart,
         recibo.ReciboLote,
+        inaes.ReciboInaesStart,
         module='cooperative_ar', type_='model')
     Pool.register(
         analytic_account.PrintBalanceSocial,
         recibo.ReciboTransactions,
+        inaes.ReciboInaes,
         module='cooperative_ar', type_='wizard')
     Pool.register(
         recibo.ReciboReport,
         recibo.ReciboTransactionsReport,
+        inaes.ReciboInaesReport,
         analytic_account.BalanceSocial,
         meeting.MeetingReport,
         module='cooperative_ar', type_='report')
