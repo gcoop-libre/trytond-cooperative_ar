@@ -5,8 +5,8 @@
             <field name="name">Recibo INAES</field>
             <field name="model">cooperative.partner.recibo</field>
             <field name="report_name">cooperative.partner.recibo.inaes_report</field>
-            <field name="report">cooperative_ar/recibos_inaes.csv</field>
-            <field name="template_extension">csv</field>
+            <field name="report">cooperative_ar/recibos_inaes.txt</field>
+            <field name="template_extension">txt</field>
             <field name="translatable" eval="False"/>
         </record>
 
