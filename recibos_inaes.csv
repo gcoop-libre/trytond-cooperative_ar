@@ -1,3 +1,0 @@
-{% for record in records %}\;;;;;;;;;;
-${get_company_cuit(record)};${get_partner_cuit(record)};${format_date(record, record.party.lang)};Banco;${get_partner_cbu(record)};${format_decimal(record.amount)};0;0;0;;retornos a cuentas de excedentes
-{% end %}\;;;;;;;;;;
