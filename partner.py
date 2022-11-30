@@ -1,4 +1,3 @@
-#! -*- coding: utf8 -*-
 # This file is part of the cooperative_ar module for Tryton.
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
@@ -6,8 +5,6 @@ from trytond.pool import Pool
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.pyson import Equal, Eval
 from trytond.transaction import Transaction
-
-__all__ = ['Partner']
 
 
 class Partner(ModelSQL, ModelView):

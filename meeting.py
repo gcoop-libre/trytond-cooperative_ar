@@ -5,8 +5,6 @@ from trytond.model import ModelView, ModelSQL, fields
 from trytond.pyson import Eval
 from trytond.report import Report
 
-__all__ = ['Meeting', 'MeetingReport']
-
 STATES = {'required': Eval('status') == 'complete'}
 
 
@@ -44,6 +42,14 @@ class Meeting(ModelSQL, ModelView):
     @staticmethod
     def default_status():
         return 'planned'
+
+
+class PartnerMeeting(ModelSQL):
+    'Partner Meeting'
+    __name__ = 'cooperative.partner-meeting'
+
+    partner = fields.Many2One('cooperative.partner', 'Partner')
+    meeting = fields.Many2One('cooperative.meeting', 'Meeting')
 
 
 class MeetingReport(Report):

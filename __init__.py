@@ -1,13 +1,17 @@
+# The COPYRIGHT file at the top level of this repository contains
+# the full copyright notices and license terms.
+
 from trytond.pool import Pool
-from .partner import *
-from .meeting import *
-from .vacation import *
-from .partnermeeting import *
-from .sanction import *
+from . import partner
+from . import meeting
+from . import vacation
+from . import sanction
 from . import recibo
-from .analytic_account import *
+from . import analytic_account
 from . import inaes
 from . import configuration
+
+__all__ = ['register']
 
 
 def register():
@@ -15,28 +19,29 @@ def register():
         configuration.Configuration,
         configuration.ConfigurationSequence,
         configuration.ConfigurationReceiptAccount,
-        Partner,
-        Meeting,
-        Vacation,
-        PartnerMeeting,
-        Sanction,
+        partner.Partner,
+        meeting.Meeting,
+        meeting.PartnerMeeting,
+        vacation.Vacation,
+        sanction.Sanction,
         recibo.Recibo,
-        AnalyticAccountNota,
-        PrintBalanceSocialStart,
+        analytic_account.AnalyticAccountNota,
+        analytic_account.PrintBalanceSocialStart,
         recibo.Move,
+        recibo.MoveLine,
         recibo.ReciboTransactionsStart,
         recibo.ReciboLote,
         inaes.ReciboInaesStart,
         module='cooperative_ar', type_='model')
     Pool.register(
-        PrintBalanceSocial,
+        analytic_account.PrintBalanceSocial,
         recibo.ReciboTransactions,
         inaes.ReciboInaes,
         module='cooperative_ar', type_='wizard')
     Pool.register(
         recibo.ReciboReport,
         recibo.ReciboTransactionsReport,
-        BalanceSocial,
+        analytic_account.BalanceSocial,
         inaes.ReciboInaesReport,
-        MeetingReport,
+        meeting.MeetingReport,
         module='cooperative_ar', type_='report')

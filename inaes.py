@@ -5,14 +5,11 @@ from decimal import Decimal
 import stdnum.ar.cuit as cuit
 import stdnum.ar.cbu as cbu
 
-from trytond.model import ModelView, Workflow, ModelSQL, fields
+from trytond.model import ModelView, fields
 from trytond.wizard import Wizard, StateView, StateReport, Button
 from trytond.report import Report
-from trytond.pool import Pool, PoolMeta
-from trytond.pyson import Eval, If
+from trytond.pool import Pool
 from trytond.transaction import Transaction
-from trytond.exceptions import UserError
-from trytond.i18n import gettext
 
 
 class ReciboInaesStart(ModelView):
@@ -53,7 +50,7 @@ class ReciboInaesReport(Report):
     __name__ = 'cooperative.partner.recibo.inaes_report'
 
     @classmethod
-    def get_context(cls, records, header, data):
+    def get_context(cls, records, data):
 
         def format_decimal(n):
             if not isinstance(n, Decimal):
@@ -65,7 +62,7 @@ class ReciboInaesReport(Report):
             return ''.join(c for c in normalize('NFD', s)
                 if category(c) != 'Mn')
 
-        context = super().get_context(records, header, data)
+        context = super().get_context(records, data)
         pool = Pool()
         Recibo = pool.get('cooperative.partner.recibo')
         recibos = Recibo.browse(data['ids'])

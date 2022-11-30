@@ -1,4 +1,3 @@
-#! -*- coding: utf8 -*-
 # This file is part of the cooperative_ar module for Tryton.
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
@@ -14,8 +13,6 @@ from trytond.pool import Pool, PoolMeta
 from trytond.wizard import Wizard, StateView, StateReport, Button
 from trytond.report import Report
 
-__all__ = ['Move', 'Recibo', 'ReciboReport', 'ReciboTransactionsStart',
-    'ReciboTransactions', 'ReciboTransactionsReport', 'ReciboLote']
 
 _DEPENDS = ['state']
 
@@ -29,12 +26,23 @@ class Move(metaclass=PoolMeta):
 
     @classmethod
     def _get_origin(cls):
-        return super(Move, cls)._get_origin() + ['cooperative.partner.recibo']
+        return super(Move, cls)._get_origin() + [
+            'cooperative.partner.recibo']
+
+
+class MoveLine(metaclass=PoolMeta):
+    __name__ = 'account.move.line'
+
+    @classmethod
+    def _get_origin(cls):
+        return super()._get_origin() + [
+            'cooperative.partner.recibo']
 
 
 class Recibo(Workflow, ModelSQL, ModelView):
     'Cooperative receipt'
     __name__ = 'cooperative.partner.recibo'
+
     date = fields.Date('Date', states=_STATES, depends=_DEPENDS, required=True)
     amount = fields.Numeric('Amount', digits=(16, Eval('currency_digits', 2)),
             states=_STATES, required=True,
@@ -138,7 +146,7 @@ class Recibo(Workflow, ModelSQL, ModelView):
             },
         depends=_DEPENDS + ['party'])
     lote = fields.Many2One('cooperative.partner.recibo.lote', 'Lote',
-        ondelete='CASCADE')
+        states=_STATES, depends=_DEPENDS, ondelete='CASCADE')
 
     @classmethod
     def __setup__(cls):
