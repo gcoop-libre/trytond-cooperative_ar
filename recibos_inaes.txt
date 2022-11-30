@@ -1,3 +1,4 @@
+Cuit Entidad;Cuit / Cuil / Cdi;Fecha Recibo (DD/MM/AAAA);Medio Pago(Banco o Efectivo);Cbu/Alias;Retribucion;Excedentes;Retencion Monotributo;Otras Retenciones;Detalle Otras Retenciones;Detalle de Retribucion
 {% for record in records %}\
 ${get_company_cuit(record)};${get_partner_cuit(record)};${format_date(record.date, record.party.lang)};Banco;${get_partner_cbu(record)};${format_decimal(record.amount)};0;0;0;;"retornos a cuentas de excedentes"
 {% end %}\
