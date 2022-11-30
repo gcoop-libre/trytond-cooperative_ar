@@ -58,7 +58,7 @@ class ReciboInaesReport(Report):
         def format_decimal(n):
             if not isinstance(n, Decimal):
                 n = Decimal(n)
-            return ('{0:.2f}'.format(abs(n))).replace('.', '').rjust(15, '0')
+            return ('{0:.2f}'.format(abs(n))).replace('.', ',')
 
         def strip_accents(s):
             from unicodedata import normalize, category
