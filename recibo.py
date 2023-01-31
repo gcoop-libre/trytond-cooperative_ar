@@ -577,23 +577,28 @@ class ReciboTransactionsReport(Report):
         CBU: '0': 'CC $' y '1': 'CA $'
         Importador transferencias BCCL: '1': 'CC $' y '2': 'CA $'
         '''
-        return str(int(cbu.compact(record.bank_account.rec_name)[10]) + 1)
+        cbu_number = cbu.compact(record.bank_account.rec_name.split("@")[0])
+        return str(int(cbu_number[10]) + 1)
 
     @classmethod
     def _get_bank_code(cls, record):
-        return cbu.compact(record.bank_account.rec_name)[0:3]
+        cbu_number = cbu.compact(record.bank_account.rec_name.split("@")[0])
+        return cbu_number[0:3]
 
     @classmethod
     def _get_filial(cls, record):
-        return cbu.compact(record.bank_account.rec_name)[4:7]
+        cbu_number = cbu.compact(record.bank_account.rec_name.split("@")[0])
+        return cbu_number[4:7]
 
     @classmethod
     def _get_num_cuenta_mas_digito(cls, record):
-        return cbu.compact(record.bank_account.rec_name)[14:-1]
+        cbu_number = cbu.compact(record.bank_account.rec_name.split("@")[0])
+        return cbu_number[14:-1]
 
     @classmethod
     def _get_digito_verificador(cls, record):
-        return cbu.compact(record.bank_account.rec_name)[-2]
+        cbu_number = cbu.compact(record.bank_account.rec_name.split("@")[0])
+        return cbu_number[-2]
 
     @classmethod
     def _get_address(cls, record):
