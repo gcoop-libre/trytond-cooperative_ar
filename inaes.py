@@ -86,4 +86,5 @@ class ReciboInaesReport(Report):
 
     @classmethod
     def _get_partner_cbu(cls, record):
-        return cbu.compact(record.bank_account.rec_name)
+        cbu_number = cbu.compact(record.bank_account.rec_name.split("@")[0])
+        return cbu_number
