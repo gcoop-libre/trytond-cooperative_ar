@@ -31,5 +31,33 @@
             <field name="group" ref="group_cooperative_ar_admin"/>
         </record>
 
+<!-- Cooperative Skill Configuration -->
+
+        <record model="ir.ui.view" id="configuration_skill_view_form">
+            <field name="model">cooperative_ar.configuration.skill</field>
+            <field name="type">form</field>
+            <field name="name">configuration_skill_form</field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_configuration_skill">
+            <field name="name">Cooperative Skill Configuration</field>
+            <field name="res_model">cooperative_ar.configuration.skill</field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_configuration_skill_view_form">
+            <field name="sequence" eval="1"/>
+            <field name="view" ref="configuration_skill_view_form"/>
+            <field name="act_window" ref="act_configuration_skill"/>
+        </record>
+
+        <menuitem action="act_configuration_skill"
+            id="menu_configuration_skill"
+            parent="menu_configuration" icon="tryton-list"/>
+
+        <record model="ir.ui.menu-res.group"
+            id="menu_configuration_skill_group_cooperative_ar_admin">
+            <field name="menu" ref="menu_configuration_skill"/>
+            <field name="group" ref="group_cooperative_ar_admin"/>
+        </record>
+
     </data>
 </tryton>

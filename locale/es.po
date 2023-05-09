@@ -428,9 +428,17 @@ msgctxt "model:cooperative_ar.configuration.sequence,name:"
 msgid "Receipt Configuration Sequence"
 msgstr "Configuración de Secuencia Recibo Cooperativa"
 
+msgctxt "model:cooperative_ar.configuration.skill,name:"
+msgid "Cooperative Skill Configuration"
+msgstr "Configuración de Habilidades de Cooperativa"
+
 msgctxt "model:ir.action,name:act_analytic_account_nota_form"
 msgid "Balance Social"
 msgstr ""
+
+msgctxt "model:ir.action,name:act_configuration_skill"
+msgid "Cooperative Skill Configuration"
+msgstr "Configuración de Habilidades de Cooperativa"
 
 msgctxt "model:ir.action,name:act_cooperative_ar_configuration_form"
 msgid "Cooperative Configuration"
@@ -443,6 +451,10 @@ msgstr "Reuniones"
 msgctxt "model:ir.action,name:act_partner_form"
 msgid "Partners"
 msgstr "Socios"
+
+msgctxt "model:ir.action,name:act_partner_skill"
+msgid "Skills"
+msgstr "Habilidades"
 
 msgctxt "model:ir.action,name:act_recibo_form"
 msgid "Recibos de asociado"
@@ -590,6 +602,10 @@ msgctxt "model:ir.ui.menu,name:menu_configuration"
 msgid "Configuration"
 msgstr "Configuración"
 
+msgctxt "model:ir.ui.menu,name:menu_configuration_skill"
+msgid "Cooperative Skill Configuration"
+msgstr "Configuración de Habilidades"
+
 msgctxt "model:ir.ui.menu,name:menu_cooperative_ar"
 msgid "Cooperatives"
 msgstr "Cooperativas"
@@ -605,6 +621,10 @@ msgstr "Reuniones"
 msgctxt "model:ir.ui.menu,name:menu_partner_form"
 msgid "Partners"
 msgstr "Socios"
+
+msgctxt "model:ir.ui.menu,name:menu_partner_skill"
+msgid "Skills"
+msgstr "Habilidades"
 
 msgctxt "model:ir.ui.menu,name:menu_print_balance_social"
 msgid "Print Balance Social"

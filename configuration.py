@@ -145,3 +145,19 @@ class ConfigurationReceiptAccount(ModelSQL, CompanyValueMixin):
             ('company', '=', Eval('context', {}).get('company', -1)),
             ],
         depends=['company'])
+
+
+class ConfigurationSkill(ModelSingleton, ModelSQL, ModelView):
+    'Cooperative Skill Configuration'
+    __name__ = 'cooperative_ar.configuration.skill'
+
+    skill_01 = fields.Numeric('Skill 1 Amount', digits=(16, 2))
+    skill_02 = fields.Numeric('Skill 2 Amount', digits=(16, 2))
+    skill_03 = fields.Numeric('Skill 3 Amount', digits=(16, 2))
+    skill_04 = fields.Numeric('Skill 4 Amount', digits=(16, 2))
+    skill_05 = fields.Numeric('Skill 5 Amount', digits=(16, 2))
+    skill_06 = fields.Numeric('Skill 6 Amount', digits=(16, 2))
+    skill_07 = fields.Numeric('Skill 7 Amount', digits=(16, 2))
+    skill_08 = fields.Numeric('Skill 8 Amount', digits=(16, 2))
+    skill_09 = fields.Numeric('Skill 9 Amount', digits=(16, 2))
+    skill_10 = fields.Numeric('Skill 10 Amount', digits=(16, 2))

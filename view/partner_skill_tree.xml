@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<tree editable="1">
+    <field name="party"/>
+    <field name="recibo_base"/>
+    <field name="skill_01"/>
+    <field name="skill_02"/>
+    <field name="skill_03"/>
+    <field name="skill_04"/>
+    <field name="skill_05"/>
+    <field name="skill_06"/>
+    <field name="skill_07"/>
+    <field name="skill_08"/>
+    <field name="skill_09"/>
+    <field name="skill_10"/>
+    <field name="recibo_total"/>
+</tree>

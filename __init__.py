@@ -17,6 +17,7 @@ def register():
         configuration.Configuration,
         configuration.ConfigurationSequence,
         configuration.ConfigurationReceiptAccount,
+        configuration.ConfigurationSkill,
         partner.Partner,
         meeting.Meeting,
         meeting.PartnerMeeting,
