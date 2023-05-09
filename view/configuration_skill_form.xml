@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<form>
+    <label name="skill_01"/>
+    <field name="skill_01"/>
+    <label name="skill_02"/>
+    <field name="skill_02"/>
+    <label name="skill_03"/>
+    <field name="skill_03"/>
+    <label name="skill_04"/>
+    <field name="skill_04"/>
+    <label name="skill_05"/>
+    <field name="skill_05"/>
+    <label name="skill_06"/>
+    <field name="skill_06"/>
+    <label name="skill_07"/>
+    <field name="skill_07"/>
+    <label name="skill_08"/>
+    <field name="skill_08"/>
+    <label name="skill_09"/>
+    <field name="skill_09"/>
+    <label name="skill_10"/>
+    <field name="skill_10"/>
+</form>

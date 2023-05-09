@@ -32,5 +32,39 @@
         <menuitem action="act_partner_form" id="menu_partner_form"
             parent="menu_cooperative_ar" sequence="1" />
 
+<!-- Skills -->
+
+        <record model="ir.ui.view" id="partner_skill_view_tree">
+            <field name="model">cooperative.partner</field>
+            <field name="type">tree</field>
+            <field name="name">partner_skill_tree</field>
+        </record>
+        <record model="ir.ui.view" id="partner_skill_view_form">
+            <field name="model">cooperative.partner</field>
+            <field name="type">form</field>
+            <field name="name">partner_skill_form</field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_partner_skill">
+            <field name="name">Skills</field>
+            <field name="res_model">cooperative.partner</field>
+            <field name="domain" eval="[('status', '=', 'active')]" pyson="1"/>
+        </record>
+        <record model="ir.action.act_window.view"
+            id="act_partner_skill_view_form">
+            <field eval="10" name="sequence" />
+            <field name="view" ref="partner_skill_view_tree" />
+            <field name="act_window" ref="act_partner_skill" />
+        </record>
+        <record model="ir.action.act_window.view"
+            id="act_partner_skill_view_tree">
+            <field eval="20" name="sequence" />
+            <field name="view" ref="partner_skill_view_form" />
+            <field name="act_window" ref="act_partner_skill" />
+        </record>
+
+        <menuitem action="act_partner_skill" id="menu_partner_skill"
+            parent="menu_partner_form" sequence="10"/>
+
     </data>
 </tryton>

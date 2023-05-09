@@ -63,7 +63,18 @@ class Partner(ModelSQL, ModelView):
     meeting_date_of_incoroporation = fields.Date(
         'Meeting date of incorporation', required=True)
     birthdate = fields.Date('Birthdate', required=True)
+    # Skills
     recibo_base = fields.Numeric('Base Amount', digits=(16, 2))
+    skill_01 = fields.Boolean('Skill 1')
+    skill_02 = fields.Boolean('Skill 2')
+    skill_03 = fields.Boolean('Skill 3')
+    skill_04 = fields.Boolean('Skill 4')
+    skill_05 = fields.Boolean('Skill 5')
+    skill_06 = fields.Boolean('Skill 6')
+    skill_07 = fields.Boolean('Skill 7')
+    skill_08 = fields.Boolean('Skill 8')
+    skill_09 = fields.Boolean('Skill 9')
+    skill_10 = fields.Boolean('Skill 10')
     recibo_total = fields.Function(fields.Numeric(
         'Total Amount', digits=(16, 2)), 'on_change_with_recibo_total')
 
@@ -138,10 +149,37 @@ class Partner(ModelSQL, ModelView):
                     raise UserError(gettext('cooperative_ar.msg_unique_file'))
         return super().create(vlist)
 
-    @fields.depends('recibo_base')
+    @fields.depends('recibo_base', 'skill_01', 'skill_02', 'skill_03',
+        'skill_04', 'skill_05', 'skill_06', 'skill_07', 'skill_08',
+        'skill_09', 'skill_10')
     def on_change_with_recibo_total(self, name=None):
+        pool = Pool()
+        ConfigurationSkill = pool.get('cooperative_ar.configuration.skill')
+
+        configuration = ConfigurationSkill(1)
+
         amount = Decimal(0)
         if self.recibo_base:
             amount += self.recibo_base
+        if self.skill_01 and configuration.skill_01:
+            amount += configuration.skill_01
+        if self.skill_02 and configuration.skill_02:
+            amount += configuration.skill_02
+        if self.skill_03 and configuration.skill_03:
+            amount += configuration.skill_03
+        if self.skill_04 and configuration.skill_04:
+            amount += configuration.skill_04
+        if self.skill_05 and configuration.skill_05:
+            amount += configuration.skill_05
+        if self.skill_06 and configuration.skill_06:
+            amount += configuration.skill_06
+        if self.skill_07 and configuration.skill_07:
+            amount += configuration.skill_07
+        if self.skill_08 and configuration.skill_08:
+            amount += configuration.skill_08
+        if self.skill_09 and configuration.skill_09:
+            amount += configuration.skill_09
+        if self.skill_10 and configuration.skill_10:
+            amount += configuration.skill_10
 
         return amount
