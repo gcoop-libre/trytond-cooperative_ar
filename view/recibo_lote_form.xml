@@ -15,17 +15,17 @@
     <newline/>
     <label name="description"/>
     <field name="description" colspan="3"/>
-    <notebook colspan="6">
-        <page string="Recibos" id="lote" col="6">
-            <field name="recibos" colspan="6"
+    <notebook>
+        <page id="lote" string="Recibos">
+            <field name="recibos"
                 view_ids="cooperative_ar.recibo_line_view_tree_sequence"/>
-            <group col="6" colspan="4" id="buttons">
-                <label name="state"/>
-                <field name="state"/>
-                <button name="cancel" icon="tryton-cancel"
-                    confirm="Are you sure to cancel the lote?"/>
-                <button name="confirm" icon="tryton-ok"/>
-            </group>
         </page>
     </notebook>
+    <group id="buttons" colspan="4" col="-1">
+        <label name="state"/>
+        <field name="state"/>
+        <button name="cancel" icon="tryton-cancel"
+            confirm="Are you sure to cancel the lote?"/>
+        <button name="confirm" icon="tryton-ok"/>
+    </group>
 </form>

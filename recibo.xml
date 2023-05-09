@@ -38,6 +38,44 @@
             <field name="act_window" ref="act_recibo_form" />
         </record>
 
+        <record model="ir.action.act_window.domain"
+            id="act_recibo_form_domain_draft">
+            <field name="name">Draft</field>
+            <field name="sequence" eval="10"/>
+            <field name="domain"
+                eval="[('state', '=', 'draft')]"
+                pyson="1"/>
+            <field name="count" eval="True"/>
+            <field name="act_window" ref="act_recibo_form"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+            id="act_recibo_form_domain_cancelled">
+            <field name="name">Cancelled</field>
+            <field name="sequence" eval="20"/>
+            <field name="domain"
+                eval="[('state', '=', 'cancelled')]"
+                pyson="1"/>
+            <field name="count" eval="True"/>
+            <field name="act_window" ref="act_recibo_form"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+            id="act_recibo_form_domain_confirmed">
+            <field name="name">Confirmed</field>
+            <field name="sequence" eval="30"/>
+            <field name="domain"
+                eval="[('state', '=', 'confirmed')]"
+                pyson="1"/>
+            <field name="count" eval="True"/>
+            <field name="act_window" ref="act_recibo_form"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+            id="act_recibo_form_domain_all">
+            <field name="name">All</field>
+            <field name="sequence" eval="9999"/>
+            <field name="domain"></field>
+            <field name="act_window" ref="act_recibo_form"/>
+        </record>
+
         <menuitem action="act_recibo_form"
             id="menu_recibo_form" parent="menu_recibos" sequence="10" />
 
@@ -83,6 +121,44 @@
             <field eval="20" name="sequence" />
             <field name="view" ref="recibo_lote_view_form" />
             <field name="act_window" ref="act_recibo_lote_form" />
+        </record>
+
+        <record model="ir.action.act_window.domain"
+            id="act_recibo_lote_form_domain_draft">
+            <field name="name">Draft</field>
+            <field name="sequence" eval="10"/>
+            <field name="domain"
+                eval="[('state', '=', 'draft')]"
+                pyson="1"/>
+            <field name="count" eval="True"/>
+            <field name="act_window" ref="act_recibo_lote_form"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+            id="act_recibo_lote_form_domain_cancelled">
+            <field name="name">Cancelled</field>
+            <field name="sequence" eval="20"/>
+            <field name="domain"
+                eval="[('state', '=', 'cancelled')]"
+                pyson="1"/>
+            <field name="count" eval="True"/>
+            <field name="act_window" ref="act_recibo_lote_form"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+            id="act_recibo_lote_form_domain_confirmed">
+            <field name="name">Confirmed</field>
+            <field name="sequence" eval="30"/>
+            <field name="domain"
+                eval="[('state', '=', 'confirmed')]"
+                pyson="1"/>
+            <field name="count" eval="True"/>
+            <field name="act_window" ref="act_recibo_lote_form"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+            id="act_recibo_lote_form_domain_all">
+            <field name="name">All</field>
+            <field name="sequence" eval="9999"/>
+            <field name="domain"></field>
+            <field name="act_window" ref="act_recibo_lote_form"/>
         </record>
 
         <menuitem action="act_recibo_lote_form"

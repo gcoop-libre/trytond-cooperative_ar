@@ -745,7 +745,7 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
             recibo.description = self.description
             recibo.journal = self.journal
             recibo.payment_method = self.payment_method
-            recibo.amount = Decimal('0')
+            recibo.amount = partner.recibo_total or Decimal(0)
             recibo.state = recibo.default_state()
             lines.append(recibo)
 
