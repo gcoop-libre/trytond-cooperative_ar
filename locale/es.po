@@ -130,7 +130,7 @@ msgctxt "field:cooperative.partner,proposal_letter:"
 msgid "Proposal Letter"
 msgstr "Carta de Presentación"
 
-msgctxt "field:cooperative.partner,recibo:"
+msgctxt "field:cooperative.partner,recibos:"
 msgid "Recibos"
 msgstr "Recibos"
 
@@ -526,7 +526,7 @@ msgstr "Borrador"
 
 msgctxt "model:ir.sequence,name:sequence_recibo"
 msgid "Recibo"
-msgstr ""
+msgstr "Recibo"
 
 msgctxt "model:ir.sequence,name:sequence_recibo_lote"
 msgid "Lote"
@@ -534,7 +534,7 @@ msgstr ""
 
 msgctxt "model:ir.sequence.type,name:sequence_type_recibo"
 msgid "Recibo"
-msgstr "Recib"
+msgstr "Recibo"
 
 msgctxt "model:ir.ui.menu,name:menu_analytic_account_nota"
 msgid "Balance Social"

@@ -55,7 +55,7 @@
             <field name="meeting"/>
         </page>
         <page string="Recibos de Socio" id= "recibos">
-            <field name="recibo"/>
+            <field name="recibos"/>
         </page>
     </notebook>
 </form>
