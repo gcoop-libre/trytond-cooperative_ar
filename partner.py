@@ -1,6 +1,7 @@
 # This file is part of the cooperative_ar module for Tryton.
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
+from decimal import Decimal
 
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.pool import Pool
@@ -62,6 +63,9 @@ class Partner(ModelSQL, ModelView):
     meeting_date_of_incoroporation = fields.Date(
         'Meeting date of incorporation', required=True)
     birthdate = fields.Date('Birthdate', required=True)
+    recibo_base = fields.Numeric('Base Amount', digits=(16, 2))
+    recibo_total = fields.Function(fields.Numeric(
+        'Total Amount', digits=(16, 2)), 'on_change_with_recibo_total')
 
     @staticmethod
     def default_status():
@@ -78,6 +82,10 @@ class Partner(ModelSQL, ModelView):
     @staticmethod
     def default_company():
         return Transaction().context.get('company')
+
+    @staticmethod
+    def default_recibo_base():
+        return Decimal(0)
 
     def get_rec_name(self, name):
         if self.file:
@@ -129,3 +137,11 @@ class Partner(ModelSQL, ModelView):
                 if data:
                     raise UserError(gettext('cooperative_ar.msg_unique_file'))
         return super().create(vlist)
+
+    @fields.depends('recibo_base')
+    def on_change_with_recibo_total(self, name=None):
+        amount = Decimal(0)
+        if self.recibo_base:
+            amount += self.recibo_base
+
+        return amount

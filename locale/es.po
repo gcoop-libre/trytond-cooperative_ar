@@ -130,6 +130,14 @@ msgctxt "field:cooperative.partner,proposal_letter:"
 msgid "Proposal Letter"
 msgstr "Carta de Presentación"
 
+msgctxt "field:cooperative.partner,recibo_base:"
+msgid "Base Amount"
+msgstr "Importe base"
+
+msgctxt "field:cooperative.partner,recibo_total:"
+msgid "Total Amount"
+msgstr "Importe total"
+
 msgctxt "field:cooperative.partner,recibos:"
 msgid "Recibos"
 msgstr "Recibos"
@@ -475,6 +483,44 @@ msgstr "Imprimir Balance Social"
 msgctxt "model:ir.action,name:wizard_recibo_transactions"
 msgid "Recibo Transactions"
 msgstr "Transacciones Recibo"
+
+msgctxt "model:ir.action.act_window.domain,name:act_recibo_form_domain_all"
+msgid "All"
+msgstr "Todo"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_recibo_form_domain_cancelled"
+msgid "Cancelled"
+msgstr "Cancelado"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_recibo_form_domain_confirmed"
+msgid "Confirmed"
+msgstr "Confirmado"
+
+msgctxt "model:ir.action.act_window.domain,name:act_recibo_form_domain_draft"
+msgid "Draft"
+msgstr "Borrador"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_recibo_lote_form_domain_all"
+msgid "All"
+msgstr "Todo"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_recibo_lote_form_domain_cancelled"
+msgid "Cancelled"
+msgstr "Cancelado"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_recibo_lote_form_domain_confirmed"
+msgid "Confirmed"
+msgstr "Confirmado"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_recibo_lote_form_domain_draft"
+msgid "Draft"
+msgstr "Borrador"
 
 msgctxt "model:ir.message,text:msg_lot_delete_cancel"
 msgid "Lot \"%s\" must be cancelled before deletion."

@@ -4,31 +4,24 @@
     <field name="partner"/>
     <label name="number"/>
     <field name="number"/>
-    <label name="bank_account"/>
-    <field name="bank_account"/>
-    <label name="date"/>
-    <field name="date"/>
     <label name="amount"/>
     <field name="amount"/>
-    <label name="journal"/>
-    <field name="journal"/>
-    <label name="payment_method"/>
-    <field name="payment_method"/>
-    <label name="currency"/>
-    <field name="currency"/>
-    <label name="description"/>
-    <field name="description" colspan="3"/>
-    <notebook colspan="6">
-        <page string="Receipt" id="receipt" col="6">
-            <group col="6" colspan="4" id="buttons">
-                <label name="state"/>
-                <field name="state"/>
-                <button name="cancel" icon="tryton-cancel"
-                    confirm="Are you sure to cancel the receipt?"/>
-                <button name="confirm" icon="tryton-ok"/>
-            </group>
+    <label name="date"/>
+    <field name="date"/>
+    <notebook>
+        <page id="receipt" string="Receipt">
+            <label name="description"/>
+            <field name="description" colspan="3"/>
+            <label name="journal"/>
+            <field name="journal"/>
+            <label name="payment_method"/>
+            <field name="payment_method"/>
+            <label name="currency"/>
+            <field name="currency"/>
+            <label name="bank_account"/>
+            <field name="bank_account"/>
         </page>
-        <page string="Other Info" id="info">
+        <page id="info" string="Other Info">
             <label name="company"/>
             <field name="company"/>
             <label name="lote"/>
@@ -49,4 +42,11 @@
             <field name="accounting_date"/>
         </page>
     </notebook>
+    <group id="buttons" colspan="4" col="-1">
+        <label name="state"/>
+        <field name="state"/>
+        <button name="cancel" icon="tryton-cancel"
+            confirm="Are you sure to cancel the receipt?"/>
+        <button name="confirm" icon="tryton-ok"/>
+    </group>
 </form>

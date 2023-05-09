@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <tree editable="1">
     <field name="partner" expand="1"/>
+    <field name="amount"/>
     <field name="date"/>
     <field name="description"/>
     <field name="account"/>
     <field name="account_expense"/>
     <field name="journal"/>
     <field name="payment_method"/>
-    <field name="amount"/>
 </tree>
