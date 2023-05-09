@@ -86,7 +86,8 @@ class BalanceSocial(Report):
 
     @classmethod
     def _get_records(cls, ids, model, data):
-        AnalyticAccount = Pool().get('analytic_account.account')
+        pool = Pool()
+        AnalyticAccount = pool.get('analytic_account.account')
 
         accounts = AnalyticAccount.search([
                 ('type', '=', 'normal'),
@@ -176,7 +177,7 @@ class BalanceSocial(Report):
     @classmethod
     def get_summary_meeting(self, from_date, to_date, type):
         pool = Pool()
-        Meeting = Pool().get('cooperative.meeting')
+        Meeting = pool.get('cooperative.meeting')
 
         clause = [
             ('start_date', '>=', from_date),

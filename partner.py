@@ -19,7 +19,9 @@ class Partner(ModelSQL, ModelView):
         ('give_up', 'Give Up'),
         ], 'Status', required=True)
     file = fields.Integer('File', required=True)
-    party = fields.Many2One('party.party', 'Party', required=True)
+    party = fields.Many2One('party.party', 'Party', required=True,
+        states={'readonly': Eval('status') == 'active'},
+        depends=['status'])
     company = fields.Many2One('company.company', 'Company', required=True)
     first_name = fields.Char('First Name', required=True)
     last_name = fields.Char('Last Name', required=True)
@@ -53,7 +55,7 @@ class Partner(ModelSQL, ModelView):
         'meeting', 'Meeting')
     sanction = fields.One2Many('cooperative.partner.sanction', 'partner',
         'Sanctions')
-    recibo = fields.One2Many('cooperative.partner.recibo', 'partner',
+    recibos = fields.One2Many('cooperative.partner.recibo', 'partner',
         'Recibos')
     proposal_letter = fields.Binary('Proposal Letter')
     proof_tax = fields.Binary('Proof of tax registation')
@@ -61,19 +63,21 @@ class Partner(ModelSQL, ModelView):
         'Meeting date of incorporation', required=True)
     birthdate = fields.Date('Birthdate', required=True)
 
-    @classmethod
-    def copy(cls, partners, default=None):
-        if default is None:
-            default = {}
-        default = default.copy()
-        default['file'] = 9999
-        # default['party'] = None
-        default['recibo'] = None
-        default['sanction'] = None
-        default['meeting'] = None
-        default['vacation'] = None
-        default['vacation_days'] = 0
-        return super().copy(partners, default=default)
+    @staticmethod
+    def default_status():
+        return 'active'
+
+    @staticmethod
+    def default_nationality():
+        Country = Pool().get('country.country')
+        countries = Country.search([('code', '=', 'AR')])
+        if countries:
+            return countries[0].id
+        return None
+
+    @staticmethod
+    def default_company():
+        return Transaction().context.get('company')
 
     def get_rec_name(self, name):
         if self.file:
@@ -95,21 +99,19 @@ class Partner(ModelSQL, ModelView):
             ('dni',) + tuple(clause[1:]),
             ]
 
-    @staticmethod
-    def default_status():
-        return 'active'
-
-    @staticmethod
-    def default_nationality():
-        Country = Pool().get('country.country')
-        countries = Country.search([('code', '=', 'AR')])
-        if countries:
-            return countries[0].id
-        return None
-
-    @staticmethod
-    def default_company():
-        return Transaction().context.get('company')
+    @classmethod
+    def copy(cls, partners, default=None):
+        if default is None:
+            default = {}
+        default = default.copy()
+        default['file'] = 9999
+        # default['party'] = None
+        default['recibos'] = None
+        default['sanction'] = None
+        default['meeting'] = None
+        default['vacation'] = None
+        default['vacation_days'] = 0
+        return super().copy(partners, default=default)
 
     @classmethod
     def write(cls, partners, vals):
