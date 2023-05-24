@@ -151,13 +151,13 @@ class ConfigurationSkill(ModelSingleton, ModelSQL, ModelView):
     'Cooperative Skill Configuration'
     __name__ = 'cooperative_ar.configuration.skill'
 
-    skill_01 = fields.Numeric('Skill 1 Amount', digits=(16, 2))
-    skill_02 = fields.Numeric('Skill 2 Amount', digits=(16, 2))
-    skill_03 = fields.Numeric('Skill 3 Amount', digits=(16, 2))
-    skill_04 = fields.Numeric('Skill 4 Amount', digits=(16, 2))
-    skill_05 = fields.Numeric('Skill 5 Amount', digits=(16, 2))
-    skill_06 = fields.Numeric('Skill 6 Amount', digits=(16, 2))
-    skill_07 = fields.Numeric('Skill 7 Amount', digits=(16, 2))
-    skill_08 = fields.Numeric('Skill 8 Amount', digits=(16, 2))
-    skill_09 = fields.Numeric('Skill 9 Amount', digits=(16, 2))
-    skill_10 = fields.Numeric('Skill 10 Amount', digits=(16, 2))
+    skill_01 = fields.Numeric('Skill 1 %', digits=(16, 2))
+    skill_02 = fields.Numeric('Skill 2 %', digits=(16, 2))
+    skill_03 = fields.Numeric('Skill 3 %', digits=(16, 2))
+    skill_04 = fields.Numeric('Skill 4 %', digits=(16, 2))
+    skill_05 = fields.Numeric('Skill 5 %', digits=(16, 2))
+    skill_06 = fields.Numeric('Skill 6 %', digits=(16, 2))
+    skill_07 = fields.Numeric('Skill 7 %', digits=(16, 2))
+    skill_08 = fields.Numeric('Skill 8 %', digits=(16, 2))
+    skill_09 = fields.Numeric('Skill 9 %', digits=(16, 2))
+    skill_10 = fields.Numeric('Skill 10 %', digits=(16, 2))

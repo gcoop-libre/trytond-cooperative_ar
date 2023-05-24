@@ -156,30 +156,43 @@ class Partner(ModelSQL, ModelView):
         pool = Pool()
         ConfigurationSkill = pool.get('cooperative_ar.configuration.skill')
 
-        configuration = ConfigurationSkill(1)
+        recibo_base = self.recibo_base
+        if not recibo_base:
+            return Decimal(0)
 
-        amount = Decimal(0)
-        if self.recibo_base:
-            amount += self.recibo_base
+        configuration = ConfigurationSkill(1)
+        amount = recibo_base
+        quantize = Decimal(10) ** -Decimal(2)
+
         if self.skill_01 and configuration.skill_01:
-            amount += configuration.skill_01
+            amount += (recibo_base * configuration.skill_01 /
+                Decimal(100)).quantize(quantize)
         if self.skill_02 and configuration.skill_02:
-            amount += configuration.skill_02
+            amount += (recibo_base * configuration.skill_02 /
+                Decimal(100)).quantize(quantize)
         if self.skill_03 and configuration.skill_03:
-            amount += configuration.skill_03
+            amount += (recibo_base * configuration.skill_03 /
+                Decimal(100)).quantize(quantize)
         if self.skill_04 and configuration.skill_04:
-            amount += configuration.skill_04
+            amount += (recibo_base * configuration.skill_04 /
+                Decimal(100)).quantize(quantize)
         if self.skill_05 and configuration.skill_05:
-            amount += configuration.skill_05
+            amount += (recibo_base * configuration.skill_05 /
+                Decimal(100)).quantize(quantize)
         if self.skill_06 and configuration.skill_06:
-            amount += configuration.skill_06
+            amount += (recibo_base * configuration.skill_06 /
+                Decimal(100)).quantize(quantize)
         if self.skill_07 and configuration.skill_07:
-            amount += configuration.skill_07
+            amount += (recibo_base * configuration.skill_07 /
+                Decimal(100)).quantize(quantize)
         if self.skill_08 and configuration.skill_08:
-            amount += configuration.skill_08
+            amount += (recibo_base * configuration.skill_08 /
+                Decimal(100)).quantize(quantize)
         if self.skill_09 and configuration.skill_09:
-            amount += configuration.skill_09
+            amount += (recibo_base * configuration.skill_09 /
+                Decimal(100)).quantize(quantize)
         if self.skill_10 and configuration.skill_10:
-            amount += configuration.skill_10
+            amount += (recibo_base * configuration.skill_10 /
+                Decimal(100)).quantize(quantize)
 
         return amount
