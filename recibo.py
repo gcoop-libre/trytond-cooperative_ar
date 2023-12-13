@@ -310,17 +310,16 @@ class Recibo(Workflow, ModelSQL, ModelView):
         delete_moves = []
 
         for recibo in recibos:
-            reconciliations_c = [x.reconciliation
+            reconciliations = set()
+            reconciliations.update([x.reconciliation
                 for x in recibo.confirmed_move.lines
-                if x.reconciliation]
-            reconciliations_p = [x.reconciliation
+                if x.reconciliation])
+            reconciliations.update([x.reconciliation
                 for x in recibo.paid_move.lines
-                if x.reconciliation]
-            with Transaction().set_user(0, set_context=True):
-                if reconciliations_c:
-                    Reconciliation.delete(reconciliations_c)
-                if reconciliations_p:
-                    Reconciliation.delete(reconciliations_p)
+                if x.reconciliation])
+            if reconciliations:
+                with Transaction().set_user(0, set_context=True):
+                    Reconciliation.delete(list(reconciliations))
 
             if recibo.confirmed_move:
                 recibo.confirmed_cancel_move = recibo.confirmed_move.cancel()
