@@ -20,9 +20,7 @@ class Partner(ModelSQL, ModelView):
         ('give_up', 'Give Up'),
         ], 'Status', required=True)
     file = fields.Integer('File', required=True)
-    party = fields.Many2One('party.party', 'Party', required=True,
-        states={'readonly': Eval('status') == 'active'},
-        depends=['status'])
+    party = fields.Many2One('party.party', 'Party', required=True)
     company = fields.Many2One('company.company', 'Company', required=True)
     first_name = fields.Char('First Name', required=True)
     last_name = fields.Char('Last Name', required=True)
