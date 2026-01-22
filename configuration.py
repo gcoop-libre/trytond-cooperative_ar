@@ -161,3 +161,5 @@ class ConfigurationSkill(ModelSingleton, ModelSQL, ModelView):
     skill_08 = fields.Numeric('Skill 8 %', digits=(16, 2))
     skill_09 = fields.Numeric('Skill 9 %', digits=(16, 2))
     skill_10 = fields.Numeric('Skill 10 %', digits=(16, 2))
+    skill_11 = fields.Numeric('Skill 11 %', digits=(16, 2))
+    skill_12 = fields.Numeric('Skill 12 %', digits=(16, 2))

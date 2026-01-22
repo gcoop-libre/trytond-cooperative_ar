@@ -19,5 +19,8 @@
         <record model="ir.message" id="msg_lot_delete_cancel">
             <field name="text">Lot "%s" must be cancelled before deletion.</field>
         </record>
+        <record model="ir.message" id="msg_start_activity_date_not_defined">
+            <field name="text">The start activity date is not defined.</field>
+        </record>
     </data>
 </tryton>

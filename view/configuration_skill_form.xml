@@ -20,4 +20,8 @@
     <field name="skill_09"/>
     <label name="skill_10"/>
     <field name="skill_10"/>
+    <label name="skill_11"/>
+    <field name="skill_11"/>
+    <label name="skill_12"/>
+    <field name="skill_12"/>
 </form>

@@ -1,6 +1,8 @@
 # This file is part of the cooperative_ar module for Tryton.
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
+from datetime import datetime
+from dateutil import relativedelta
 from decimal import Decimal
 
 from trytond.model import ModelView, ModelSQL, fields
@@ -73,6 +75,11 @@ class Partner(ModelSQL, ModelView):
     skill_08 = fields.Boolean('Skill 8')
     skill_09 = fields.Boolean('Skill 9')
     skill_10 = fields.Boolean('Skill 10')
+    skill_11 = fields.Boolean('Skill 11')
+    skill_12 = fields.Boolean('Skill 12')
+    recibo_without_seniority = fields.Function(fields.Numeric(
+        'Amount without seniority', digits=(16, 2)),
+        'on_change_with_recibo_without_seniority')
     recibo_total = fields.Function(fields.Numeric(
         'Total Amount', digits=(16, 2)), 'on_change_with_recibo_total')
 
@@ -147,10 +154,23 @@ class Partner(ModelSQL, ModelView):
                     raise UserError(gettext('cooperative_ar.msg_unique_file'))
         return super().create(vlist)
 
+    @classmethod
+    def get_start_activity_date(cls):
+        'get_start_activity_date'
+        pool = Pool()
+        Company = pool.get('company.company')
+        company_id = Transaction().context.get('company')
+        if company_id:
+            company = Company(company_id)
+            if company.party.start_activity_date:
+                return company.party.start_activity_date
+
+            raise UserError(gettext('cooperative_ar.msg_start_activity_date_not_defined'))
+
     @fields.depends('recibo_base', 'skill_01', 'skill_02', 'skill_03',
         'skill_04', 'skill_05', 'skill_06', 'skill_07', 'skill_08',
-        'skill_09', 'skill_10')
-    def on_change_with_recibo_total(self, name=None):
+        'skill_09', 'skill_10', 'skill_11', 'skill_12', 'incorporation_date')
+    def on_change_with_recibo_without_seniority(self, name=None):
         pool = Pool()
         ConfigurationSkill = pool.get('cooperative_ar.configuration.skill')
 
@@ -191,6 +211,38 @@ class Partner(ModelSQL, ModelView):
                 Decimal(100)).quantize(quantize)
         if self.skill_10 and configuration.skill_10:
             amount += (recibo_base * configuration.skill_10 /
+                Decimal(100)).quantize(quantize)
+        # 3/4
+        if self.skill_12 and configuration.skill_12:
+            amount -= (recibo_base * configuration.skill_12 /
+                Decimal(100)).quantize(quantize)
+
+        return amount
+
+    @fields.depends('recibo_base', 'skill_01', 'skill_02', 'skill_03',
+        'skill_04', 'skill_05', 'skill_06', 'skill_07', 'skill_08',
+        'skill_09', 'skill_10', 'skill_11', 'skill_12', 'incorporation_date')
+    def on_change_with_recibo_total(self, name=None):
+        pool = Pool()
+        ConfigurationSkill = pool.get('cooperative_ar.configuration.skill')
+        Date = pool.get('ir.date)
+
+        recibo_base = self.recibo_base
+        if not recibo_base:
+            return Decimal(0)
+
+        start_date = self.incorporation_date
+        end_date = Date.today()
+        # Get the relativedelta between two dates
+        delta = relativedelta.relativedelta(end_date, start_date)
+
+        configuration = ConfigurationSkill(1)
+        amount = self.on_change_with_recibo_without_seniority(name)
+        quantize = Decimal(10) ** -Decimal(2)
+
+        # antiguedad
+        if self.skill_11 and configuration.skill_11:
+            amount += (recibo_base * configuration.skill_11 * delta.years /
                 Decimal(100)).quantize(quantize)
 
         return amount
