@@ -225,7 +225,7 @@ class Partner(ModelSQL, ModelView):
     def on_change_with_recibo_total(self, name=None):
         pool = Pool()
         ConfigurationSkill = pool.get('cooperative_ar.configuration.skill')
-        Date = pool.get('ir.date)
+        Date = pool.get('ir.date')
 
         recibo_base = self.recibo_base
         if not recibo_base:
