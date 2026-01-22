@@ -567,7 +567,22 @@ class ReciboTransactionsReport(Report):
         context['format_decimal'] = format_decimal
         context['justify'] = justify
         context['get_address'] = cls._get_address
+        context['get_vat_number'] = cls._get_vat_number
         return context
+
+    @classmethod
+    def _get_vat_number(cls, record):
+        '''
+        CUIT: 11 enteros sin guions.
+        '''
+        pool = Pool()
+        Party = pool.get('party.party')
+
+        vat_number = ''
+        if Party and isinstance(record.party, Party):
+            vat_number = cuit.compact(record.party.vat_number)
+
+        return vat_number
 
     @classmethod
     def _get_account_type(cls, record):
