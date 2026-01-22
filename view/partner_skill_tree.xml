@@ -12,5 +12,8 @@
     <field name="skill_08"/>
     <field name="skill_09"/>
     <field name="skill_10"/>
+    <field name="skill_11"/>
+    <field name="skill_12"/>
+    <field name="recibo_without_seniority"/>
     <field name="recibo_total"/>
 </tree>
