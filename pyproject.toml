@@ -60,7 +60,17 @@ dependencies = []
 copyright = 'COPYRIGHT'
 readme = 'README.rst'
 
+[tool.hatch.metadata.hooks.tryton.prefixes]
+party_ar = 'trytonar'
+analytic_account_chart_template = 'trytonar'
+bank_ar = 'trytonar'
+account_coop_ar = 'trytonar'
+
 [tool.hatch.metadata.hooks.tryton-ar]
+
+[tool.hatch.metadata.hooks.tryton-ar.external-repos]
+account_coop_ar = "gcoop-libre/trytond-account_coop_ar"
+analytic_account_chart_template = "gcoop-libre/trytond-analytic_account_chart_template"
 
 [tool.hatch.metadata.hooks.tryton.tryton-optional-dependencies]
 test = ['proteus']

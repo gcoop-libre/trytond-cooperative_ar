@@ -5,7 +5,6 @@
 from trytond.model import ModelView, ModelSQL, ModelSingleton, fields
 from trytond.pool import Pool
 from trytond.pyson import Eval, Id
-from trytond.tools.multivalue import migrate_property
 from trytond.modules.company.model import (
     CompanyMultiValueMixin, CompanyValueMixin)
 
@@ -64,30 +63,7 @@ class Configuration(
     default_recibo_lote_sequence = default_func('recibo_lote_sequence')
 
 
-class _ConfigurationValue(ModelSQL):
-
-    _configuration_value_field = None
-
-    @classmethod
-    def __register__(cls, module_name):
-        table_h = cls.__table_handler__(module_name)
-        exist = table_h.table_exist(cls._table)
-
-        super().__register__(module_name)
-
-        if not exist:
-            cls._migrate_property([], [], [])
-
-    @classmethod
-    def _migrate_property(cls, field_names, value_names, fields):
-        field_names.append(cls._configuration_value_field)
-        value_names.append(cls._configuration_value_field)
-        migrate_property(
-            'cooperative_ar.configuration', field_names, cls, value_names,
-            fields=fields)
-
-
-class ConfigurationSequence(_ConfigurationValue, ModelSQL, CompanyValueMixin):
+class ConfigurationSequence(ModelSQL, CompanyValueMixin):
     'Receipt Configuration Sequence'
     __name__ = 'cooperative_ar.configuration.sequence'
 
