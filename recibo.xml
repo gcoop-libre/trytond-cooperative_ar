@@ -82,17 +82,17 @@
         <record model="ir.model.button" id="recibo_draft_button">
             <field name="name">draft</field>
             <field name="string">Draft</field>
-            <field name="model" search="[('model', '=', 'cooperative.partner.recibo')]"/>
+            <field name="model">cooperative.partner.recibo</field>
         </record>
         <record model="ir.model.button" id="recibo_confirmed_button">
             <field name="name">confirm</field>
             <field name="string">Confirm</field>
-            <field name="model" search="[('model', '=', 'cooperative.partner.recibo')]"/>
+            <field name="model">cooperative.partner.recibo</field>
         </record>
         <record model="ir.model.button" id="recibo_cancel_button">
             <field name="name">cancel</field>
             <field name="string">Cancel</field>
-            <field name="model" search="[('model', '=', 'cooperative.partner.recibo')]"/>
+            <field name="model">cooperative.partner.recibo</field>
         </record>
 
 <!-- Lotes -->
@@ -167,17 +167,17 @@
         <record model="ir.model.button" id="recibo_lote_draft_button">
             <field name="name">draft</field>
             <field name="string">Draft</field>
-            <field name="model" search="[('model', '=', 'cooperative.partner.recibo.lote')]"/>
+            <field name="model">cooperative.partner.recibo.lote</field>
         </record>
         <record model="ir.model.button" id="recibo_lote_confirmed_button">
             <field name="name">confirm</field>
             <field name="string">Confirm</field>
-            <field name="model" search="[('model', '=', 'cooperative.partner.recibo.lote')]"/>
+            <field name="model">cooperative.partner.recibo.lote</field>
         </record>
         <record model="ir.model.button" id="recibo_lote_cancel_button">
             <field name="name">cancel</field>
             <field name="string">Cancel</field>
-            <field name="model" search="[('model', '=', 'cooperative.partner.recibo.lote')]"/>
+            <field name="model">cooperative.partner.recibo.lote</field>
         </record>
 
 <!-- Receipt Report -->

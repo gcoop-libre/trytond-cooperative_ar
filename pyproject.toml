@@ -1,0 +1,69 @@
+[build-system]
+requires = [
+    'hatchling >= 1',
+    'hatch-tryton',
+    'hatch-tryton-ar @ git+https://github.com/tryton-ar/hatch-tryton-ar.git'
+    ]
+build-backend = 'hatchling.build'
+
+[project]
+name = 'trytonar_cooperative_ar'
+dynamic = ['version', 'dependencies', 'optional-dependencies', 'authors', 'readme']
+requires-python = '>=3.10'
+maintainers = [
+    {name = "tryton-ar", email = "info@tryton.org.ar"},
+    ]
+description = 'Tryton module for cooperative society management.'
+license = 'GPL-3.0-or-later'
+license-files = ['LICENSE', 'COPYRIGHT']
+keywords = ["tryton", "cooperative", "society"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Plugins",
+    "Framework :: Tryton",
+    "Topic :: Office/Business",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    ]
+
+[project.entry-points.'trytond.modules']
+cooperative_ar = 'trytond.modules.cooperative_ar'
+
+[project.urls]
+homepage = "https://github.com/tryton-ar/cooperative_ar"
+documentation = "https://docs.tryton.org/"
+changelog = "https://github.com/tryton-ar/cooperative_ar/blob/master/CHANGELOG"
+forum = "https://www.tryton.org/forum"
+issues = "https://github.com/tryton-ar/cooperative_ar/issues"
+funding = "https://www.tryton.org/donate"
+
+[tool.hatch.build]
+include = [
+    '**/tryton.cfg',
+    '**/*.py',
+    '**/*.xml',
+    'view/**/*.xml',
+    'locale/**/*.po',
+    '**/*.fodt',
+    'icons/**/*.svg',
+    'tests/**/*.rst',
+    'tests/**/*.json',
+    'tests/**/*.csv',
+    'scripts/**/*',
+    ]
+exclude = ['doc']
+
+[tool.hatch.build.targets.wheel.sources]
+"" = "trytond/modules/cooperative_ar"
+
+[tool.hatch.metadata.hooks.tryton]
+dependencies = []
+copyright = 'COPYRIGHT'
+readme = 'README.rst'
+
+[tool.hatch.metadata.hooks.tryton-ar]
+
+[tool.hatch.metadata.hooks.tryton.tryton-optional-dependencies]
+test = ['proteus']
+
+[tool.hatch.metadata]
+allow-direct-references = true
