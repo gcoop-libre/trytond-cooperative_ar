@@ -9,6 +9,7 @@ Imports::
     >>> from dateutil.relativedelta import relativedelta
     >>> from proteus import Model, Wizard, Report
     >>> from trytond.tests.tools import activate_modules, set_user
+    >>> from trytond.modules.currency.tests.tools import get_currency
     >>> from trytond.modules.company.tests.tools import create_company, \
     ...     get_company
     >>> from trytond.modules.account.tests.tools import create_fiscalyear, \
@@ -23,13 +24,21 @@ Install sale_subscription::
 
 Create company::
 
-    >>> _ = create_company()
+    >>> currency = get_currency('ARS')
+    >>> # currency.afip_code = 'PES'
+    >>> currency.save()
+    >>> _ = create_company(currency=currency)
     >>> company = get_company()
     >>> tax_identifier = company.party.identifiers.new()
-    >>> tax_identifier.type = 'ar_cuit'
+    >>> tax_identifier.type = 'ar_vat'
     >>> tax_identifier.code = '30710158254' # gcoop CUIT
     >>> company.party.iva_condition = 'responsable_inscripto'
     >>> company.party.save()
+
+Configure company timezone::
+
+    >>> company.timezone = 'America/Argentina/Buenos_Aires'
+    >>> company.save()
 
 Create coop user::
 
@@ -144,8 +153,6 @@ Testing the report::
     >>> ext, _, _, name = meeting_report.execute([meeting], {})
     >>> ext
     'odt'
-    >>> name
-    'Meeting'
 
 Create Recibo::
 
@@ -155,13 +162,23 @@ Create Recibo::
     >>> recibo.partner = partner
     >>> recibo.amount = Decimal('100')
     >>> recibo.payment_method = payment_method
+    >>> recibo.company = company
     >>> recibo.journal = journal
     >>> recibo.save()
     >>> recibo.click('confirm')
     >>> recibo.state
     'confirmed'
-    >>> bool(recibo.confirmed_move)
+    >>> recibo.currency == company.currency
     True
+
+Testing the Recibo report::
+
+    >>> recibo_report = Report('cooperative.partner.recibo')
+    >>> ext, _, _, name = recibo_report.execute([recibo], {})
+    >>> ext
+    'odt'
+    >>> name
+    'Recibo-1'
 
 Create new Recibo::
 

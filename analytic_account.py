@@ -19,7 +19,7 @@ class AnalyticAccountNota(ModelSQL, ModelView):
     date = fields.Date('Date')
     note = fields.Text('Note')
     account = fields.Many2One('analytic_account.account', 'Account',
-        required=True, select=True, domain=[
+        required=True, domain=[
             ('root.name', '=', 'Balance Social Cooperativo'),
             ('type', '=', 'normal'),
             ])
@@ -28,7 +28,7 @@ class AnalyticAccountNota(ModelSQL, ModelView):
         ('subtotal', 'Subtotal'),
         ('title', 'Title'),
         ('comment', 'Comment'),
-        ], 'Type', select=True, required=True)
+        ], 'Type', required=True)
 
     @staticmethod
     def default_type():

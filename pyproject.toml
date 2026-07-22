@@ -56,7 +56,7 @@ exclude = ['doc']
 "" = "trytond/modules/cooperative_ar"
 
 [tool.hatch.metadata.hooks.tryton]
-dependencies = []
+dependencies = ['singing-girl', 'python-stdnum']
 copyright = 'COPYRIGHT'
 readme = 'README.rst'
 

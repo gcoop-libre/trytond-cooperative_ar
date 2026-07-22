@@ -6,6 +6,7 @@ from decimal import Decimal
 import stdnum.ar.cbu as cbu
 import stdnum.ar.cuit as cuit
 
+from trytond.modules.currency.fields import Monetary
 from trytond.model import ModelView, Workflow, ModelSQL, fields
 from trytond.wizard import Wizard, StateView, StateReport, Button
 from trytond.report import Report
@@ -42,9 +43,9 @@ class Recibo(Workflow, ModelSQL, ModelView):
     _depends = ['state']
 
     date = fields.Date('Date', states=_states, depends=_depends, required=True)
-    amount = fields.Numeric('Amount', digits=(16, Eval('currency_digits', 2)),
+    amount = Monetary('Amount', digits='currency', currency='currency',
         states=_states, required=True,
-        depends=_depends + ['currency_digits'])
+        depends=_depends)
     partner = fields.Many2One('cooperative.partner', 'Partner', states=_states,
         depends=_depends, required=True)
     state = fields.Selection([
@@ -52,18 +53,19 @@ class Recibo(Workflow, ModelSQL, ModelView):
         ('confirmed', 'Confirmed'),
         ('cancelled', 'Cancelled'),
         ], 'State', readonly=True)
-    number = fields.Char('Number', size=None, readonly=True, select=True)
-    description = fields.Char('Description', size=None, states=_states,
+    number = fields.Char('Number', readonly=True)
+    description = fields.Char('Description', states=_states,
         depends=_depends)
     party = fields.Function(fields.Many2One(
         'party.party', 'Party', required=True, states=_states,
-        depends=_depends), 'on_change_with_party')
+        depends=_depends,
+        context={'company': Eval('company')}), 'on_change_with_party')
     company = fields.Many2One('company.company', 'Company', states=_states,
         domain=[
             ('id', If(Eval('context', {}).contains('company'), '=', '!='),
                 Eval('context', {}).get('company', -1)),
             ],
-        depends=_depends, required=True, select=True)
+        depends=_depends, required=True)
     accounting_date = fields.Date('Accounting Date', states=_states,
         depends=_depends)
     paid_cancel_move = fields.Many2One('account.move', 'Paid Cancel Move',
@@ -89,8 +91,6 @@ class Recibo(Workflow, ModelSQL, ModelView):
         states=_states, depends=_depends + ['company'])
     currency = fields.Many2One('currency.currency', 'Currency', required=True,
         states={'readonly': Eval('state') != 'draft'}, depends=['state'])
-    currency_digits = fields.Function(fields.Integer('Currency Digits'),
-        'on_change_with_currency_digits')
     currency_date = fields.Function(fields.Date('Currency Date'),
         'on_change_with_currency_date')
     account = fields.Many2One('account.account', 'Account', required=True,
@@ -183,14 +183,6 @@ class Recibo(Workflow, ModelSQL, ModelView):
             return company.currency.id
 
     @staticmethod
-    def default_currency_digits():
-        Company = Pool().get('company.company')
-        if Transaction().context.get('company'):
-            company = Company(Transaction().context['company'])
-            return company.currency.digits
-        return 2
-
-    @staticmethod
     def default_account_expense():
         pool = Pool()
         Config = pool.get('cooperative_ar.configuration')
@@ -212,12 +204,6 @@ class Recibo(Workflow, ModelSQL, ModelView):
     def on_change_with_party(self, name=None):
         if self.partner:
             return self.partner.party.id
-
-    @fields.depends('currency')
-    def on_change_with_currency_digits(self, name=None):
-        if self.currency:
-            return self.currency.digits
-        return 2
 
     @fields.depends('date')
     def on_change_with_currency_date(self, name=None):
@@ -295,7 +281,7 @@ class Recibo(Workflow, ModelSQL, ModelView):
         for recibo in recibos:
             recibo.set_number()
             recibo.create_move()
-        cls.write(recibos, {'state': 'confirmed'})
+        # cls.write(recibos, {'state': 'confirmed'})
 
     @classmethod
     @ModelView.button
@@ -478,10 +464,22 @@ class ReciboReport(Report):
     __name__ = 'cooperative.partner.recibo'
 
     @classmethod
+    def execute(cls, ids, data):
+        with Transaction().set_context(address_with_party=True):
+            return super().execute(ids, data)
+
+    @classmethod
     def get_context(cls, records, header, data):
+        pool = Pool()
+        Date = pool.get('ir.date')
         context = super().get_context(records, header, data)
-        context['vat_number'] = cls.get_vat_number
-        context['get_place'] = cls.get_place
+        context['recibo'] = context['record']
+        with Transaction().set_context(company=context['recibo'].company.id):
+            context['today'] = Date.today()
+            context['today'] = Date.today()
+            context['vat_number'] = cls.get_vat_number
+            context['get_place'] = cls.get_place
+
         return context
 
     @classmethod
@@ -633,7 +631,7 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
     _states = {'readonly': Eval('state') != 'draft'}
     _depends = ['state']
 
-    number = fields.Char('Number', readonly=True, select=True)
+    number = fields.Char('Number', readonly=True)
     date = fields.Date('Date', states=_states, depends=_depends, required=True)
     description = fields.Char('Description', states=_states, depends=_depends)
     state = fields.Selection([
@@ -652,11 +650,14 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
             ('id', If(Eval('context', {}).contains('company'), '=', '!='),
                 Eval('context', {}).get('company', -1)),
             ],
-        depends=_depends, required=True, select=True)
-    amount_recibos = fields.Function(fields.Numeric('Total Recibos',
-        digits=(16, 2)), 'on_change_with_amount_recibos')
+        depends=_depends, required=True)
+    amount_recibos = fields.Function(Monetary('Total Recibos',
+        digits='currency', currency='currency'), 'on_change_with_amount_recibos')
     recibos = fields.One2Many('cooperative.partner.recibo', 'lote',
         'Recibos', states=_states, depends=_depends)
+    currency = fields.Function(fields.Many2One(
+            'currency.currency', "Currency"), 'get_currency')
+
 
     del _states, _depends
 
@@ -699,6 +700,13 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
     @staticmethod
     def default_amount_recibos():
         return Decimal('0')
+
+    def get_currency(self, name):
+        pool = Pool()
+        Company = pool.get('company.company')
+        company = Transaction().context.get('company')
+        if company:
+            return Company(company).currency.id
 
     @fields.depends('recibos')
     def on_change_with_amount_recibos(self, name=None):
@@ -754,7 +762,6 @@ class ReciboLote(Workflow, ModelSQL, ModelView):
             recibo.date = self.date
             recibo.company = self.company
             recibo.currency = recibo.default_currency()
-            recibo.currency_digits = recibo.on_change_with_currency_digits()
             recibo.currency_date = recibo.on_change_with_currency_date()
             recibo.description = self.description
             recibo.journal = self.journal

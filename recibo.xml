@@ -261,5 +261,27 @@
             <field name="sequence_type" ref="sequence_type_recibo"/>
         </record>
 
+        <!-- Global Company Rules -->
+
+        <record model="ir.rule.group" id="rule_group_cooperative_partner_recibo_company">
+            <field name="name">Recibo in companies</field>
+            <field name="model">cooperative.partner.recibo</field>
+            <field name="global_p" eval="True"/>
+        </record>
+        <record model="ir.rule" id="rule_cooperative_partner_recibo_company">
+            <field name="domain" eval="[('company', 'in', Eval('companies', []))]" pyson="1"/>
+            <field name="rule_group" ref="rule_group_cooperative_partner_recibo_company"/>
+        </record>
+
+        <record model="ir.rule.group" id="rule_group_cooperative_partner_recibo_lote_company">
+            <field name="name">Recibo Lote in companies</field>
+            <field name="model">cooperative.partner.recibo.lote</field>
+            <field name="global_p" eval="True"/>
+        </record>
+        <record model="ir.rule" id="rule_cooperative_partner_recibo_lote_company">
+            <field name="domain" eval="[('company', 'in', Eval('companies', []))]" pyson="1"/>
+            <field name="rule_group" ref="rule_group_cooperative_partner_recibo_lote_company"/>
+        </record>
+
     </data>
 </tryton>

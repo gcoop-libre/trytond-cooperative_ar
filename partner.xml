@@ -66,5 +66,17 @@
         <menuitem action="act_partner_skill" id="menu_partner_skill"
             parent="menu_partner_form" sequence="10"/>
 
+        <!-- Global Company Rules -->
+
+        <record model="ir.rule.group" id="rule_group_cooperative_partner_company">
+            <field name="name">Partner in companies</field>
+            <field name="model">cooperative.partner</field>
+            <field name="global_p" eval="True"/>
+        </record>
+        <record model="ir.rule" id="rule_cooperative_partner_company">
+            <field name="domain" eval="[('company', 'in', Eval('companies', []))]" pyson="1"/>
+            <field name="rule_group" ref="rule_group_cooperative_partner_company"/>
+        </record>
+
     </data>
 </tryton>
