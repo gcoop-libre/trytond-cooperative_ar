@@ -5,13 +5,12 @@
         <record model="res.group" id="group_cooperative_ar">
             <field name="name">Cooperatives</field>
         </record>
+        <record model="res.group" id="group_cooperative_ar_admin">
+            <field name="name">Cooperatives Administrator</field>
+        </record>
         <record model="res.user-res.group" id="user_admin_group_cooperative_ar">
             <field name="user" ref="res.user_admin"/>
             <field name="group" ref="group_cooperative_ar"/>
-        </record>
-
-        <record model="res.group" id="group_cooperative_ar_admin">
-            <field name="name">Cooperatives Administrator</field>
         </record>
         <record model="res.user-res.group" id="user_admin_group_cooperative_ar_admin">
             <field name="user" ref="res.user_admin"/>
@@ -23,8 +22,11 @@
             <field name="path">icons/tryton-cooperative.svg</field>
         </record>
 
-        <menuitem icon="tryton-cooperative" id="menu_cooperative_ar"
-            name="Cooperatives" sequence="5"/>
+        <menuitem 
+            name="Cooperatives"
+            sequence="5"
+            id="menu_cooperative_ar"
+            icon="tryton-cooperative"/>
         <record model="ir.ui.menu-res.group" id="menu_cooperative_ar_group_cooperative_ar">
             <field name="menu" ref="menu_cooperative_ar"/>
             <field name="group" ref="group_cooperative_ar"/>
@@ -36,6 +38,101 @@
             id="menu_configuration_group_cooperative_ar_admin">
             <field name="menu" ref="menu_configuration"/>
             <field name="group" ref="group_cooperative_ar_admin"/>
+        </record>
+
+        <record model="ir.model.access" id="access_partner">
+            <field name="model">cooperative.partner</field>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_cooperative_partner">
+            <field name="model">cooperative.partner</field>
+            <field name="group" ref="group_cooperative_ar"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
+        <record model="ir.model.access" id="access_meeting">
+            <field name="model">cooperative.meeting</field>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_cooperative_meeting">
+            <field name="model">cooperative.meeting</field>
+            <field name="group" ref="group_cooperative_ar"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
+        <record model="ir.model.access" id="access_vacation">
+            <field name="model">cooperative.partner.vacation</field>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_cooperative_vacation">
+            <field name="model">cooperative.partner.vacation</field>
+            <field name="group" ref="group_cooperative_ar"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
+        <record model="ir.model.access" id="access_sanction">
+            <field name="model">cooperative.partner.sanction</field>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_cooperative_sanction">
+            <field name="model">cooperative.partner.sanction</field>
+            <field name="group" ref="group_cooperative_ar"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
+        <record model="ir.model.access" id="access_recibo">
+            <field name="model">cooperative.partner.recibo</field>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_cooperative_recibo">
+            <field name="model">cooperative.partner.recibo</field>
+            <field name="group" ref="group_cooperative_ar"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+        <record model="ir.model.access" id="access_recibo_lote">
+            <field name="model">cooperative.partner.recibo.lote</field>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_cooperative_recibo_lote">
+            <field name="model">cooperative.partner.recibo.lote</field>
+            <field name="group" ref="group_cooperative_ar"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
         </record>
 
     </data>

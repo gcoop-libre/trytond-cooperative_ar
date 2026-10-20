@@ -52,6 +52,10 @@
             <field name="model">cooperative.meeting,-1</field>
             <field name="action" ref="report_meeting"/>
         </record>
+        <record model="ir.action-res.group" id="report_meeting_report_group_cooperative_ar">
+            <field name="action" ref="report_meeting"/>
+            <field name="group" ref="group_cooperative_ar"/>
+        </record>
 
     </data>
 </tryton>
